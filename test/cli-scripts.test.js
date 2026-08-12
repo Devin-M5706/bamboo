@@ -19,10 +19,44 @@ async function cliCommands() {
   return [...block[1].matchAll(/^\s*(\w[\w:]*)\s*:/gm)].map((m) => m[1]);
 }
 
+/**
+ * npm runs these automatically during `npm install`. A script named `install` fires
+ * BEFORE the package files are in place, so `npm i -g` dies with "Cannot find module
+ * src/cli.js". This cost a real debugging round -- never add a script with these names.
+ */
+const RESERVED_NPM_LIFECYCLE = new Set([
+  'install',
+  'preinstall',
+  'postinstall',
+  'prepare',
+  'prepublish',
+  'prepublishOnly',
+  'prepack',
+  'postpack',
+  'publish',
+  'postpublish',
+  'restart',
+  'start',
+  'stop',
+  'version',
+]);
+
 test('every CLI command has a matching npm script', async () => {
   const pkg = JSON.parse(await fs.readFile(path.join(root, 'package.json'), 'utf8'));
-  const missing = (await cliCommands()).filter((c) => !pkg.scripts[c]);
+  const missing = (await cliCommands()).filter(
+    (c) => !pkg.scripts[c] && !RESERVED_NPM_LIFECYCLE.has(c),
+  );
   assert.deepEqual(missing, [], `CLI commands with no npm script: ${missing.join(', ')}`);
+});
+
+test('no npm script uses a reserved lifecycle name', async () => {
+  const pkg = JSON.parse(await fs.readFile(path.join(root, 'package.json'), 'utf8'));
+  const clashes = Object.keys(pkg.scripts).filter((s) => RESERVED_NPM_LIFECYCLE.has(s));
+  assert.deepEqual(
+    clashes,
+    [],
+    `these run automatically during npm install and will break a global install: ${clashes.join(', ')}`,
+  );
 });
 
 test('every npm script that wraps the CLI names a real command', async () => {

@@ -12,7 +12,6 @@
   },
   "scripts": {
     "setup": "node src/cli.js setup",
-    "install": "node src/cli.js install",
     "where": "node src/cli.js where",
     "init": "node src/cli.js init",
     "mine": "node src/cli.js mine",
