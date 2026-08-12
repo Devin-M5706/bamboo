@@ -25,7 +25,8 @@
     "banner": "node src/cli.js banner",
     "help": "node src/cli.js help",
     "test": "node --test test/*.test.js",
-    "build:ext": "node scripts/build-extension.js"
+    "build:ext": "node scripts/build-extension.js",
+    "contacts": "node src/cli.js contacts"
   },
   "files": [
     "src/",

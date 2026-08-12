@@ -9,9 +9,11 @@ import { validateBank } from './validator.js';
 import { survey } from './survey.js';
 import { RULES } from './selects.js';
 import { bootstrap, ensureHome, homeStatus } from './home.js';
+import { findEngineers, linkedinSearches } from './contacts.js';
 import { hero } from './ui/banner.js';
 import { help } from './ui/help.js';
 import { ledgerScreen, queueScreen } from './ui/screens.js';
+import { contactsScreen } from './ui/contacts-view.js';
 import { runInit, saveInit } from './ui/init.js';
 import { PALETTE, columns, paint, setColor, shouldUseColor } from './ui/theme.js';
 
@@ -240,10 +242,28 @@ async function cmdFeed() {
   console.log('');
 }
 
+/** Who to talk to about a posting. GitHub is fetched; LinkedIn is yours to click. */
+async function cmdContacts() {
+  const company = args.slice(1).filter((a) => !a.startsWith("--")).join(" ");
+  if (!company) {
+    console.log(paint('\n  usage: bamboo contacts <company>\n', PALETTE.faint));
+    process.exitCode = 1;
+    return;
+  }
+  const found = await findEngineers(company);
+  console.log(
+    contactsScreen(
+      { company, engineers: found.people, org: found.org, reason: found.reason, searches: linkedinSearches(company) },
+      columns(),
+    ),
+  );
+}
+
 const COMMANDS = {
   setup: cmdSetup,
   install: cmdSetup,
   where: cmdWhere,
+  contacts: cmdContacts,
   init: cmdInit,
   mine: cmdMine,
   poll: cmdPoll,
