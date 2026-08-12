@@ -16,8 +16,9 @@
     "watch": "node src/cli.js watch",
     "check": "node src/cli.js check",
     "queue": "node src/cli.js queue",
+    "survey": "node src/cli.js survey",
+    "banner": "node src/cli.js banner",
     "test": "node --test test/*.test.js",
-    "build:ext": "node scripts/build-extension.js",
-    "survey": "node src/cli.js survey"
+    "build:ext": "node scripts/build-extension.js"
   }
 }
