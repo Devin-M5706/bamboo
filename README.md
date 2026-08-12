@@ -1,203 +1,201 @@
 # bamboo
 
-Applies to internships from a pre-validated evidence ledger, and refuses to write
-anything it cannot trace back to a fact you verified.
+Watches job boards and fills internship applications from a verified evidence ledger.
+Refuses to write anything it cannot trace back to a fact you checked.
 
 ## Why it works this way
 
-Most tools in this category generate application text live, at submit time. That is the
-one moment where a fabricated detail becomes permanent, in writing, under your name, at
-an employer you may interview with six weeks later.
+Most tools in this category generate application text live, at submit time. That is the one
+moment where a fabricated detail becomes permanent — in writing, under your name, at an
+employer you may interview with six weeks later.
 
-bamboo moves the writing earlier. You write your answers once, offline, and edit them
-until each is true. The validator checks that every number and proper noun in each answer
-appears in the ledger facts that answer declares it comes from. Apply time is then pure
-retrieval: no model in the hot path, nothing generated, nothing unreviewed, and sub-second
-fills.
+bamboo moves the writing earlier. You write your answers once, offline, and edit them until
+each is true. The validator then checks that every number and proper noun in an answer
+appears in the ledger facts that answer names. Apply time is pure retrieval: no model in the
+hot path, nothing generated, nothing unreviewed.
 
-(The design assumed ~20 recurring essay prompts. Measuring 32 real forms showed that is
-wrong — see "What the survey overturned" below. The refusal design survived; the shape of
-what you write changed.)
-
-Two findings from the design session drive the rest:
-
-**The aggregator repo is a company directory, not a job feed.**
-`Summer2027-Internships` lags by days (a five-day gap and a six-week gap were both
-observed) and its `date_posted` is ingestion time, not the employer's posting time. So we
-mine it once for board tokens and poll the vendors directly. Greenhouse's `first_published`
-is the true posting timestamp, which makes detection latency measurable instead of assumed.
-
-**Postings arrive in bursts, not a stream.** 76 postings landed on 2026-07-24 and 52 on
-2026-08-04, against 1-2 on a typical day. Whatever you build has to survive the burst day.
+The same rule covers dropdowns, which turn out to matter more. "I am authorized to work in
+the United States for any employer" is a legal assertion, not a preference. It resolves from
+a declared profile field or it refuses.
 
 ## Install
 
-On any machine with Node 22+ and access to this repo:
+Any machine with Node 22+ and access to this repo:
 
 ```bash
 npm install -g github:Devin-M5706/bamboo
-bamboo setup
-bamboo init
+bamboo setup     # creates ~/.bamboo and seeds it from the bundled templates
+bamboo init      # asks the questions real forms actually ask
 ```
 
-`bamboo setup` creates `~/.bamboo` and seeds it from the bundled templates.
-`bamboo init` asks the questions real forms ask.
+`bamboo` then works from any terminal, any directory. To update, run the install again.
 
-**Your data never lives inside the package.** The ledger, answers, config and runtime
-state all live in `~/.bamboo` (override with `BAMBOO_HOME`). A global install puts the
-code under `node_modules`, which is wiped on every reinstall -- a ledger stored there
-would vanish the first time you upgraded. `bamboo where` prints every path.
+**Your data never lives inside the package.** Ledger, answers, config and runtime state all
+live in `~/.bamboo` (override with `BAMBOO_HOME`). A global install puts the code under
+`node_modules`, which npm wipes on every reinstall — a ledger stored there would vanish the
+first time you upgraded. `bamboo where` prints every path.
 
-To update: `npm install -g github:Devin-M5706/bamboo` again. Your `~/.bamboo` is untouched.
+For development, clone and `npm link` instead; edits then take effect immediately.
 
-For local development, `npm link` from a clone instead; edits then take effect immediately.
-
-## Setup
-
-Requires Node 22+. No dependencies.
+## Getting to your first application
 
 ```bash
-npm run mine     # extract board tokens from the aggregator (65 boards, run occasionally)
-npm run poll     # one cycle; the FIRST run is a cold start and queues nothing
-npm run survey   # what do real forms actually ask? (run this before writing answers)
-npm run check    # preflight: is the ledger valid? do the answers survive the validator?
+bamboo setup     # once per machine
+bamboo init      # boards, cadence, work authorization, graduation year
+bamboo mine      # aggregator repo -> 65 board tokens
+bamboo poll      # first run is a cold start: records what exists, queues nothing
+bamboo survey    # what do real forms ask? run this BEFORE writing answers
+bamboo check     # what is still blocking you
 ```
 
-The first `poll` records every currently-live posting as already-seen (8,291 of them) so
-you do not wake up to a queue full of listings from 2024. Every poll after that surfaces
-only genuinely new postings.
+The first `poll` records every currently-live posting as already-seen (8,291 of them) so you
+do not wake up to a queue full of listings from 2024. Every poll after that surfaces only
+genuinely new postings.
 
 ### Write your ledger
 
+`bamboo setup` puts starter files in `~/.bamboo`. Edit them:
+
 ```bash
-cp data/ledger.example.json data/ledger.json
-cp data/answers.example.json data/answers.json
+bamboo where                      # shows the exact paths
+# then open ~/.bamboo/ledger.json and ~/.bamboo/answers.json
 ```
 
-Then edit them. This is the part that cannot be automated, because the entire value of the
-ledger is that a person checked each entry.
+This is the part that cannot be automated, because the entire value of the ledger is that a
+person checked each entry.
 
 - One atomic claim per fact. Not a paragraph.
 - Only things you can defend in an interview.
 - Every number, tool name and proper noun you want to use in an answer must appear in a
   fact's `text` or `tags`. The validator can only trace what is there.
 
-Run `npm run check` until nothing is refused. A refusal looks like:
+Run `bamboo check` until nothing is refused. A refusal looks like:
 
 ```
 REFUSED hardest_problem: answer contains claims not traceable to the ledger
   untraceable: Kubernetes, 90%
 ```
 
-That means the answer claims something the ledger does not support. Fix it by adding the
-fact (if true) or removing the claim (if not). Do not "fix" it by softening the wording.
+The answer claims something the ledger does not support. Fix it by adding the fact (if true)
+or removing the claim (if not). Do not "fix" it by softening the wording.
 
 ### Install the extension
 
-1. `npm run build:ext`
-2. `chrome://extensions` → enable Developer mode → Load unpacked → select `extension/`
-3. Open the extension's options page, paste in `data/ledger.json` and `data/answers.json`
+1. `npm run build:ext` (from a clone)
+2. `chrome://extensions` → Developer mode → Load unpacked → select `extension/`
+3. On the options page, paste in the contents of `~/.bamboo/ledger.json` and
+   `~/.bamboo/answers.json`
 4. Leave **Dry run** checked
 
 Open any Greenhouse, Lever or Ashby application. The extension fills the form and stops.
-Check the console (`[bamboo]`) to see what it filled and what it refused.
+The console (`[bamboo]`) shows what it filled and what it refused.
 
 ## Going live
 
 Live mode submits real applications to real employers under your name. Before enabling it:
 
-- `npm run check` passes with zero refusals
+- `bamboo check` passes with zero refusals
 - You have watched it dry-run at least five real forms
 - You have read every answer in the bank end to end, recently
 
-Then uncheck Dry run on the options page. The options page refuses to enable live mode
-with an empty ledger.
+Then uncheck Dry run on the options page. It refuses to enable live mode with an empty ledger.
 
 **Resume upload is always manual.** Browsers do not let scripts populate file inputs, and
 that is a security boundary worth having.
 
 ## Commands
 
+Installed globally as `bamboo <command>`; from a clone, `npm run <command>`.
+
 | Command | Does |
 |---|---|
-| `npm run init` | Setup wizard: boards, cadence, work authorization, graduation year |
-| `npm run mine` | Extract board tokens from the aggregator repo |
-| `npm run poll` | One poll cycle across all boards; queues new eligible postings |
-| `npm run watch` | Poll on an interval until stopped |
-| `npm run check` | Preflight the ledger, answer bank, queue, and detection latency |
-| `npm run queue` | Show queued postings (`--all` includes handled) |
-| `npm run feed` | The live-feed view of the queue |
-| `npm run ledger` | The evidence ledger as a table |
-| `npm run banner` | Startup banner |
-| `npm run help` | Command list |
-| `npm run survey` | Sample real Greenhouse forms; report which prompts actually recur |
-| `npm test` | 79 tests, mostly on the validator and the UI layer |
-| `npm run build:ext` | Regenerate the extension's copy of the validator |
+| `setup` | Create `~/.bamboo`, migrate old data, seed templates. Safe to re-run |
+| `where` | Print every path on this machine |
+| `init` | Setup wizard: boards, cadence, work authorization, graduation year |
+| `mine` | Extract board tokens from the aggregator repo |
+| `poll` | One poll cycle across all boards; queues new eligible postings |
+| `watch` | Poll on an interval until stopped |
+| `check` | Preflight: ledger, answer traceability, dropdown fields, latency |
+| `queue` | Queued postings as a list (`--all` includes handled) |
+| `feed` | Queued postings as the live-feed view |
+| `ledger` | The evidence ledger as a table |
+| `survey` | Sample real Greenhouse forms; report which prompts recur |
+| `banner` | Startup banner (needs a TTY for colour) |
+| `help` | Command list |
+
+Dev-only: `npm test` (80 tests, ~1s) and `npm run build:ext`.
+
+`--no-color` works everywhere, as do `NO_COLOR` and piping to a non-TTY.
 
 ## Layout
 
 ```
 src/
-  ui/               terminal screens (banner, feed, ledger, init wizard, help)
-  config.js         eligibility rules, polling interval, DRY_RUN_DEFAULT
+  config.js         paths, eligibility rules, polling interval, DRY_RUN_DEFAULT
+  home.js           ~/.bamboo bootstrap, migration, seeding
   miner.js          aggregator repo -> board tokens
-  sources.js        Greenhouse / Lever / Ashby adapters, normalized to one Posting shape
-  poll.js           poll cycle, seen-id diff, apply queue
+  sources.js        Greenhouse / Lever / Ashby adapters -> one Posting shape
+  poll.js           poll cycle, seen-id diff, Greenhouse enrichment, apply queue
+  questions.js      Greenhouse detail endpoint: descriptions + real form fields
+  survey.js         aggregate what real forms ask
   eligibility.js    citizenship / sponsorship / title / deadline gates
   ledger.js         load + validate the evidence ledger
-  validator.core.js trace-or-refuse (NO IMPORTS -- shared with the extension)
+  validator.core.js trace-or-refuse for text  (NO IMPORTS — shared with the extension)
+  selects.js        trace-or-refuse for dropdowns  (NO IMPORTS — shared)
   answers.js        answer bank retrieval
+  ui/               theme, banner, feed, ledger table, init wizard, help
 extension/          MV3 extension; content scripts fill and optionally submit
 ```
 
-`src/validator.core.js` is the single source of truth for refusal logic. `npm run build:ext`
-copies it into the extension; `test/extension-sync.test.js` fails if the copy goes stale.
+`validator.core.js` and `selects.js` are the single source of truth for refusal logic.
+`npm run build:ext` copies them into the extension verbatim;
+`test/extension-sync.test.js` fails if a copy goes stale or an import sneaks in.
 
 ## Coverage, honestly
 
-The three polled vendors are ~30% of active listings in the aggregator (Ashby 13.4%,
-Greenhouse 11.8%, Lever 5.1%). Workday is only 6.1%. The remaining 59% is a long tail of
-43 bespoke hosts, concentrated in TikTok (34), Tesla (29), Jane Street (16) and Work at a
-Startup (13) -- those four are the obvious next integrations, and each needs its own
-form mapping.
+The three polled vendors are ~30% of active listings (Ashby 13.4%, Greenhouse 11.8%, Lever
+5.1%). Workday is only 6.1%. The remaining 59% is a long tail of 43 bespoke hosts,
+concentrated in TikTok (34), Tesla (29), Jane Street (16) and Work at a Startup (13) — those
+four are the obvious next integrations, and each needs its own form mapping.
 
-## What the survey overturned
+## What measurement overturned
 
-`npm run survey` samples real Greenhouse internship forms via the detail endpoint
-(`?questions=true`), which returns the actual application questions. Run across 32
-postings, it contradicted the design's central assumption about answers:
+`bamboo survey` samples real Greenhouse forms via the detail endpoint (`?questions=true`),
+which returns the actual application fields. Across 32 postings it contradicted the design's
+central assumption:
 
-**There is no recurring set of ~20 essay prompts.** Almost every free-text question
-appeared exactly once, and they are logistics, not essays: visa status, current location,
-competing offer deadlines, alternate email, street address. Exactly one posting in 32
-asked anything essay-shaped ("Are you especially proud of any GitHub repositories or
-personal projects?").
+**There is no recurring set of ~20 essay prompts.** Almost every free-text question appeared
+exactly once, and they are logistics, not essays: visa status, current location, competing
+offer deadlines, alternate email, street address. Exactly one posting in 32 asked anything
+essay-shaped.
 
-What that means for your ledger: **structured facts matter more than prose.** Citizenship,
-visa status, sponsorship needs, current city, graduation date, earliest start date, and
-whether you can commit to a 6-month term will be asked far more often than "describe a
-hard problem." Write those into `profile` and into facts before writing essays.
+What recurs instead is dropdowns, and they are factual: work authorization (4 of 32, always
+required), expected graduation year, highest degree, GPA, FINRA registration, security
+clearance. So **structured facts matter more than prose** — fill your profile fields before
+writing essays. The refusal machinery matters more under this finding, not less: a wrong
+visa status auto-submitted is worse than a mediocre essay.
 
-The refusal machinery still matters, and arguably more — a wrong visa status or start date
-is a worse thing to auto-submit than a mediocre essay.
-
-**The second finding was a live bug.** 4 of 32 sampled postings (12.5%) flipped from
-eligible to ineligible once the description was fetched, all on US-citizenship gates. On
-Rocket Lab specifically, all 6 sampled internships require citizenship and all 6 were
-passing the filter. `poll` now enriches title-eligible Greenhouse postings with their
-description before deciding, and queue items carry `eligibilityVerified` so an
-un-enriched posting is never mistaken for a checked one.
+**The second finding was a live bug.** 4 of 32 sampled postings (12.5%) flipped from eligible
+to ineligible once the description was fetched, all US-citizenship gates. On Rocket Lab, all
+6 sampled internships require citizenship and all 6 were passing the filter. `poll` now
+enriches title-eligible Greenhouse postings before deciding, and queue items carry
+`eligibilityVerified` so an un-enriched posting is never mistaken for a checked one.
 
 ## Known gaps
 
-- No live-submit path has been exercised against a real form yet. The field selectors in
-  `extension/content/common.js` are written from the public form markup and need a dry run
-  on each vendor to confirm.
-- Board payloads are 2-6 MB each and are fetched in full every cycle. Conditional requests
-  would cut that a lot; a full cycle currently takes ~50s.
-- Lever and Ashby have no equivalent of Greenhouse's questions endpoint, so the survey is
-  Greenhouse-only and their forms remain unmeasured.
-- Many application questions are `multi_value_single_select` (dropdowns), which the
-  extension does not fill at all yet. Given the survey, these matter more than textareas.
-- Whether applying fast actually improves callback rates is still unmeasured. `npm run check`
+- **`help` advertises five commands that do not exist**: `review`, `apply`, `boards`,
+  `status`, `nap`. That list is the design handoff's intended surface; those are unbuilt.
+- **`watch` has no interactive view.** The feed renders (`bamboo feed`), but the raw-mode
+  keyboard loop — `d`/`f`/`q`, in-place status bar, clean Ctrl-C — is unwritten.
+- **Nothing computes a match score.** The feed has the column and the colour thresholds;
+  every score is currently `null`, which correctly prints `—` rather than a made-up number.
+- **The extension has never touched a real form.** Selectors in
+  `extension/content/common.js` come from public markup and are unverified.
+- **Custom combobox widgets are refused, not filled.** Greenhouse and Ashby increasingly use
+  React selects; faking clicks on one can leave a form looking answered while the value is
+  unset, so they are reported for manual handling instead.
+- Lever and Ashby expose no questions endpoint, so their forms are unmeasured.
+- Board payloads are 2–6 MB each, refetched in full every cycle (~50s). Conditional requests
+  would cut that substantially.
+- Whether applying fast actually improves callback rates is still unmeasured. `bamboo check`
   reports median detection lag so you can eventually find out.
