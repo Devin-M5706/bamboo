@@ -1,16 +1,34 @@
 import { fileURLToPath } from 'node:url';
+import os from 'node:os';
 import path from 'node:path';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 
+/** Where the code lives. Read-only at runtime: templates and bundled data only. */
 export const ROOT = path.resolve(here, '..');
-export const DATA_DIR = path.join(ROOT, 'data');
+export const PKG_DATA_DIR = path.join(ROOT, 'data');
+export const LEDGER_EXAMPLE = path.join(PKG_DATA_DIR, 'ledger.example.json');
+export const ANSWERS_EXAMPLE = path.join(PKG_DATA_DIR, 'answers.example.json');
+
+/**
+ * Where YOUR data lives: ~/.bamboo, overridable with BAMBOO_HOME.
+ *
+ * This must never be inside the package. Installed globally, the package directory is
+ * under node_modules and gets wiped on every reinstall or update -- a ledger stored
+ * there would disappear silently the first time you upgraded. The ledger is the one
+ * artifact that cannot be regenerated, so it lives in your home directory and survives
+ * the code being reinstalled, moved, or deleted.
+ */
+export const DATA_DIR =
+  process.env.BAMBOO_HOME || path.join(os.homedir(), '.bamboo');
+
 export const STATE_FILE = path.join(DATA_DIR, 'state.json');
 export const BOARDS_FILE = path.join(DATA_DIR, 'boards.json');
 export const LEDGER_FILE = path.join(DATA_DIR, 'ledger.json');
 export const ANSWERS_FILE = path.join(DATA_DIR, 'answers.json');
 export const QUEUE_FILE = path.join(DATA_DIR, 'queue.json');
 export const CONFIG_FILE = path.join(DATA_DIR, 'config.json');
+export const SURVEY_FILE = path.join(DATA_DIR, 'questions-survey.json');
 
 // Source of board tokens. We mine this once for company identity, then poll the
 // vendor APIs directly -- the repo itself lags by days and has no true posting time.

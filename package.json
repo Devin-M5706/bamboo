@@ -1,9 +1,9 @@
 {
   "name": "bamboo",
   "version": "0.2.0",
-  "description": "Autonomous internship applier with a pre-validated evidence ledger",
+  "description": "Watches job boards and fills internship applications from a verified evidence ledger. Refuses anything it cannot trace.",
   "type": "module",
-  "private": true,
+  "private": false,
   "engines": {
     "node": ">=22"
   },
@@ -11,6 +11,9 @@
     "bamboo": "./src/cli.js"
   },
   "scripts": {
+    "setup": "node src/cli.js setup",
+    "install": "node src/cli.js install",
+    "where": "node src/cli.js where",
     "init": "node src/cli.js init",
     "mine": "node src/cli.js mine",
     "poll": "node src/cli.js poll",
@@ -24,5 +27,16 @@
     "help": "node src/cli.js help",
     "test": "node --test test/*.test.js",
     "build:ext": "node scripts/build-extension.js"
+  },
+  "files": [
+    "src/",
+    "extension/",
+    "data/*.example.json",
+    "README.md",
+    "CLAUDE.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Devin-M5706/bamboo.git"
   }
 }

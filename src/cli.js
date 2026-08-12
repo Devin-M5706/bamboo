@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import fs from 'node:fs/promises';
-import { ANSWERS_FILE, DRY_RUN_DEFAULT, LEDGER_FILE, POLL_INTERVAL_MS, QUEUE_FILE, STATE_FILE } from './config.js';
+import { ANSWERS_FILE, DRY_RUN_DEFAULT, LEDGER_FILE, POLL_INTERVAL_MS, QUEUE_FILE, ROOT, STATE_FILE } from './config.js';
 import { mine } from './miner.js';
 import { pollOnce } from './poll.js';
 import { loadLedger } from './ledger.js';
@@ -8,6 +8,7 @@ import { loadAnswers } from './answers.js';
 import { validateBank } from './validator.js';
 import { survey } from './survey.js';
 import { RULES } from './selects.js';
+import { bootstrap, ensureHome, homeStatus } from './home.js';
 import { hero } from './ui/banner.js';
 import { help } from './ui/help.js';
 import { ledgerScreen, queueScreen } from './ui/screens.js';
@@ -149,8 +150,54 @@ function showBanner() {
   console.log(hero({ version: `v${VERSION}`, columns: columns() }));
 }
 
+/**
+ * First-run setup for a machine. Creates ~/.bamboo, migrates anything from an old
+ * in-package data/ directory, and seeds templates. Safe to run repeatedly -- it never
+ * overwrites a file that already exists.
+ */
+async function cmdSetup() {
+  const { home, moved, created, skipped } = await bootstrap();
+  console.log('');
+  console.log(`  ${paint('✓', PALETTE.mint)} ${paint('home', PALETTE.muted)}  ${paint(home, PALETTE.text)}`);
+  for (const f of moved) {
+    console.log(`  ${paint('→', PALETTE.mint)} ${paint('migrated', PALETTE.muted)}  ${paint(f, PALETTE.text)}`);
+  }
+  for (const f of skipped) {
+    console.log(`  ${paint('·', PALETTE.faint)} ${paint('kept existing', PALETTE.faint)}  ${paint(f, PALETTE.faint)}`);
+  }
+  for (const f of created) {
+    console.log(`  ${paint('+', PALETTE.mint)} ${paint('seeded', PALETTE.muted)}  ${paint(f, PALETTE.text)}`);
+  }
+  console.log('');
+  console.log(
+    `  ${paint('next', PALETTE.faint)}  ${paint('bamboo init', PALETTE.orange)} ${paint(
+      'to answer the questions real forms ask',
+      PALETTE.muted,
+    )}`,
+  );
+  console.log('');
+}
+
+/** Where everything lives on this machine. */
+async function cmdWhere() {
+  const { home, files } = await homeStatus();
+  console.log('');
+  console.log(`  ${paint('home', PALETTE.faint)}  ${paint(home, PALETTE.text)}`);
+  console.log(`  ${paint('code', PALETTE.faint)}  ${paint(ROOT, PALETTE.faint)}`);
+  console.log('');
+  for (const f of files) {
+    const mark = f.exists ? paint('✓', PALETTE.mint) : paint('·', PALETTE.faint);
+    const name = paint(f.name.padEnd(16), f.exists ? PALETTE.text : PALETTE.faint);
+    console.log(`  ${mark} ${name}${paint(f.exists ? '' : 'not created yet', PALETTE.faint)}`);
+  }
+  console.log('');
+  console.log(`  ${paint('override with BAMBOO_HOME', PALETTE.faint)}`);
+  console.log('');
+}
+
 /** Screen 4 -- the setup wizard. */
 async function cmdInit() {
+  await ensureHome();
   const config = await runInit();
   if (!config) {
     console.log(paint('\n  cancelled. nothing was written.\n', PALETTE.faint));
@@ -194,6 +241,9 @@ async function cmdFeed() {
 }
 
 const COMMANDS = {
+  setup: cmdSetup,
+  install: cmdSetup,
+  where: cmdWhere,
   init: cmdInit,
   mine: cmdMine,
   poll: cmdPoll,

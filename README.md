@@ -30,6 +30,28 @@ is the true posting timestamp, which makes detection latency measurable instead 
 **Postings arrive in bursts, not a stream.** 76 postings landed on 2026-07-24 and 52 on
 2026-08-04, against 1-2 on a typical day. Whatever you build has to survive the burst day.
 
+## Install
+
+On any machine with Node 22+ and access to this repo:
+
+```bash
+npm install -g github:Devin-M5706/bamboo
+bamboo setup
+bamboo init
+```
+
+`bamboo setup` creates `~/.bamboo` and seeds it from the bundled templates.
+`bamboo init` asks the questions real forms ask.
+
+**Your data never lives inside the package.** The ledger, answers, config and runtime
+state all live in `~/.bamboo` (override with `BAMBOO_HOME`). A global install puts the
+code under `node_modules`, which is wiped on every reinstall -- a ledger stored there
+would vanish the first time you upgraded. `bamboo where` prints every path.
+
+To update: `npm install -g github:Devin-M5706/bamboo` again. Your `~/.bamboo` is untouched.
+
+For local development, `npm link` from a clone instead; edits then take effect immediately.
+
 ## Setup
 
 Requires Node 22+. No dependencies.
