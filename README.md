@@ -9,11 +9,15 @@ Most tools in this category generate application text live, at submit time. That
 one moment where a fabricated detail becomes permanent, in writing, under your name, at
 an employer you may interview with six weeks later.
 
-jobapplr moves the writing earlier. You write ~20 answers once, offline, and edit them
+jobapplr moves the writing earlier. You write your answers once, offline, and edit them
 until each is true. The validator checks that every number and proper noun in each answer
 appears in the ledger facts that answer declares it comes from. Apply time is then pure
 retrieval: no model in the hot path, nothing generated, nothing unreviewed, and sub-second
 fills.
+
+(The design assumed ~20 recurring essay prompts. Measuring 32 real forms showed that is
+wrong — see "What the survey overturned" below. The refusal design survived; the shape of
+what you write changed.)
 
 Two findings from the design session drive the rest:
 
@@ -33,6 +37,7 @@ Requires Node 22+. No dependencies.
 ```bash
 npm run mine     # extract board tokens from the aggregator (65 boards, run occasionally)
 npm run poll     # one cycle; the FIRST run is a cold start and queues nothing
+npm run survey   # what do real forms actually ask? (run this before writing answers)
 npm run check    # preflight: is the ledger valid? do the answers survive the validator?
 ```
 
@@ -98,7 +103,8 @@ that is a security boundary worth having.
 | `npm run watch` | Poll on an interval until stopped |
 | `npm run check` | Preflight the ledger, answer bank, queue, and detection latency |
 | `npm run queue` | Show queued postings (`--all` includes handled) |
-| `npm test` | 31 tests, mostly on the validator |
+| `npm run survey` | Sample real Greenhouse forms; report which prompts actually recur |
+| `npm test` | 36 tests, mostly on the validator |
 | `npm run build:ext` | Regenerate the extension's copy of the validator |
 
 ## Layout
@@ -127,6 +133,33 @@ Greenhouse 11.8%, Lever 5.1%). Workday is only 6.1%. The remaining 59% is a long
 Startup (13) -- those four are the obvious next integrations, and each needs its own
 form mapping.
 
+## What the survey overturned
+
+`npm run survey` samples real Greenhouse internship forms via the detail endpoint
+(`?questions=true`), which returns the actual application questions. Run across 32
+postings, it contradicted the design's central assumption about answers:
+
+**There is no recurring set of ~20 essay prompts.** Almost every free-text question
+appeared exactly once, and they are logistics, not essays: visa status, current location,
+competing offer deadlines, alternate email, street address. Exactly one posting in 32
+asked anything essay-shaped ("Are you especially proud of any GitHub repositories or
+personal projects?").
+
+What that means for your ledger: **structured facts matter more than prose.** Citizenship,
+visa status, sponsorship needs, current city, graduation date, earliest start date, and
+whether you can commit to a 6-month term will be asked far more often than "describe a
+hard problem." Write those into `profile` and into facts before writing essays.
+
+The refusal machinery still matters, and arguably more — a wrong visa status or start date
+is a worse thing to auto-submit than a mediocre essay.
+
+**The second finding was a live bug.** 4 of 32 sampled postings (12.5%) flipped from
+eligible to ineligible once the description was fetched, all on US-citizenship gates. On
+Rocket Lab specifically, all 6 sampled internships require citizenship and all 6 were
+passing the filter. `poll` now enriches title-eligible Greenhouse postings with their
+description before deciding, and queue items carry `eligibilityVerified` so an
+un-enriched posting is never mistaken for a checked one.
+
 ## Known gaps
 
 - No live-submit path has been exercised against a real form yet. The field selectors in
@@ -134,8 +167,9 @@ form mapping.
   on each vendor to confirm.
 - Board payloads are 2-6 MB each and are fetched in full every cycle. Conditional requests
   would cut that a lot; a full cycle currently takes ~50s.
-- The eligibility filter only reads title and description text. Greenhouse does not return
-  descriptions in the board list endpoint, so citizenship gates on Greenhouse roles are
-  invisible until the form itself.
+- Lever and Ashby have no equivalent of Greenhouse's questions endpoint, so the survey is
+  Greenhouse-only and their forms remain unmeasured.
+- Many application questions are `multi_value_single_select` (dropdowns), which the
+  extension does not fill at all yet. Given the survey, these matter more than textareas.
 - Whether applying fast actually improves callback rates is still unmeasured. `npm run check`
   reports median detection lag so you can eventually find out.

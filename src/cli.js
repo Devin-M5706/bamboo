@@ -6,6 +6,7 @@ import { pollOnce } from './poll.js';
 import { loadLedger } from './ledger.js';
 import { loadAnswers } from './answers.js';
 import { validateBank } from './validator.js';
+import { survey } from './survey.js';
 
 const args = process.argv.slice(2);
 const cmd = args[0];
@@ -103,7 +104,31 @@ async function cmdQueue() {
   console.log(`\n${items.length} item(s).`);
 }
 
-const COMMANDS = { mine: cmdMine, poll: cmdPoll, watch: cmdWatch, check: cmdCheck, queue: cmdQueue };
+async function cmdSurvey() {
+  console.log('Sampling real internship application forms (Greenhouse only)...');
+  const r = await survey({ verbose: true });
+  console.log(`\nSampled ${r.jobsSampled} postings.\n`);
+  if (r.eligibilityFlips.length) {
+    console.log(`Eligibility changed on ${r.eligibilityFlips.length} posting(s) once the description was available:`);
+    r.eligibilityFlips.forEach((f) => console.log(`  ${f.board}: ${f.title} -- ${f.reason}`));
+    console.log('');
+  }
+  console.log('Free-text prompts, by how many postings ask them:');
+  for (const p of r.prompts.slice(0, 25)) {
+    console.log(`  ${String(p.jobs).padStart(3)}x  ${p.required}req  ${p.label.slice(0, 90)}`);
+  }
+  console.log(`\nFull results: data/questions-survey.json`);
+  console.log('Write answer-bank entries for the prompts at the top of this list.');
+}
+
+const COMMANDS = {
+  mine: cmdMine,
+  poll: cmdPoll,
+  watch: cmdWatch,
+  check: cmdCheck,
+  queue: cmdQueue,
+  survey: cmdSurvey,
+};
 
 const run = COMMANDS[cmd];
 if (!run) {
@@ -114,6 +139,7 @@ if (!run) {
   watch    poll on an interval until stopped
   check    preflight: ledger valid? answers traceable? how much is queued?
   queue    show queued postings (--all to include handled)
+  survey   sample real application forms; shows which free-text prompts actually recur
 
 Ledger:  ${LEDGER_FILE}
 Answers: ${ANSWERS_FILE}`);

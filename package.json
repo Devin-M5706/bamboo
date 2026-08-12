@@ -17,6 +17,7 @@
     "check": "node src/cli.js check",
     "queue": "node src/cli.js queue",
     "test": "node --test test/*.test.js",
-    "build:ext": "node scripts/build-extension.js"
+    "build:ext": "node scripts/build-extension.js",
+    "survey": "node src/cli.js survey"
   }
 }

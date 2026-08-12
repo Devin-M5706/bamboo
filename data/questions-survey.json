@@ -1,0 +1,580 @@
+{
+  "surveyedAt": "2026-08-12T08:46:27.820Z",
+  "jobsSampled": 32,
+  "boardsWithInternships": 32,
+  "eligibilityFlips": [
+    {
+      "board": "spacex",
+      "title": "December 2026 New Graduate Engineer, Mechanical (Starship)",
+      "reason": "role requires US citizenship"
+    },
+    {
+      "board": "rendezvousrobotics",
+      "title": "Avionics Engineering Intern (Fall 2026)",
+      "reason": "role requires US citizenship"
+    },
+    {
+      "board": "astranis",
+      "title": "Assembly, Integration, and Test Intern Fall 2026",
+      "reason": "role requires US citizenship"
+    },
+    {
+      "board": "rocketlab",
+      "title": "Avionics Development Intern - Electron",
+      "reason": "role requires US citizenship"
+    }
+  ],
+  "prompts": [
+    {
+      "label": "If Other, Please Specify",
+      "jobs": 4,
+      "required": 1
+    },
+    {
+      "label": "Alternate Email",
+      "jobs": 2,
+      "required": 2
+    },
+    {
+      "label": "Street Address",
+      "jobs": 2,
+      "required": 2
+    },
+    {
+      "label": "What city do you currently reside in?",
+      "jobs": 2,
+      "required": 2
+    },
+    {
+      "label": "a. If NO, please indicate your country of citizenship and, if different, the country in which you have most recently obtained citizenship or permanent residency status. This information will be used to determine whether it would be possible to obtain any required license from the U.S. government. (Enter in \"N/A\" if marked Yes above)",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you especially proud of any GitHub repositories or personal projects? We’d welcome links.",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "Can you complete a 6 month internship starting immediately?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Current Location",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you have any outstanding offers or deadlines?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "I hereby certify that my answers to the foregoing questions and statements are true and complete without any reservation. I hereby authorize Toshiba Global Commerce Solutions, Inc. to verify the same. I acknowledge this by entering my full name below.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "If (f) Other, please explain:",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If hired, do you now or in the future require immigration support or visa sponsorship to continue working in the United States?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "If other, please explain",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If yes, please list what courses or subject areas you tutored/TA'd for",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If yes, please provide your visa type and expiration date.",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If Yes: - What type of visa sponsorship will you require? - Do you currently hold a valid U.S. visa?",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If you answered \"yes\" to the above, please provide details.",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If you answered yes to the above, please provide details on competing offers [offer deadline, organization, role].",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If you answered Yes to the previous question, please share all relevant info (job title, company name, city, deadline, ect.).",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If you are a former employee, please indicate your GoDaddy work email address (if you remember).",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If you are employed, what is the name of your current company?",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If you are employed, what is your current title?",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If you are related to any current Toshiba employees, please list their name.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "If you currently hold a visa or working holiday visa, please provide your visa details. (i.e. visa expiry dates/conditions)",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "If you have any time constraints or competing offer deadlines you'd like to make us aware of, please list them here.",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If you heard about Radix from an employee here (other than our recruiters), please enter their full name below.",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If you selected \"Employee Referral\", please list the referring employee's name.",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If you selected \"Other,\" please specify how you heard about us",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If you were referred by someone at Later, please let us know!",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "Indicate the title of your most recent work experience, if applicable.",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "Is there any reason why you would not be able to perform the duties of the job to which you have applied? If so, please explain.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Legal Name (if different than above)",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "Our employees are from all parts of the world. We love to know where our applicants are from too. Where is your hometown?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Our primary office location for this role is Houston, TX. Would you be open to relocating to Houston? If Houston is not an option, would you be open to working at our San Francisco Bay Area(San Mateo) location instead? Please specify below:",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Please indicate the employer or organization of your most recent working experience.",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "Please list all of your professional credentials (organizations, licenses, certificates) below.",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "Please list any additional address information here, such as an apartment number, lot/space number, suite, etc.",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "Primary Mailing Address",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Tell us something about yourself that we can't find on your resume. (255 char limit)",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What about quantitative finance appeals to you?",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "What are your annualized total compensation expectations?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What are your salary expectations for this role?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What are your salary expectations?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What dates would you be available to intern with us?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What do you value in a work environment/work culture? What motivates you to do what you do?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What excites you about this role at Cartesian?",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "What is the most impressive thing you have ever accomplished?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is the soonest you would be able to start?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your country of birth?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your cumulative GPA? If you are in the 1st year of a Master's or PhD program, please submit your GPA from your undergrad.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your current street address?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your current work authorization?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your desired salary?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your Github username?",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "What is your preferred end date for the internship/associate program?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your preferred first name?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your undergraduate GPA?",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "What is your zip code?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What motivates you to pursue an opportunity with Walleye Capital?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "When are you able to join Astranis as an intern/associate? (12 week minimum)",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "When do you expect to graduate?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "When do you graduate? If you have not graduated yet, how do plan to work 40 hours for this internship?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Where are you currently located?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Why are you interested in this specific role at Appian?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Would you like to include your LinkedIn profile, personal website or blog?",
+      "jobs": 1,
+      "required": 0
+    }
+  ],
+  "jobs": [
+    {
+      "board": "walleyecapital-external-students",
+      "title": "Equity Volatility Quant Researcher Intern (Summer 2027)",
+      "url": "https://job-boards.greenhouse.io/walleyecapital-external-students/jobs/4676334006",
+      "freeText": 1,
+      "required": 1
+    },
+    {
+      "board": "figureai",
+      "title": "Electrical Engineering Intern [Fall 2026]",
+      "url": "https://job-boards.greenhouse.io/figureai/jobs/4676467006",
+      "freeText": 0,
+      "required": 0
+    },
+    {
+      "board": "fiveringsllc",
+      "title": "Summer Intern 2027 - Quantitative Researcher (PhD)",
+      "url": "https://job-boards.greenhouse.io/fiveringsllc/jobs/5349219008",
+      "freeText": 3,
+      "required": 0
+    },
+    {
+      "board": "spacex",
+      "title": "December 2026 New Graduate Engineer, Mechanical (Starship)",
+      "url": "https://boards.greenhouse.io/spacex/jobs/8627507002?gh_jid=8627507002",
+      "freeText": 1,
+      "required": 0
+    },
+    {
+      "board": "toshibaglobalcommercesolutions",
+      "title": "Economic Modeling Intern",
+      "url": "https://job-boards.greenhouse.io/toshibaglobalcommercesolutions/jobs/5206355007",
+      "freeText": 12,
+      "required": 8
+    },
+    {
+      "board": "virtu",
+      "title": "2027 Internship – Core Operations Engineer ",
+      "url": "https://job-boards.greenhouse.io/virtu/jobs/6329460002",
+      "freeText": 0,
+      "required": 0
+    },
+    {
+      "board": "appian",
+      "title": "Associate Consultant Intern ",
+      "url": "https://job-boards.greenhouse.io/appian/jobs/8088498",
+      "freeText": 2,
+      "required": 2
+    },
+    {
+      "board": "apptronik",
+      "title": "Robotics Software Intern – Real-Time Controls",
+      "url": "https://boards.greenhouse.io/apptronik/jobs/5985132004?gh_jid=5985132004",
+      "freeText": 1,
+      "required": 1
+    },
+    {
+      "board": "ctccampusboard",
+      "title": "Quant Trading Internship - Summer 2027",
+      "url": "https://job-boards.greenhouse.io/ctccampusboard/jobs/4708188005",
+      "freeText": 3,
+      "required": 2
+    },
+    {
+      "board": "rendezvousrobotics",
+      "title": "Avionics Engineering Intern (Fall 2026)",
+      "url": "https://job-boards.greenhouse.io/rendezvousrobotics/jobs/4329032009",
+      "freeText": 0,
+      "required": 0
+    },
+    {
+      "board": "skhynixmemorysolutionsamericainc",
+      "title": "Test Automation Software Engineer Intern",
+      "url": "https://job-boards.greenhouse.io/skhynixmemorysolutionsamericainc/jobs/4342038009",
+      "freeText": 4,
+      "required": 4
+    },
+    {
+      "board": "transmarketgroup",
+      "title": "Algorithmic Trader Intern",
+      "url": "https://job-boards.greenhouse.io/transmarketgroup/jobs/5151581007?gh_jid=5151581007",
+      "freeText": 2,
+      "required": 2
+    },
+    {
+      "board": "andurilindustries",
+      "title": "2027 Electrical Engineer Intern",
+      "url": "https://boards.greenhouse.io/andurilindustries/jobs/5148101007?gh_jid=5148101007",
+      "freeText": 1,
+      "required": 0
+    },
+    {
+      "board": "aquaticcapitalmanagement",
+      "title": "Quantitative Researcher, Intern (Summer 2027) ",
+      "url": "https://job-boards.greenhouse.io/aquaticcapitalmanagement/jobs/8489186002",
+      "freeText": 4,
+      "required": 3
+    },
+    {
+      "board": "astranis",
+      "title": "Assembly, Integration, and Test Intern Fall 2026",
+      "url": "https://job-boards.greenhouse.io/astranis/jobs/4679080006",
+      "freeText": 3,
+      "required": 3
+    },
+    {
+      "board": "axontalentcommunity",
+      "title": "RenderATL 2026 US Electrical Engineering Internship",
+      "url": "https://job-boards.greenhouse.io/axontalentcommunity/jobs/7800632003",
+      "freeText": 1,
+      "required": 1
+    },
+    {
+      "board": "botauto",
+      "title": "Algorithm Engineer, Deep Learning & Vision (New Grad)",
+      "url": "https://job-boards.greenhouse.io/botauto/jobs/5371947008",
+      "freeText": 2,
+      "required": 1
+    },
+    {
+      "board": "cartesiansystems",
+      "title": "Applied ML/CS PhD Internship (6+ months)",
+      "url": "https://job-boards.greenhouse.io/cartesiansystems/jobs/4337807009",
+      "freeText": 2,
+      "required": 1
+    },
+    {
+      "board": "chicagotradingcampus",
+      "title": "Quant Trading Internship - Summer 2027",
+      "url": "https://job-boards.greenhouse.io/chicagotradingcampus/jobs/4718710005",
+      "freeText": 4,
+      "required": 3
+    },
+    {
+      "board": "cloudflare",
+      "title": "Accounting Intern (Fall 2026)",
+      "url": "https://boards.greenhouse.io/cloudflare/jobs/7902104?gh_jid=7902104",
+      "freeText": 2,
+      "required": 0
+    },
+    {
+      "board": "dvtrading",
+      "title": "2027 Summer Internship - Trading (DV Equities)",
+      "url": "https://job-boards.greenhouse.io/dvtrading/jobs/4691295005",
+      "freeText": 3,
+      "required": 0
+    },
+    {
+      "board": "eventsandinterns",
+      "title": "Pipeline ColorStack - Summer 2027 Internships",
+      "url": "https://job-boards.greenhouse.io/eventsandinterns/jobs/7820942003",
+      "freeText": 4,
+      "required": 1
+    },
+    {
+      "board": "hyannisportresearch",
+      "title": "FPGA Engineering Intern - Summer 2027",
+      "url": "https://job-boards.greenhouse.io/hyannisportresearch/jobs/7822801003",
+      "freeText": 0,
+      "required": 0
+    },
+    {
+      "board": "later",
+      "title": "Data/Analytics Co-op ",
+      "url": "https://job-boards.greenhouse.io/later/jobs/8647385002",
+      "freeText": 3,
+      "required": 2
+    },
+    {
+      "board": "pdtpartners",
+      "title": "Summer 2027 Software Engineering Intern",
+      "url": "https://job-boards.greenhouse.io/pdtpartners/jobs/8077685",
+      "freeText": 5,
+      "required": 0
+    },
+    {
+      "board": "postman",
+      "title": "AI Engineer, Internship - Summer 2026 - Applications Open Now",
+      "url": "https://job-boards.greenhouse.io/postman/jobs/7823417003",
+      "freeText": 1,
+      "required": 1
+    },
+    {
+      "board": "radixuniversity",
+      "title": "Quantitative Technologist (C++ Intern) ",
+      "url": "https://job-boards.greenhouse.io/radixuniversity/jobs/8500265002",
+      "freeText": 2,
+      "required": 0
+    },
+    {
+      "board": "redwoodmaterials",
+      "title": "Embedded Software Engineer Intern - Fall 2026",
+      "url": "https://boards.greenhouse.io/redwoodmaterials/jobs/6126784004?gh_jid=6126784004",
+      "freeText": 0,
+      "required": 0
+    },
+    {
+      "board": "rocketlab",
+      "title": "Avionics Development Intern - Electron",
+      "url": "https://job-boards.greenhouse.io/rocketlab/jobs/7821144003",
+      "freeText": 3,
+      "required": 3
+    },
+    {
+      "board": "scm",
+      "title": "Developer Internship",
+      "url": "https://job-boards.greenhouse.io/scm/jobs/721888",
+      "freeText": 0,
+      "required": 0
+    },
+    {
+      "board": "tenstorrentuniversity",
+      "title": "AI Compiler Software Intern (PEY)",
+      "url": "https://job-boards.greenhouse.io/tenstorrentuniversity/jobs/4873659007",
+      "freeText": 3,
+      "required": 2
+    },
+    {
+      "board": "twilio",
+      "title": "IT Internal Auditor",
+      "url": "https://job-boards.greenhouse.io/twilio/jobs/7987846",
+      "freeText": 0,
+      "required": 0
+    }
+  ]
+}
