@@ -41,7 +41,7 @@ export async function fetchJobDetail(board, jobId) {
   try {
     const res = await fetch(url, {
       signal: ac.signal,
-      headers: { accept: 'application/json', 'user-agent': 'jobapplr/0.1 (personal use)' },
+      headers: { accept: 'application/json', 'user-agent': 'bamboo/0.1 (personal use)' },
     });
     if (!res.ok) return { ok: false, error: `HTTP ${res.status}` };
     const body = await res.json();

@@ -1,5 +1,5 @@
 {
-  "name": "jobapplr",
+  "name": "bamboo",
   "version": "0.2.0",
   "description": "Autonomous internship applier with a pre-validated evidence ledger",
   "type": "module",
@@ -8,7 +8,7 @@
     "node": ">=22"
   },
   "bin": {
-    "jobapplr": "./src/cli.js"
+    "bamboo": "./src/cli.js"
   },
   "scripts": {
     "mine": "node src/cli.js mine",

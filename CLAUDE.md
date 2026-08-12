@@ -59,4 +59,4 @@ report, and never send them anywhere. The `.example.json` files are the committe
 ## Design doc
 
 Full rationale, measured ATS distribution, and open questions:
-`~/.gstack/projects/Devin-M5706-jobapplr/dmyer-main-design-20260811-233658.md`
+`~/.gstack/projects/Devin-M5706-bamboo/dmyer-main-design-20260811-233658.md`

@@ -26,14 +26,14 @@
         "describe a (difficult|challenging) (problem|situation)",
         "tell us about a time you (solved|debugged|overcame)"
       ],
-      "text": "I built jobapplr, a Node tool that polls the Greenhouse, Lever and Ashby public job board APIs across 67 company boards. The hard part was not the automation. It was that the internship aggregator repo everyone builds on lags by up to five days, so I mined it once for company board tokens and polled the vendor APIs directly instead, which cut detection latency to the polling interval.",
-      "derived_from": ["proj-jobapplr", "proj-jobapplr-insight"],
+      "text": "I built bamboo, a Node tool that polls the Greenhouse, Lever and Ashby public job board APIs across 67 company boards. The hard part was not the automation. It was that the internship aggregator repo everyone builds on lags by up to five days, so I mined it once for company board tokens and polled the vendor APIs directly instead, which cut detection latency to the polling interval.",
+      "derived_from": ["proj-bamboo", "proj-bamboo-insight"],
       "maxLength": 2000
     },
     "proud_project": {
       "match": ["(project|something) you('re| are) (most )?proud of", "favorite project", "tell us about a project"],
       "text": "REPLACE ME with a project from your ledger.",
-      "derived_from": ["proj-jobapplr"],
+      "derived_from": ["proj-bamboo"],
       "maxLength": 2000
     },
     "strengths": {

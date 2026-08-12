@@ -1,4 +1,4 @@
-# jobapplr
+# bamboo
 
 Applies to internships from a pre-validated evidence ledger, and refuses to write
 anything it cannot trace back to a fact you verified.
@@ -9,7 +9,7 @@ Most tools in this category generate application text live, at submit time. That
 one moment where a fabricated detail becomes permanent, in writing, under your name, at
 an employer you may interview with six weeks later.
 
-jobapplr moves the writing earlier. You write your answers once, offline, and edit them
+bamboo moves the writing earlier. You write your answers once, offline, and edit them
 until each is true. The validator checks that every number and proper noun in each answer
 appears in the ledger facts that answer declares it comes from. Apply time is then pure
 retrieval: no model in the hot path, nothing generated, nothing unreviewed, and sub-second
@@ -78,7 +78,7 @@ fact (if true) or removing the claim (if not). Do not "fix" it by softening the 
 4. Leave **Dry run** checked
 
 Open any Greenhouse, Lever or Ashby application. The extension fills the form and stops.
-Check the console (`[jobapplr]`) to see what it filled and what it refused.
+Check the console (`[bamboo]`) to see what it filled and what it refused.
 
 ## Going live
 

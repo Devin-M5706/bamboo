@@ -41,16 +41,16 @@ test('generated selects module refuses an unset profile in a browser-like global
     required: true,
     options: [{ label: 'I am authorized to work in the United States for any employer', value: '1' }],
   };
-  assert.equal(g.__jobapplr.selects.resolveSelect(q, {}).refused, true);
-  assert.equal(g.__jobapplr.selects.resolveSelect(q, { workAuthorization: 'authorized_any' }).ok, true);
+  assert.equal(g.__bamboo.selects.resolveSelect(q, {}).refused, true);
+  assert.equal(g.__bamboo.selects.resolveSelect(q, { workAuthorization: 'authorized_any' }).ok, true);
 });
 
 test('generated validator refuses an untraceable claim in a browser-like global', async () => {
   const src = await fs.readFile(path.join(root, 'extension', 'vendor', 'validator.js'), 'utf8');
   const g = {};
   new Function('globalThis', 'window', src).call(g, g, g);
-  const v = g.__jobapplr?.validator;
-  assert.ok(v, 'build must expose window.__jobapplr.validator');
+  const v = g.__bamboo?.validator;
+  assert.ok(v, 'build must expose window.__bamboo.validator');
 
   const facts = [{ id: 'f', text: 'I built a tool in React.', tags: ['React'] }];
   assert.equal(v.validateAnswer({ text: 'I built a tool in React.', derived_from: ['f'] }, facts).ok, true);

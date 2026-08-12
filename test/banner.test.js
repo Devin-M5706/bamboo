@@ -6,7 +6,7 @@ const ANSI = /\[[0-9;]*m/;
 const stripAnsi = (s) => s.replace(/\[[0-9;]*m/g, '');
 
 test('wordmark renders 7 rows for any name', () => {
-  for (const name of ['shoot', 'wah', 'jobapplr', 'pounce']) {
+  for (const name of ['shoot', 'wah', 'bamboo', 'pounce']) {
     assert.equal(wordmark(name).length, 7, `${name} should render 7 rows`);
   }
 });

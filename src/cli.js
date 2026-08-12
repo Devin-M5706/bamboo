@@ -11,7 +11,7 @@ import { banner, shouldUseColor } from './banner.js';
 import { RULES } from './selects.js';
 
 // Rename here to rebrand the CLI; the wordmark font covers A-Z.
-const APP_NAME = process.env.JOBAPPLR_NAME || 'jobapplr';
+const APP_NAME = process.env.BAMBOO_NAME || 'bamboo';
 const VERSION = '0.2.0';
 const BOARD_COUNT = 65;
 

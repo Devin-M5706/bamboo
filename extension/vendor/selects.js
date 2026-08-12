@@ -171,6 +171,6 @@ function resolveAllSelects(questions, profile, overrides) {
 }
 
 ;(function (g) {
-  g.__jobapplr = g.__jobapplr || {};
-  g.__jobapplr.selects = { RULES, resolveSelect, resolveAllSelects };
+  g.__bamboo = g.__bamboo || {};
+  g.__bamboo.selects = { RULES, resolveSelect, resolveAllSelects };
 })(typeof globalThis !== 'undefined' ? globalThis : window);

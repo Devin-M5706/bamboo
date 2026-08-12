@@ -40,8 +40,8 @@ for (const t of TARGETS) {
 `;
   const footer = `
 ;(function (g) {
-  g.__jobapplr = g.__jobapplr || {};
-  g.__jobapplr.${t.ns} = { ${t.exports.join(', ')} };
+  g.__bamboo = g.__bamboo || {};
+  g.__bamboo.${t.ns} = { ${t.exports.join(', ')} };
 })(typeof globalThis !== 'undefined' ? globalThis : window);
 `;
 

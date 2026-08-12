@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "jobapplr",
+  "name": "bamboo",
   "version": "0.1.0",
   "description": "Fills internship applications from a pre-validated evidence ledger. Refuses anything it cannot trace.",
   "permissions": ["storage", "activeTab", "scripting"],
@@ -28,6 +28,6 @@
   ],
   "options_page": "options.html",
   "action": {
-    "default_title": "jobapplr"
+    "default_title": "bamboo"
   }
 }

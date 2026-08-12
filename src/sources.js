@@ -32,7 +32,7 @@ async function getJson(url) {
   try {
     const res = await fetch(url, {
       signal: ac.signal,
-      headers: { accept: 'application/json', 'user-agent': 'jobapplr/0.1 (personal use)' },
+      headers: { accept: 'application/json', 'user-agent': 'bamboo/0.1 (personal use)' },
     });
     if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
     return await res.json();

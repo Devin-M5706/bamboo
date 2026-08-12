@@ -149,7 +149,7 @@ function validateAnswer(answer, facts) {
   return { ok: true, refused: false, unsupported: [], traced: claims.length };
 }
 
-/** Validate a whole answer bank against the ledger. Used by `jobapplr check`. */
+/** Validate a whole answer bank against the ledger. Used by `bamboo check`. */
 function validateBank(answers, facts) {
   const results = [];
   for (const key of Object.keys(answers || {})) {
@@ -164,6 +164,6 @@ function validateBank(answers, facts) {
 }
 
 ;(function (g) {
-  g.__jobapplr = g.__jobapplr || {};
-  g.__jobapplr.validator = { extractClaims, validateAnswer, validateBank };
+  g.__bamboo = g.__bamboo || {};
+  g.__bamboo.validator = { extractClaims, validateAnswer, validateBank };
 })(typeof globalThis !== 'undefined' ? globalThis : window);

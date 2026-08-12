@@ -133,7 +133,7 @@ const visibleLength = (s) => s.replace(/\[[0-9;]*m/g, '').length;
  * Compose the full banner. `info` lines render to the right of the wordmark.
  */
 export function banner({
-  name = 'jobapplr',
+  name = 'bamboo',
   version = '0.0.0',
   info = [],
   plain = false,

@@ -10,7 +10,7 @@
 const MAX_REPORTS = 200;
 
 chrome.runtime.onMessage.addListener((msg) => {
-  if (msg?.type !== 'jobapplr:report') return;
+  if (msg?.type !== 'bamboo:report') return;
   chrome.storage.local.get(['reports']).then(({ reports }) => {
     const next = [{ at: Date.now(), ...msg.report }, ...(reports ?? [])].slice(0, MAX_REPORTS);
     chrome.storage.local.set({ reports: next });

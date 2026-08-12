@@ -47,14 +47,14 @@
   },
   "facts": [
     {
-      "id": "proj-jobapplr",
-      "text": "I built jobapplr, a Node tool that polls the Greenhouse, Lever and Ashby public job board APIs across 67 company boards and refuses to submit any application text that cannot be traced to a verified fact file.",
+      "id": "proj-bamboo",
+      "text": "I built bamboo, a Node tool that polls the Greenhouse, Lever and Ashby public job board APIs across 67 company boards and refuses to submit any application text that cannot be traced to a verified fact file.",
       "tags": ["Node", "JavaScript", "Greenhouse", "Lever", "Ashby", "API", "67"],
       "verified": true
     },
     {
-      "id": "proj-jobapplr-insight",
-      "text": "While building jobapplr I found that the internship aggregator repo everyone uses lags by up to five days, so I mined it once for company board tokens and polled the vendor APIs directly instead, which cut detection latency to the polling interval.",
+      "id": "proj-bamboo-insight",
+      "text": "While building bamboo I found that the internship aggregator repo everyone uses lags by up to five days, so I mined it once for company board tokens and polled the vendor APIs directly instead, which cut detection latency to the polling interval.",
       "tags": ["latency", "five days", "polling"],
       "verified": true
     },

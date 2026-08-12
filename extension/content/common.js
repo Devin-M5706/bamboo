@@ -8,7 +8,7 @@
  * application you think succeeded.
  */
 
-const JA = (window.__jobapplr = window.__jobapplr || {});
+const JA = (window.__bamboo = window.__bamboo || {});
 
 JA.detectVendor = function detectVendor(host = location.hostname) {
   if (host.includes('greenhouse.io')) return 'greenhouse';

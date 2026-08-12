@@ -11,9 +11,9 @@
  * and reported -- never filled with a best guess.
  */
 
-const JA = window.__jobapplr;
+const JA = window.__bamboo;
 
-const log = (...a) => console.log('[jobapplr]', ...a);
+const log = (...a) => console.log('[bamboo]', ...a);
 
 async function getConfig() {
   const { ledger, answers, settings } = await chrome.storage.local.get([
@@ -149,7 +149,7 @@ async function run() {
   if (blocking.length) {
     log('ABANDONED: required questions could not be answered from the ledger.');
     blocking.forEach((r) => log(`  refused "${r.question.slice(0, 80)}": ${r.reason}`, r.untraceable ?? ''));
-    chrome.runtime.sendMessage({ type: 'jobapplr:report', report }).catch(() => {});
+    chrome.runtime.sendMessage({ type: 'bamboo:report', report }).catch(() => {});
     return;
   }
 
@@ -185,7 +185,7 @@ async function run() {
     }
   }
 
-  chrome.runtime.sendMessage({ type: 'jobapplr:report', report }).catch(() => {});
+  chrome.runtime.sendMessage({ type: 'bamboo:report', report }).catch(() => {});
 }
 
 run().catch((err) => log('failed:', err));

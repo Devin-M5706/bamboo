@@ -144,7 +144,7 @@ export function validateAnswer(answer, facts) {
   return { ok: true, refused: false, unsupported: [], traced: claims.length };
 }
 
-/** Validate a whole answer bank against the ledger. Used by `jobapplr check`. */
+/** Validate a whole answer bank against the ledger. Used by `bamboo check`. */
 export function validateBank(answers, facts) {
   const results = [];
   for (const key of Object.keys(answers || {})) {
