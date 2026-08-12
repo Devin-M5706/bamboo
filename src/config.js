@@ -10,6 +10,7 @@ export const BOARDS_FILE = path.join(DATA_DIR, 'boards.json');
 export const LEDGER_FILE = path.join(DATA_DIR, 'ledger.json');
 export const ANSWERS_FILE = path.join(DATA_DIR, 'answers.json');
 export const QUEUE_FILE = path.join(DATA_DIR, 'queue.json');
+export const CONFIG_FILE = path.join(DATA_DIR, 'config.json');
 
 // Source of board tokens. We mine this once for company identity, then poll the
 // vendor APIs directly -- the repo itself lags by days and has no true posting time.

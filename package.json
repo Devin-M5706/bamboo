@@ -11,13 +11,17 @@
     "bamboo": "./src/cli.js"
   },
   "scripts": {
+    "init": "node src/cli.js init",
     "mine": "node src/cli.js mine",
     "poll": "node src/cli.js poll",
     "watch": "node src/cli.js watch",
+    "feed": "node src/cli.js feed",
+    "ledger": "node src/cli.js ledger",
     "check": "node src/cli.js check",
     "queue": "node src/cli.js queue",
     "survey": "node src/cli.js survey",
     "banner": "node src/cli.js banner",
+    "help": "node src/cli.js help",
     "test": "node --test test/*.test.js",
     "build:ext": "node scripts/build-extension.js"
   }

@@ -60,3 +60,26 @@ report, and never send them anywhere. The `.example.json` files are the committe
 
 Full rationale, measured ATS distribution, and open questions:
 `~/.gstack/projects/Devin-M5706-bamboo/dmyer-main-design-20260811-233658.md`
+
+## Terminal UI
+
+Screens are implemented from `design_handoff_bamboo_cli/README.md`, which declares its
+colors, copy, column widths and spacing **final**. Match them; don't improvise.
+
+- `src/ui/theme.js` owns the palette and every escape code. No raw ANSI anywhere else —
+  that's what makes `--no-color`, `NO_COLOR` and non-TTY pipes a single switch
+  (`setColor()`), and a test asserts every screen goes plain when it's off.
+- `src/ui/banner.js` is ported from the handoff's runnable `banner.js`. The glyph maps,
+  panda grid, gradient stops and extrude offset are **copied verbatim** — adapt plumbing,
+  never the art. Below 112 columns the panda drops and the wordmark prints alone.
+- Column widths in `feed.js` (8/11/flex/3/9) and the score thresholds (mint ≥70, orange
+  60–69) come straight from the handoff. Tests pin them.
+- **Pad outside `paint()`, not inside**, for a row's last column. Padding inside leaves
+  trailing spaces before the reset escape where `trimEnd()` can't reach, and colored rows
+  silently grow wider than plain ones.
+- Color semantics: orange = bamboo speaking or asking, mint = verified or safe, faint =
+  metadata. Never color body copy anything else.
+
+`bamboo init` asks for `workAuthorization` and `graduationYear` because those feed
+`src/selects.js` directly and are the most-required dropdowns on real forms. The choice
+values must stay identical to `WORK_AUTH_PATTERNS`; a test enforces it.

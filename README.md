@@ -98,19 +98,25 @@ that is a security boundary worth having.
 
 | Command | Does |
 |---|---|
+| `npm run init` | Setup wizard: boards, cadence, work authorization, graduation year |
 | `npm run mine` | Extract board tokens from the aggregator repo |
 | `npm run poll` | One poll cycle across all boards; queues new eligible postings |
 | `npm run watch` | Poll on an interval until stopped |
 | `npm run check` | Preflight the ledger, answer bank, queue, and detection latency |
 | `npm run queue` | Show queued postings (`--all` includes handled) |
+| `npm run feed` | The live-feed view of the queue |
+| `npm run ledger` | The evidence ledger as a table |
+| `npm run banner` | Startup banner |
+| `npm run help` | Command list |
 | `npm run survey` | Sample real Greenhouse forms; report which prompts actually recur |
-| `npm test` | 36 tests, mostly on the validator |
+| `npm test` | 79 tests, mostly on the validator and the UI layer |
 | `npm run build:ext` | Regenerate the extension's copy of the validator |
 
 ## Layout
 
 ```
 src/
+  ui/               terminal screens (banner, feed, ledger, init wizard, help)
   config.js         eligibility rules, polling interval, DRY_RUN_DEFAULT
   miner.js          aggregator repo -> board tokens
   sources.js        Greenhouse / Lever / Ashby adapters, normalized to one Posting shape

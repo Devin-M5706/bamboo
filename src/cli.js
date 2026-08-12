@@ -1,14 +1,18 @@
 #!/usr/bin/env node
 import fs from 'node:fs/promises';
-import { ANSWERS_FILE, DRY_RUN_DEFAULT, LEDGER_FILE, POLL_INTERVAL_MS, QUEUE_FILE } from './config.js';
+import { ANSWERS_FILE, DRY_RUN_DEFAULT, LEDGER_FILE, POLL_INTERVAL_MS, QUEUE_FILE, STATE_FILE } from './config.js';
 import { mine } from './miner.js';
 import { pollOnce } from './poll.js';
 import { loadLedger } from './ledger.js';
 import { loadAnswers } from './answers.js';
 import { validateBank } from './validator.js';
 import { survey } from './survey.js';
-import { banner, shouldUseColor } from './banner.js';
 import { RULES } from './selects.js';
+import { hero } from './ui/banner.js';
+import { help } from './ui/help.js';
+import { ledgerScreen, queueScreen } from './ui/screens.js';
+import { runInit, saveInit } from './ui/init.js';
+import { PALETTE, columns, paint, setColor, shouldUseColor } from './ui/theme.js';
 
 // Rename here to rebrand the CLI; the wordmark font covers A-Z.
 const APP_NAME = process.env.BAMBOO_NAME || 'bamboo';
@@ -18,6 +22,9 @@ const BOARD_COUNT = 65;
 const args = process.argv.slice(2);
 const cmd = args[0];
 const has = (flag) => args.includes(flag);
+
+// One switch for the whole UI layer. Everything downstream writes through theme.js.
+setColor(shouldUseColor(args));
 
 const fmt = (n) => new Intl.NumberFormat('en-US').format(n);
 const dur = (ms) => (ms == null ? 'unknown' : ms < 90_000 ? `${Math.round(ms / 1000)}s` : `${(ms / 60000).toFixed(1)}m`);
@@ -138,55 +145,79 @@ async function cmdSurvey() {
   console.log('Write answer-bank entries for the prompts at the top of this list.');
 }
 
-const COMMANDS = {
-  mine: cmdMine,
-  poll: cmdPoll,
-  watch: cmdWatch,
-  check: cmdCheck,
-  queue: cmdQueue,
-  survey: cmdSurvey,
-  banner: () => Promise.resolve(showBanner()),
-};
-
 function showBanner() {
-  const plain = !shouldUseColor() || has('--no-color');
-  const dim = plain ? '' : '[38;2;138;138;138m';
-  const acc = plain ? '' : '[38;2;79;195;161m';
-  const off = plain ? '' : '[0m';
+  console.log(hero({ version: `v${VERSION}`, columns: columns() }));
+}
+
+/** Screen 4 -- the setup wizard. */
+async function cmdInit() {
+  const config = await runInit();
+  if (!config) {
+    console.log(paint('\n  cancelled. nothing was written.\n', PALETTE.faint));
+    return;
+  }
+  const { configFile, ledgerFile } = await saveInit(config);
   console.log(
-    banner({
-      name: APP_NAME,
-      version: VERSION,
-      plain,
-      info: [
-        `${dim}Watches ${BOARD_COUNT} job boards for new internship postings.${off}`,
-        `${dim}Fills applications from your evidence ledger.${off}`,
-        `${dim}Refuses anything it cannot trace back to a verified fact.${off}`,
-        '',
-        `${acc}DRY RUN${off}${dim}   nothing is submitted until you say so${off}`,
-      ],
-    }),
+    `\n  ${paint('✓', PALETTE.mint)} ${paint('saved', PALETTE.muted)}  ${paint(configFile, PALETTE.faint)}`,
+  );
+  console.log(
+    `  ${paint('✓', PALETTE.mint)} ${paint('profile merged into', PALETTE.muted)}  ${paint(ledgerFile, PALETTE.faint)}`,
+  );
+  console.log(
+    `\n  ${paint('next', PALETTE.faint)}  ${paint('bamboo check', PALETTE.orange)} ${paint(
+      'to see what is still blocking you',
+      PALETTE.muted,
+    )}\n`,
+  );
+}
+
+/** Screen 3 -- the evidence ledger, rendered as the handoff's table. */
+async function cmdLedger() {
+  const ledger = await loadLedger();
+  console.log(ledgerScreen(ledger.facts, columns()));
+  if (!ledger.ok && ledger.facts.length) {
+    for (const e of ledger.errors) console.log(`  ${paint(e, PALETTE.orange)}`);
+    console.log('');
+  }
+}
+
+/** Screen 2 -- the live feed, rendered from whatever is actually queued. */
+async function cmdFeed() {
+  const queue = JSON.parse(await fs.readFile(QUEUE_FILE, 'utf8').catch(() => '{"items":[]}'));
+  const state = JSON.parse(await fs.readFile(STATE_FILE, 'utf8').catch(() => '{"seen":{}}'));
+  const items = has('--all') ? queue.items : queue.items.filter((i) => i.status === 'pending');
+  console.log('');
+  console.log(
+    queueScreen(items, { boards: BOARD_COUNT, seen: Object.keys(state.seen ?? {}).length }, columns()),
   );
   console.log('');
 }
 
+const COMMANDS = {
+  init: cmdInit,
+  mine: cmdMine,
+  poll: cmdPoll,
+  watch: cmdWatch,
+  feed: cmdFeed,
+  ledger: cmdLedger,
+  check: cmdCheck,
+  queue: cmdQueue,
+  survey: cmdSurvey,
+  banner: () => Promise.resolve(showBanner()),
+  help: () => Promise.resolve(console.log(help())),
+};
+
 const run = COMMANDS[cmd];
 if (!run) {
   if (!cmd) showBanner();
-  console.log(`${APP_NAME} -- autonomous internship applier
-
-  mine     extract board tokens from the aggregator repo (run once, then occasionally)
-  poll     one poll cycle across every board; queues new eligible postings
-  watch    poll on an interval until stopped
-  check    preflight: ledger valid? answers traceable? how much is queued?
-  queue    show queued postings (--all to include handled)
-  survey   sample real application forms; shows which free-text prompts actually recur
-  banner   print the splash (--no-color for plain output)
-
-Ledger:  ${LEDGER_FILE}
-Answers: ${ANSWERS_FILE}`);
+  console.log(help());
+  console.log(
+    `  ${paint('ledger', PALETTE.faint)}   ${paint(LEDGER_FILE, PALETTE.faint)}\n` +
+      `  ${paint('answers', PALETTE.faint)}  ${paint(ANSWERS_FILE, PALETTE.faint)}\n`,
+  );
   process.exit(cmd ? 1 : 0);
 }
+
 
 run().catch((err) => {
   console.error(`${cmd} failed:`, err.message);
