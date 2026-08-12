@@ -19,6 +19,7 @@ export async function survey({ limit = 40, verbose = false } = {}) {
   const boards = (await loadBoards()).filter((b) => b.vendor === 'greenhouse');
   const sampled = [];
   const freeTextPerJob = [];
+  const selectPerJob = [];
   const eligibilityFlips = [];
 
   for (const { board } of boards) {
@@ -51,16 +52,35 @@ export async function survey({ limit = 40, verbose = false } = {}) {
       required: detail.questions.freeText.filter((q) => q.required).length,
     });
     freeTextPerJob.push(detail.questions.freeText);
+    selectPerJob.push(detail.questions.other);
     if (verbose) console.log(`  ${board}: ${detail.questions.freeText.length} free-text`);
   }
 
   const aggregated = aggregateQuestions(freeTextPerJob);
+  const aggregatedSelects = aggregateQuestions(selectPerJob);
+  // Keep one sample option set per distinct question, so the resolver can be written
+  // against the real choices instead of imagined ones.
+  const optionSamples = {};
+  for (const list of selectPerJob) {
+    for (const q of list) {
+      const k = q.label
+        .toLowerCase()
+        .replace(/[^a-z0-9 ]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      if (!optionSamples[k] && q.options?.length) {
+        optionSamples[k] = q.options.slice(0, 12).map((o) => o.label);
+      }
+    }
+  }
   const out = {
     surveyedAt: new Date().toISOString(),
     jobsSampled: sampled.length,
     boardsWithInternships: sampled.length,
     eligibilityFlips,
     prompts: aggregated,
+    selects: aggregatedSelects,
+    selectOptions: optionSamples,
     jobs: sampled,
   };
   await fs.mkdir(DATA_DIR, { recursive: true });

@@ -7,6 +7,13 @@ import { loadLedger } from './ledger.js';
 import { loadAnswers } from './answers.js';
 import { validateBank } from './validator.js';
 import { survey } from './survey.js';
+import { banner, shouldUseColor } from './banner.js';
+import { RULES } from './selects.js';
+
+// Rename here to rebrand the CLI; the wordmark font covers A-Z.
+const APP_NAME = process.env.JOBAPPLR_NAME || 'jobapplr';
+const VERSION = '0.2.0';
+const BOARD_COUNT = 65;
 
 const args = process.argv.slice(2);
 const cmd = args[0];
@@ -77,6 +84,16 @@ async function cmdCheck() {
     if (!v.ok) failed = true;
   }
 
+
+  // Dropdowns are answered from typed profile fields. An unset field is not a bug, but
+  // it does mean the tool will refuse that question on every form that asks it.
+  const prof = ledger.profile ?? {};
+  const missing = RULES.map((r) => r.from).filter((f) => prof[f] === undefined || prof[f] === null || prof[f] === '');
+  console.log(`DROPDOWN ${RULES.length - missing.length}/${RULES.length} profile fields set`);
+  if (missing.length) {
+    console.log(`         unset (these questions will be refused): ${missing.join(', ')}`);
+  }
+
   const queue = JSON.parse(await fs.readFile(QUEUE_FILE, 'utf8').catch(() => '{"items":[]}'));
   const pending = queue.items.filter((i) => i.status === 'pending');
   console.log(`QUEUE    ${pending.length} pending of ${queue.items.length}`);
@@ -128,11 +145,35 @@ const COMMANDS = {
   check: cmdCheck,
   queue: cmdQueue,
   survey: cmdSurvey,
+  banner: () => Promise.resolve(showBanner()),
 };
+
+function showBanner() {
+  const plain = !shouldUseColor() || has('--no-color');
+  const dim = plain ? '' : '[38;2;138;138;138m';
+  const acc = plain ? '' : '[38;2;79;195;161m';
+  const off = plain ? '' : '[0m';
+  console.log(
+    banner({
+      name: APP_NAME,
+      version: VERSION,
+      plain,
+      info: [
+        `${dim}Watches ${BOARD_COUNT} job boards for new internship postings.${off}`,
+        `${dim}Fills applications from your evidence ledger.${off}`,
+        `${dim}Refuses anything it cannot trace back to a verified fact.${off}`,
+        '',
+        `${acc}DRY RUN${off}${dim}   nothing is submitted until you say so${off}`,
+      ],
+    }),
+  );
+  console.log('');
+}
 
 const run = COMMANDS[cmd];
 if (!run) {
-  console.log(`jobapplr -- autonomous internship applier
+  if (!cmd) showBanner();
+  console.log(`${APP_NAME} -- autonomous internship applier
 
   mine     extract board tokens from the aggregator repo (run once, then occasionally)
   poll     one poll cycle across every board; queues new eligible postings
@@ -140,6 +181,7 @@ if (!run) {
   check    preflight: ledger valid? answers traceable? how much is queued?
   queue    show queued postings (--all to include handled)
   survey   sample real application forms; shows which free-text prompts actually recur
+  banner   print the splash (--no-color for plain output)
 
 Ledger:  ${LEDGER_FILE}
 Answers: ${ANSWERS_FILE}`);

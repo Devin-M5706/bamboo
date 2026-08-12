@@ -11,19 +11,38 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
  * stops refusing and you find out from an employer. These tests fail loudly instead.
  */
 
-test('validator.core.js has no imports, so the extension can use it verbatim', async () => {
-  const core = await fs.readFile(path.join(root, 'src', 'validator.core.js'), 'utf8');
-  assert.ok(!/^\s*import\s/m.test(core), 'core validator must stay import-free');
-});
+const SHARED = [
+  ['validator.core.js', 'validator.js'],
+  ['selects.js', 'selects.js'],
+];
 
-test('generated extension validator is in sync with the core source', async () => {
-  const core = await fs.readFile(path.join(root, 'src', 'validator.core.js'), 'utf8');
-  const built = await fs.readFile(path.join(root, 'extension', 'vendor', 'validator.js'), 'utf8');
-  const expectedBody = core.replace(/^export\s+/gm, '');
-  assert.ok(
-    built.includes(expectedBody),
-    'extension/vendor/validator.js is stale -- run: npm run build:ext',
-  );
+for (const [src, out] of SHARED) {
+  test(`${src} has no imports, so the extension can use it verbatim`, async () => {
+    const core = await fs.readFile(path.join(root, 'src', src), 'utf8');
+    assert.ok(!/^\s*import\s/m.test(core), `${src} must stay import-free`);
+  });
+
+  test(`generated extension/vendor/${out} is in sync with ${src}`, async () => {
+    const core = await fs.readFile(path.join(root, 'src', src), 'utf8');
+    const built = await fs.readFile(path.join(root, 'extension', 'vendor', out), 'utf8');
+    assert.ok(
+      built.includes(core.replace(/^export\s+/gm, '')),
+      `extension/vendor/${out} is stale -- run: npm run build:ext`,
+    );
+  });
+}
+
+test('generated selects module refuses an unset profile in a browser-like global', async () => {
+  const src = await fs.readFile(path.join(root, 'extension', 'vendor', 'selects.js'), 'utf8');
+  const g = {};
+  new Function('globalThis', 'window', src).call(g, g, g);
+  const q = {
+    label: 'Are you legally authorized to work in the United States?',
+    required: true,
+    options: [{ label: 'I am authorized to work in the United States for any employer', value: '1' }],
+  };
+  assert.equal(g.__jobapplr.selects.resolveSelect(q, {}).refused, true);
+  assert.equal(g.__jobapplr.selects.resolveSelect(q, { workAuthorization: 'authorized_any' }).ok, true);
 });
 
 test('generated validator refuses an untraceable claim in a browser-like global', async () => {

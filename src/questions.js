@@ -71,12 +71,22 @@ export function classifyQuestions(questions) {
   for (const q of questions) {
     const label = String(q?.label ?? '').replace(/\s+/g, ' ').trim();
     if (!label) continue;
-    const type = q?.fields?.[0]?.type ?? '';
+    const field = q?.fields?.[0] ?? {};
+    const type = field.type ?? '';
     const entry = { label, required: Boolean(q?.required), type };
+    // Selects carry their option set; the resolver needs it to map a fact to a choice.
+    if (/select/.test(type)) {
+      entry.options = (field.values ?? []).map((v) => ({
+        label: String(v.label ?? '').trim(),
+        value: v.value,
+      }));
+      entry.name = field.name;
+    }
 
-    if (PROFILE_LABELS.test(label)) profile.push(entry);
+    if (/select/.test(type)) other.push(entry);
+    else if (PROFILE_LABELS.test(label)) profile.push(entry);
     else if (FREE_TEXT_TYPES.has(type)) freeText.push(entry);
-    else other.push(entry);
+    else profile.push(entry);
   }
   return { profile, freeText, other };
 }

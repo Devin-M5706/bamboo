@@ -1,6 +1,6 @@
 {
   "name": "jobapplr",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Autonomous internship applier with a pre-validated evidence ledger",
   "type": "module",
   "private": true,

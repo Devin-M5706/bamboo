@@ -117,8 +117,33 @@ async function run() {
     resolved.push({ el: f.el, text: entry.text, key: entry.key });
   }
 
-  const blocking = report.refusals.filter((r) =>
-    freeText.find((f) => f.question === r.question && f.required),
+  // Dropdowns. Surveying real forms, these are mostly factual claims about you --
+  // work authorization, graduation year, degree, GPA, FINRA registration. Resolve each
+  // from the ledger profile or refuse; never default to the first option.
+  const selects = JA.collectSelects();
+  const overrides = (await chrome.storage.local.get(['selectOverrides'])).selectOverrides ?? {};
+  const selectPlan = [];
+  for (const s of selects) {
+    const r = JA.selects.resolveSelect(
+      { label: s.label, required: s.required, options: s.options },
+      ledger.profile ?? {},
+      overrides,
+    );
+    if (r.ok) selectPlan.push({ el: s.el, option: r.option, label: s.label, rule: r.rule });
+    else report.refusals.push({ question: s.label, reason: r.reason, required: s.required });
+  }
+
+  // Custom comboboxes cannot be filled honestly, so they are always reported.
+  for (const u of JA.collectUnfillableSelects()) {
+    report.refusals.push({
+      question: u.label || '(unlabelled dropdown)',
+      reason: 'custom dropdown widget -- fill this one by hand',
+      required: false,
+    });
+  }
+
+  const blocking = report.refusals.filter(
+    (r) => r.required || freeText.find((f) => f.question === r.question && f.required),
   );
 
   if (blocking.length) {
@@ -135,6 +160,13 @@ async function run() {
   for (const r of resolved) {
     JA.setValue(r.el, r.text);
     report.filled.push(`answer:${r.key}`);
+  }
+
+  for (const s of selectPlan) {
+    const okSet = JA.setSelect(s.el, s.option.value);
+    if (okSet) report.filled.push(`select:${s.label.slice(0, 40)} = ${s.option.label.slice(0, 40)}`);
+    // A select that would not take the value is a refusal, not a success.
+    else report.refusals.push({ question: s.label, reason: 'select rejected the value' });
   }
 
   if (settings.dryRun) {

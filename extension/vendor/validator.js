@@ -1,7 +1,7 @@
 /* GENERATED FILE -- do not edit.
  * Source: src/validator.core.js
  * Regenerate: npm run build:ext
- * The CLI and the extension must share one validator, or only one of them refuses.
+ * The CLI and the extension must share one copy, or only one of them refuses.
  */
 /**
  * Trace-or-refuse validation. THIS FILE MUST HAVE NO IMPORTS.

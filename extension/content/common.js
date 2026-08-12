@@ -91,6 +91,62 @@ JA.collectFreeText = function collectFreeText() {
   return out;
 };
 
+/**
+ * Collect dropdowns on the page, with their real option sets.
+ *
+ * Only native <select> is handled. Greenhouse and Ashby increasingly render custom
+ * combobox widgets, and a script that "fills" one of those by faking clicks can leave
+ * the form looking answered while the underlying value is unset. Those are reported as
+ * unfillable rather than attempted -- a visibly blank field beats a silently wrong
+ * legal assertion.
+ */
+JA.collectSelects = function collectSelects() {
+  const out = [];
+  for (const sel of document.querySelectorAll('select')) {
+    if (sel.disabled || sel.offsetParent === null) continue;
+    const label =
+      sel.labels?.[0]?.innerText ||
+      sel.closest('label')?.innerText ||
+      sel.getAttribute('aria-label') ||
+      sel.closest('[class*="field" i], [class*="question" i]')?.innerText ||
+      '';
+    const options = [...sel.options]
+      .filter((o) => o.value !== '' && !/^(please )?select/i.test(o.text))
+      .map((o) => ({ label: o.text.replace(/\s+/g, ' ').trim(), value: o.value }));
+    out.push({
+      el: sel,
+      label: label.replace(/\s+/g, ' ').trim(),
+      required: sel.required || sel.getAttribute('aria-required') === 'true',
+      options,
+    });
+  }
+  return out;
+};
+
+/** Custom comboboxes we can see but refuse to fake. */
+JA.collectUnfillableSelects = function collectUnfillableSelects() {
+  const out = [];
+  const nodes = document.querySelectorAll('[role="combobox"], [class*="select__control" i]');
+  for (const n of nodes) {
+    if (n.closest('select')) continue;
+    const label =
+      n.getAttribute('aria-label') ||
+      n.closest('[class*="field" i], [class*="question" i]')?.innerText ||
+      '';
+    out.push({ label: label.replace(/\s+/g, ' ').trim().slice(0, 120) });
+  }
+  return out;
+};
+
+JA.setSelect = function setSelect(el, value) {
+  const setter = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value')?.set;
+  if (setter) setter.call(el, value);
+  else el.value = value;
+  el.dispatchEvent(new Event('input', { bubbles: true }));
+  el.dispatchEvent(new Event('change', { bubbles: true }));
+  return el.value === String(value);
+};
+
 JA.findSubmit = function findSubmit() {
   const candidates = [
     'button[type="submit"]',

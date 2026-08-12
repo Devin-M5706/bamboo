@@ -22,7 +22,7 @@
         "https://jobs.ashbyhq.com/*",
         "https://jobs.lever.co/*"
       ],
-      "js": ["vendor/validator.js", "content/common.js", "content/apply.js"],
+      "js": ["vendor/validator.js", "vendor/selects.js", "content/common.js", "content/apply.js"],
       "run_at": "document_idle"
     }
   ],

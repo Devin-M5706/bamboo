@@ -14,11 +14,36 @@
     "email": "",
     "phone": "",
     "school": "",
-    "gradYear": "",
     "linkedin": "",
     "github": "",
     "website": "",
-    "resumePath": ""
+    "resumePath": "",
+
+    "_dropdowns": [
+      "Everything below answers dropdowns. Surveying 32 real forms, these get asked far",
+      "more often than any essay. Leave a field out and the tool REFUSES that question",
+      "rather than guessing -- which is what you want, because several of these are legal",
+      "assertions, not preferences.",
+      "workAuthorization must be exactly one of:",
+      "  authorized_any                     - can work for any employer, no restrictions",
+      "  authorized_current_employer_only   - tied to your present employer",
+      "  requires_sponsorship               - need visa sponsorship now or in future",
+      "  not_authorized                     - not authorized to work in the US"
+    ],
+    "workAuthorization": "",
+    "usCitizen": null,
+    "graduationYear": "",
+    "graduationMonth": "",
+    "degreeLevel": "",
+    "gpaUndergraduate": "",
+    "gpaGraduate": "",
+    "satScore": "",
+    "actScore": "",
+    "state": "",
+    "country": "",
+    "finraRegistered": null,
+    "securityClearance": null,
+    "criminalHistory": null
   },
   "facts": [
     {

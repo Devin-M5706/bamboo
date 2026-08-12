@@ -20,17 +20,17 @@ test('classifyQuestions separates profile fields from free text', () => {
   assert.ok(profileLabels.includes('Email'));
   assert.ok(profileLabels.includes('Resume/CV'));
   assert.ok(profileLabels.includes('LinkedIn Profile'));
-  assert.ok(profileLabels.includes('GPA (Undergraduate)'));
 
   assert.deepEqual(
     r.freeText.map((x) => x.label),
     ['Why do you want to work here?'],
   );
-  // Select-type questions are neither profile nor free text; they need their own handling.
-  assert.deepEqual(
-    r.other.map((x) => x.label),
-    ['Do you require visa sponsorship?'],
-  );
+  // Every select routes to `other` regardless of label, because the dropdown resolver
+  // owns them -- including GPA, which looks like a profile field but is a picked option.
+  const otherLabels = r.other.map((x) => x.label);
+  assert.ok(otherLabels.includes('GPA (Undergraduate)'));
+  assert.ok(otherLabels.includes('Do you require visa sponsorship?'));
+  assert.equal(r.other.length, 2);
 });
 
 test('classifyQuestions ignores blank labels and normalizes whitespace', () => {

@@ -1,5 +1,5 @@
 {
-  "surveyedAt": "2026-08-12T08:46:27.820Z",
+  "surveyedAt": "2026-08-12T18:59:38.228Z",
   "jobsSampled": 32,
   "boardsWithInternships": 32,
   "eligibilityFlips": [
@@ -351,6 +351,2144 @@
       "required": 0
     }
   ],
+  "selects": [
+    {
+      "label": "Are you legally authorized to work in the United States?",
+      "jobs": 4,
+      "required": 4
+    },
+    {
+      "label": "How did you hear about this job?",
+      "jobs": 3,
+      "required": 3
+    },
+    {
+      "label": "What is your expected graduation year?",
+      "jobs": 3,
+      "required": 2
+    },
+    {
+      "label": "Are you currently registered with FINRA?",
+      "jobs": 2,
+      "required": 2
+    },
+    {
+      "label": "How did you hear about CTC?",
+      "jobs": 2,
+      "required": 2
+    },
+    {
+      "label": "If 'Yes' to above, are you actively maintaining any security licenses?",
+      "jobs": 2,
+      "required": 2
+    },
+    {
+      "label": "Please select one of the following statements based on your work authorization:",
+      "jobs": 2,
+      "required": 2
+    },
+    {
+      "label": "State (If N/A, Select Other)",
+      "jobs": 2,
+      "required": 2
+    },
+    {
+      "label": "We have several job paths as part of our QTA program. To help us understand which path(s) is/are best for you, which of these statements best describes your interest in CTC?",
+      "jobs": 2,
+      "required": 2
+    },
+    {
+      "label": "What is the highest degree level you are currently pursuing?",
+      "jobs": 2,
+      "required": 2
+    },
+    {
+      "label": "What is your expected graduation month?",
+      "jobs": 2,
+      "required": 2
+    },
+    {
+      "label": "1. Please confirm that you are either: (a) a U.S. citizen; (b) lawful permanent resident of the U.S. (green card holder); or (3) protected individual as defined by 8 U.S.C. 1324b(a)(3).",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "2. Please indicate whether you ever been indicted for or convicted of violating any of the U.S. Criminal statues enumerated in 22 CFR 120.6 or violating a foreign criminal law on exportation of defense articles where conviction of such law carries a minimum term of imprisonment of greater than one year.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "3. Please indicate whether you have been declared ineligible to contract with, or to receive a license or other approval to import defense articles or defense services from, or to receive an export license or other approval from, any agency of the U.S. Government.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "A successful internship may lead to consideration for a full-time opportunity. If you were to receive a full-time offer, when would you be available to start?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "ACT Score",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Active Security Clearance(s)",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Any offer of employment with Rocket Lab is contingent on a successful criminal background check and successful reference checks. Please indicate below if you can meet these hiring requirements.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Applicants must be actively enrolled in an undergraduate, master’s, or doctoral degree program at the start of the internship and remain enrolled throughout the program.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you 18 years of age or older?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you a U.S. citizen, lawful permanent resident of the U.S., protected individual as defined by 8 U.S.C. 1324b(a)(3), or eligible to obtain the required authorizations from the U.S. Department of State as required to conform to U.S. Government space technology export regulations, including the International Traffic in Arms Regulations (ITAR)?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you able to work a hybrid schedule (mix of in-person/remote) at the location this position is posted? Please note that the final working schedule will be determined between the selected candidate and hiring manager.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you able to work full-time on-site Scottsdale, AZ?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you able to work in our Austin office 3–5 days a week?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you able to work onsite in one of our offices (San Francisco, and or Berkeley), five days a week?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you at least 18 years of age?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you available for a 12-week full-time (40 hours per week) internship between September - December 2026?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you available to work 20-30 hours per week during the internship program dates of September 14 - December 4, 2026?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you available to work from our office in San Francisco?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you comfortable being onsite 5 days a week at our Needham, MA Headquarters?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you considering or committed to pursuing further education immediately after completing your current academic studies?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you currently a member of any university organizations, such as clubs or societies?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you currently a resident of the Greater Austin area, or do you have confirmed plans to be based there for the duration of this internship?*",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you currently authorized to work in the city/country where this position is located?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you currently eligible to legally work in the United States?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you currently enrolled in a co-op program at SFU or UBC?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you currently enrolled in a degree program?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you currently enrolled in a PhD program?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you currently enrolled in a university or program and will return to the program upon completion of internship?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you currently legally authorized to work in Canada for any employer?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you currently pursuing a Major in one of the following disciplines: Systems Engineering, Economics, Mathematics, Computer Science, Data Science, Information Systems, or a related STEM field",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you holding any outstanding offers?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you legally authorized to work for all employers in the U.S.?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you legally authorized to work in the country in which this role is located?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you legally authorized to work in the country where this role is based?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you legally authorized to work in the United States for any US employer now and in the future?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you legally authorized to work in the US?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you legally eligible to work in the U.S.?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you legally eligible to work in the United States?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you legally entitled to work in New Zealand?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you registered to attend RenderATL 2026?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you willing to work in our Toronto office for 5 days per week?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Are you willing to work in-person for 12 weeks during the internship?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Astranis complies with U.S. Government space technology export regulations, therefore will you state which of the following applies to you:",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "At Astranis, we value in-person collaboration and a strong work ethic. Are you comfortable with working onsite at our San Francisco HQ 5 days a week?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "By checking this box, I confirm I have read, reviewed and understood the guidelines outlined in the Candidate AI Responsible Use Policy. I affirm that all the information and materials I submit throughout my application and candidacy will reflect my own work and experience.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "By clicking the \"Acknowledge\" button, you acknowledge that Twilio processes data in accordance with the Twilio Applicant Privacy Policy.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "By submitting your application: (i) you confirm that the information you provide is accurate and complete to the best of your knowledge and you will inform us immediately if you subsequently become aware of any errors or inaccuracies; (ii) you acknowledge you are applying for a role with a company within the GoDaddy group, details of which will be provided at a later stage of the recruitment process if applicable; and (iii) you confirm you have read and understood the terms of our privacy policy (https://www.godaddy.com/legal/agreements/privacy-policy?isc=gdbb3376d). If you have questions regarding the application process or experience technical issues, please email myrecruiter@godaddy.com. If you have questions about our privacy practices, please email privacy@godaddy.com.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Can you perform all of the essential functions of this role with or without reasonable accommodations?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Can you provide verification of both your identity and authorization to work in the United States, to the extent required by law?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Citizenship Status",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Country:",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Depending on the needs of the role, we may have openings in multiple locations. Please choose which locations you are open to working in/relocating to.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you currently work under any agreement, such as a non-compete agreement, which would restrict your employment with a Toshiba company?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you have an office location preference?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you have any contractual obligations, agreements, relationships, or commitments to another person or entity that would impact, impede or interfere with your ability to join Axon?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you have any outstanding offers or deadlines?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you have any previous military experience?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you have any previous or pending criminal convictions or charges (including drink or drug-related driving convictions) but not including any concealed under the Criminal Records (Clean Slate) Act?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you have deep understanding and hands-on experience in machine learning models for time-series data, including both transformer-based architectures and probabilistic models (e.g., state estimation)?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you have publications in top-tier ML, vision, or systems venues (e.g., ACL, NeurIPS, CVPR, ECCV, ICCV, MobiCom, MobiSys, MLSys, ICASSP, ICML, ICRL, ICRA, IROS)?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you have relevant internship experience at a proprietary trading firm?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you have the legal right to perform this role in the country in which you are applying?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you hold any outstanding offers or have any deadlines to accept an offer?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you now or will you in the future require immigration sponsorship to work at Cloudflare?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you now, or will you in the future, need sponsorship from an employer in order to obtain, extend or renew your authorization to work in Singapore?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you now, or will you in the future, require immigration sponsorship for work authorization (for example, H-1B status)?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you now, or will you in the future, require sponsorship (H-1B visa) for continued work authorization in the U.S.?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you plan on pursuing a higher degree after graduation?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you require employer-sponsored work authorization?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Do you require sponsorship for employment visa status?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Employment eligibility status",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Expected graduation.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "EXPORT CONTROLS - This position requires access to information and technology that is subject to U.S. export controls. Your responses to the questions below will be used solely to determine your eligibility under U.S. law to receive information and materials subject to U.S. export controls.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "For your most recent degree, what is/was your GPA (normalized to a 4.0 scale)?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "GoDaddy Employment History:",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "GPA (Doctorate)",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "GPA (Graduate)",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "GPA (Undergraduate)",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "GRE Score",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Have you been introduced to GoDaddy or any of its subsidiaries by a recruitment agency within the last 12 months?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Have you completed any internships? If yes, were any of them at a hedge fund or a proprietary trading firm?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Have you completed at least one internship, apprenticeship, or comparable work experience in the field you are applying for?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Have you ever been employed by Axon?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Have you ever been offered employment with GoDaddy or any of its subsidiaries (123-Reg, Freedom Voice, HEG, Media Temple, Main Street Hub, Sellbrite, Sucuri, etc.)",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Have you ever held, or do you currently hold, any leadership roles through employment, volunteer work, or university organizations such as clubs or societies?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Have you ever previously interviewed with GoDaddy or any of its subsidiaries (123-Reg, Freedom Voice, HEG, Media Temple, Main Street Hub, Sellbrite, Sucuri, etc.)?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Have you ever worked for our company under a different name?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Have you ever worked for Redwood Materials?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Have you interviewed with Virtu in the past?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Have you participated in any of the following mathematics competitions?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Have you previously been employed by a Toshiba company?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Have you tutored or TA'd for any classes?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Highest level of education/qualification completed.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "How did you first hear about Five Rings?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "How did you hear about Anduril?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "How did you hear about Appian?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "How did you hear about DV Trading?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "How did you hear about Radix?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "How did you hear about the role?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "How did you hear about this internship?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "How did you hear about this opportunity?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "How did you hear about Twilio?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "How did you hear about us?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "I have read and understand the Export Control statement included in the job description above.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "If applicable, which US state do you reside in?",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If so, please specify the type of degree you plan to pursue.",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If yes to the above questions - which cities are you open to?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "If yes, select your most recent proprietary trading firm experience",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "If yes, will you now or in the future require Appian to file a petition or application for employment-based visa status on your behalf to begin or continue employment with our company? (Please note that if you are in F-1 OPT/STEM OPT, H-1B, H-4 EAD, L-2 EAD, or other EAD conferring status such as DACA, TPS, humanitarian parole, U4U, family-based adjustment of status pending, etc. you must answer YES to this question).",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "If you are currently enrolled in a university or program, when do you expect to graduate or complete your program? (Select the closest date.)",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "If you are enrolled in university, what degree are you currently pursuing?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "If you are not based in the same city as the role you have applied for, are you willing to relocate?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "If you are not located in San Jose, CA are you willing to relocate?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "If you have applied for a PEY role, please confirm whether or not you are open to 12 or 16 month duration.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "If your scope of work requires exposure to U.S. Export Administration Controlled Technology and you are a Non-US Person as defined below, will you be able to coordinate with Axon Trade Compliance on obtaining U.S. Department of Commerce licensing as needed?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "In addition to email communications, GoDaddy utilizes a SMS/WhatsApp texting tool to send quick updates and communicate with you throughout our candidate processes. GoDaddy Executives do not contact candidates or employees by SMS or WhatsApp. Per GoDaddy policy, we will never text you a link to click. Please indicate below if you wish to receive SMS/WhatsApp messages from GoDaddy. Standard messaging and data rates may apply.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "In order to customize your potential internship experience, please let us know about your anticipated graduation date in correlation with this internship period (which may run between January and September):",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "In the event that the position requires it, are you open a PEY role based out of one of our US offices? (J1 visa sponsorship will be provided)",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Is your right to work based (either now or in the future) on obtaining a visa, work permit or equivalent?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Location Preference",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Overall GPA",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Please confirm the season you are applying for.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Please indicate your overall GPA.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Please only apply to 1 opportunity at Radix at a time. If you have other interests, please indicate them below here:",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "Please only apply to one internship position. If you are interested in other internship tracks, please select them below:",
+      "jobs": 1,
+      "required": 0
+    },
+    {
+      "label": "Please re-confirm the university you currently attend",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Please review and acknowledge Cloudflare's Candidate Privacy Policy (cloudflare.com/candidate-privacy-notice/).",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Please select all fields of study that closely align with your education background",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Please select the Month you expect to complete your current University degree or position:",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Please select the Year you expect to complete your current University degree or position:",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Please select your expected graduation month and year for your current studies, or if you have already graduated, indicate the month and year you completed your most recent studies.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Please select your GPA range based on a 4.0 scale. If you're on a 5.0 scale, please adjust to a 4.0 scale.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Please specify the grading scale used by your current school.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Privacy Policy Acknowledgement",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Rocket Lab is required to comply with US export compliance laws & regulations including the International Traffic In Arms Regulations (ITAR) and the Export Administration Regulations (EAR). These regulations restrict whom Rocket Lab can share materials with, and whom can receive those materials. This includes hardware, technical data, and defense services. Access to these materials is required for employment at Rocket Lab; being unable to meet these export compliance requirements means that you will be ineligible for employment at Rocket Lab. Do you consent to Rocket Lab requesting information regarding citizenships, passports and visas?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "SAT Score",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "SpaceX & SpaceXAI Employment History",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Terms & Conditions",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "This role is onsite based our of our Cambridge, MA headquarters. Are you local or willing to relocate?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "This role requires you to work onsite 5 days a week at our San Jose location. Is that a requirement you can meet?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "U.S. WORK AUTHORIZATION",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Upon employment, can you submit verification of your legal right to work for Toshiba in the United States?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What are your preferred pronouns?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What citizenships do you hold? Select all that apply.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What citizenships have you previously held? Select all that apply.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What country do you currently reside in?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What degree are you currently pursuing or have recently completed?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is the source of your right to work where this role is listed?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your anticipated graduation date?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your current affiliation with your University?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your current cumulative GPA on a 4.0 scale?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your current education level?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your degree classification?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your expected graduation date?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your overall GPA?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your top location preference?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What is your university's GPA range?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What state and country do you currently reside in?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What year are you expected to graduate?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "What year do you graduate?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Which department are you most interested in at Five Rings?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Which university are you currently attending? Select \"Other\" if not listed",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Will you be enrolled in a degree seeking program during the Internship program dates of September 14 - December 4, 2026?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Will you be ready for full-time employment in 2028?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Will you be returning to school at the end of the internship to continue academic studies for at least one quarter/semester?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Will you now or in the future require any type of immigration/visa sponsorship or support? Sponsorship or support for an immigration-related employment benefit includes but is not limited to the following: H-1B, H-1B1, J-1, TN, E-3, O-1, job portability benefit (I-485 Supplement Js), F-1 CPT, F-1 STEM OPT, or any employment authorization application that may require immigration support from Redwood Materials.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Will you now or in the future require employer sponsorship for work authorization in this country?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Will you now or in the future require sponsorship for employment in the United States?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Will you now or in the future require sponsorship for employment visa status?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Will you now or in the future require sponsorship for employment? For instance, an H-1B? Toshiba Global Commerce Solutions will not be providing visa sponsorship for this position now or in the future. Therefore, in order to be considered for this position, you must have the ability to work without a need for current or future visa sponsorship.",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Will you now or in the future require sponsorship to work in the U.S.?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Will you now or in the future require work authorization or visa sponsorship for employment at HPR (including authorization/sponsorship for CPT, OPT, H1-B, etc.)?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Will you now or in the future require work authorization sponsorship to work in the United States?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Will you require sponsorship from Anduril for employment now or in the future (e.g, H1B visa)?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Will you require sponsorship to continue working in the United States?",
+      "jobs": 1,
+      "required": 1
+    },
+    {
+      "label": "Would you like to be contacted via text message about your application status? Please note standard messaging rates may apply.",
+      "jobs": 1,
+      "required": 1
+    }
+  ],
+  "selectOptions": {
+    "will you now or in the future require work authorization sponsorship to work in the united states": [
+      "Yes",
+      "No"
+    ],
+    "please specify the grading scale used by your current school": [
+      "4.0 Scale",
+      "5.0 Scale",
+      "UK Grading System",
+      "Other / Not Applicable"
+    ],
+    "please indicate your overall gpa": [
+      "< 3.0",
+      "3.0 - 3.4",
+      "3.5 - 3.9",
+      "4.0 - 4.4",
+      "4.5 - 5.0",
+      "First-Class Honours",
+      "Upper Second-Class Honours",
+      "Lower Second-Class Honours",
+      "Third-Class Honours",
+      "Other / Not Applicable"
+    ],
+    "are you considering or committed to pursuing further education immediately after completing your current academic studies": [
+      "No",
+      "I am considering further education after my current program",
+      "I have committed to another degree after my current program"
+    ],
+    "if so please specify the type of degree you plan to pursue": [
+      "Bachelor's",
+      "Master's",
+      "PhD or Doctorate",
+      "Other"
+    ],
+    "which department are you most interested in at five rings": [
+      "Quantitative Trading",
+      "Quantitative Research",
+      "Software Development"
+    ],
+    "are you holding any outstanding offers": [
+      "Yes",
+      "No"
+    ],
+    "how did you first hear about five rings": [
+      "Coffee Chat",
+      "Conference",
+      "GitHub",
+      "Handshake",
+      "LinkedIn",
+      "Student Organization Newsletter or Event",
+      "University Career Fair / Networking Event",
+      "Word of Mouth",
+      "Information Session",
+      "Other"
+    ],
+    "are you legally eligible to work in the united states": [
+      "Yes",
+      "No"
+    ],
+    "will you now or in the future require sponsorship for employment visa status": [
+      "Yes",
+      "No"
+    ],
+    "privacy policy acknowledgement": [
+      "I consent"
+    ],
+    "how did you hear about this job": [
+      "Campus - SpaceX event (indicate below)",
+      "Careers site",
+      "Event (indicate below)",
+      "Friend or family (non-employee)",
+      "Glassdoor",
+      "I am a current SpaceX employee",
+      "Indeed",
+      "LinkedIn",
+      "News/Media",
+      "Other (indicate below)",
+      "Referred by SpaceX employee (name below)",
+      "Contacted by SpaceX recruiter (name below)"
+    ],
+    "gpa undergraduate": [
+      "Not applicable/Do not recall",
+      "4.0 out of 4.0",
+      "3.9 out of 4.0",
+      "3.8 out of 4.0",
+      "3.7 out of 4.0",
+      "3.6 out of 4.0",
+      "3.5 out of 4.0",
+      "3.4 out of 4.0",
+      "3.3 out of 4.0",
+      "3.2 out of 4.0",
+      "3.1 out of 4.0",
+      "3.0 out of 4.0"
+    ],
+    "gpa graduate": [
+      "Other/Not Applicable",
+      "4.0 out of 4.0",
+      "3.9 out of 4.0",
+      "3.8 out of 4.0",
+      "3.7 out of 4.0",
+      "3.6 out of 4.0",
+      "3.5 out of 4.0",
+      "3.4 out of 4.0",
+      "3.3 out of 4.0",
+      "3.2 out of 4.0",
+      "3.1 out of 4.0",
+      "3.0 out of 4.0"
+    ],
+    "gpa doctorate": [
+      "Not applicable/Do not recall",
+      "4.0 out of 4.0",
+      "3.9 out of 4.0",
+      "3.8 out of 4.0",
+      "3.7 out of 4.0",
+      "3.6 out of 4.0",
+      "3.5 out of 4.0",
+      "3.4 out of 4.0",
+      "3.3 out of 4.0",
+      "3.2 out of 4.0",
+      "3.1 out of 4.0",
+      "3.0 out of 4.0"
+    ],
+    "sat score": [
+      "Did not take/Do not recall",
+      "1600 out of 1600",
+      "1590 out of 1600",
+      "1580 out of 1600",
+      "1570 out of 1600",
+      "1560 out of 1600",
+      "1550 out of 1600",
+      "1540 out of 1600",
+      "1530 out of 1600",
+      "1520 out of 1600",
+      "1510 out of 1600",
+      "1500 out of 1600"
+    ],
+    "act score": [
+      "Did not take/Do not recall",
+      "36 out of 36",
+      "35 out of 36",
+      "34 out of 36",
+      "33 out of 36",
+      "32 out of 36",
+      "31 out of 36",
+      "30 out of 36",
+      "29 out of 36",
+      "28 out of 36",
+      "27 out of 36",
+      "26 out of 36"
+    ],
+    "gre score": [
+      "Did not take/Do not recall",
+      "340 out of 340",
+      "339 out of 340",
+      "338 out of 340",
+      "337 out of 340",
+      "336 out of 340",
+      "335 out of 340",
+      "334 out of 340",
+      "333 out of 340",
+      "332 out of 340",
+      "331 out of 340",
+      "330 out of 340"
+    ],
+    "active security clearances": [
+      "Top Secret SCI with Polygraph",
+      "Top Secret SCI/SAP",
+      "Top Secret",
+      "DOE Level Q",
+      "Secret",
+      "Expired Clearance",
+      "Never held a clearance",
+      "Do not wish to disclose"
+    ],
+    "spacex spacexai employment history": [
+      "I have never worked for SpaceX, SpaceXAI, xAI, X, or Twitter",
+      "I am a former SpaceX, SpaceXAI, xAI, X, or Twitter employee",
+      "I am a current or former SpaceX, SpaceXAI, xAI, X, or Twitter Intern",
+      "I am a current SpaceX employee",
+      "I am a current SpaceXAI employee",
+      "I am currently working or have worked at a SpaceX, SpaceXAI, xAI, X, or Twitter facility for another employer (i.e. contracted by a third-party employer)"
+    ],
+    "can you perform all of the essential functions of this role with or without reasonable accommodations": [
+      "Yes",
+      "No"
+    ],
+    "are you legally authorized to work in the united states": [
+      "I am authorized to work in the United States for any employer",
+      "I am authorized to work in the United States for my present employer only",
+      "I require sponsorship to work in the United States",
+      "I am not authorized to work in the United States",
+      "My status to work in the United States is unknown"
+    ],
+    "citizenship status": [
+      "(a) U.S. citizen or national of the United States",
+      "(b) U.S. lawful permanent resident",
+      "(c) Refugee under 8 U.S.C. 1157",
+      "(d) Asylee under 8 U.S.C. 1158",
+      "(e) Authorized to work in the United States under the Deferred Action for Childhood Arrivals (DACA) program",
+      "(f) Other (please explain)"
+    ],
+    "are you 18 years of age or older": [
+      "Yes",
+      "No"
+    ],
+    "upon employment can you submit verification of your legal right to work for toshiba in the united states": [
+      "Yes",
+      "No"
+    ],
+    "what state and country do you currently reside in": [
+      "BRA",
+      "CAN-NL",
+      "CAN-PE",
+      "CAN-NW",
+      "CAN-NB",
+      "CAN-QC",
+      "CAN-ON",
+      "CAN-MB",
+      "CAN-SK",
+      "CAN-AB",
+      "CAN-BC",
+      "CAN-YT"
+    ],
+    "if you are not based in the same city as the role you have applied for are you willing to relocate": [
+      "Yes",
+      "No"
+    ],
+    "do you currently work under any agreement such as a noncompete agreement which would restrict your employment with a toshiba company": [
+      "Yes",
+      "No"
+    ],
+    "have you previously been employed by a toshiba company": [
+      "Yes",
+      "No"
+    ],
+    "have you ever worked for our company under a different name": [
+      "Yes",
+      "No"
+    ],
+    "would you like to be contacted via text message about your application status please note standard messaging rates may apply": [
+      "Yes",
+      "No"
+    ],
+    "are you available to work 2030 hours per week during the internship program dates of september 14 december 4 2026": [
+      "Yes",
+      "No"
+    ],
+    "are you able to work a hybrid schedule mix of inpersonremote at the location this position is posted please note that the final working schedule will be determined between the selected candidate and hiring manager": [
+      "Yes",
+      "No"
+    ],
+    "will you be enrolled in a degree seeking program during the internship program dates of september 14 december 4 2026": [
+      "Yes",
+      "No"
+    ],
+    "will you now or in the future require sponsorship for employment for instance an h1b toshiba global commerce solutions will not be providing visa sponsorship for this position now or in the future therefore in order to be considered for this position you must have the ability to work without a need for current or future visa sponsorship": [
+      "Yes",
+      "No"
+    ],
+    "which university are you currently attending select other if not listed": [
+      "Caltech",
+      "Carnegie Mellon",
+      "Georgia Tech",
+      "Harvard",
+      "Howard",
+      "Michigan",
+      "MIT",
+      "Princeton",
+      "Rice",
+      "Tufts",
+      "UChicago",
+      "UT Austin"
+    ],
+    "overall gpa": [
+      "4.5-5.0",
+      "4.0-4.5",
+      "3.5-3.9",
+      "3.0-3.4",
+      "below 3.0",
+      "I'd rather not disclose"
+    ],
+    "what is your expected graduation year": [
+      "2026",
+      "2027",
+      "2028",
+      "2029",
+      "2030"
+    ],
+    "will you be ready for fulltime employment in 2028": [
+      "Yes",
+      "No",
+      "Undecided"
+    ],
+    "do you now or will you in the future need sponsorship from an employer in order to obtain extend or renew your authorization to work in singapore": [
+      "Yes",
+      "No"
+    ],
+    "do you have any outstanding offers or deadlines": [
+      "Yes",
+      "No"
+    ],
+    "have you interviewed with virtu in the past": [
+      "Yes",
+      "No"
+    ],
+    "do you plan on pursuing a higher degree after graduation": [
+      "Yes",
+      "No",
+      "Undecided"
+    ],
+    "how did you hear about this internship": [
+      "Virtu Careers Site",
+      "Social Media - LinkedIn",
+      "Social Media - Instagram",
+      "Job Posting",
+      "Current or Former Virtu Employee",
+      "Current or Former Virtu Intern",
+      "Career Fair",
+      "Campus Information Session",
+      "Industry conference or event",
+      "Other"
+    ],
+    "please only apply to one internship position if you are interested in other internship tracks please select them below": [
+      "Quantitative Strategist",
+      "Development",
+      "Quantitative Trading",
+      "Trading Operations",
+      "Agency Trading"
+    ],
+    "what is your current cumulative gpa on a 40 scale": [
+      "3.7 or Higher",
+      "3.5 - 3.6",
+      "3.0 - 3.4",
+      "2.5 - 2.9",
+      "2.4 or Below"
+    ],
+    "please select your expected graduation month and year for your current studies or if you have already graduated indicate the month and year you completed your most recent studies": [
+      "Prior to December 2025",
+      "Spring 2026",
+      "Fall 2026",
+      "Spring 2027",
+      "Fall 2027",
+      "Spring 2028",
+      "Fall 2028",
+      "Spring 2029",
+      "Fall 2029"
+    ],
+    "have you ever held or do you currently hold any leadership roles through employment volunteer work or university organizations such as clubs or societies": [
+      "Yes",
+      "No"
+    ],
+    "have you completed at least one internship apprenticeship or comparable work experience in the field you are applying for": [
+      "Yes",
+      "No"
+    ],
+    "are you currently a member of any university organizations such as clubs or societies": [
+      "Yes",
+      "No"
+    ],
+    "are you currently pursuing a major in one of the following disciplines systems engineering economics mathematics computer science data science information systems or a related stem field": [
+      "Yes",
+      "No"
+    ],
+    "how did you hear about appian": [
+      "Appian Employee",
+      "Appian Careers Website",
+      "Campus Recruiting Event",
+      "Campus Career Fair",
+      "Community and Diversity Outreach Organization",
+      "DC Tech Values",
+      "Facebook",
+      "Facebook/Instagram Ad",
+      "Glassdoor",
+      "Global Job Board (Mexico, Chennai, etc)",
+      "Google Ad",
+      "Handshake Job Board"
+    ],
+    "are you currently authorized to work in the citycountry where this position is located": [
+      "Yes",
+      "No"
+    ],
+    "if yes will you now or in the future require appian to file a petition or application for employmentbased visa status on your behalf to begin or continue employment with our company please note that if you are in f1 optstem opt h1b h4 ead l2 ead or other ead conferring status such as daca tps humanitarian parole u4u familybased adjustment of status pending etc you must answer yes to this question": [
+      "Yes",
+      "No"
+    ],
+    "1 please confirm that you are either a a us citizen b lawful permanent resident of the us green card holder or 3 protected individual as defined by 8 usc 1324ba3": [
+      "Yes",
+      "No"
+    ],
+    "2 please indicate whether you ever been indicted for or convicted of violating any of the us criminal statues enumerated in 22 cfr 1206 or violating a foreign criminal law on exportation of defense articles where conviction of such law carries a minimum term of imprisonment of greater than one year": [
+      "Yes",
+      "No"
+    ],
+    "3 please indicate whether you have been declared ineligible to contract with or to receive a license or other approval to import defense articles or defense services from or to receive an export license or other approval from any agency of the us government": [
+      "Yes",
+      "No"
+    ],
+    "what is your expected graduation month": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "what is the highest degree level you are currently pursuing": [
+      "High School Diploma",
+      "Associate's Degree",
+      "Bachelor's Degree",
+      "Master's Degree",
+      "Doctor of Philosophy (Ph.D.)"
+    ],
+    "please select your gpa range based on a 40 scale if youre on a 50 scale please adjust to a 40 scale": [
+      "3.5-4.0",
+      "3.3-3.5",
+      "3.29 or below"
+    ],
+    "please select one of the following statements based on your work authorization": [
+      "Now or at any point the future, I will require visa sponsorship to work in the US. For example, if I were to start full time in the future with CTC I will need visa sponsorship at some point.",
+      "Now or at any point in the future, I am eligible to work in the United States with no restrictions."
+    ],
+    "how did you hear about ctc": [
+      "AfroTech",
+      "Blind",
+      "Campus Career Center",
+      "CPPCON",
+      "CTC360",
+      "CTC Employee",
+      "CTC Office Visit",
+      "CTC Website",
+      "Duke Technology Scholars Program",
+      "Friend",
+      "Girls Who Code",
+      "GitHub"
+    ],
+    "state if na select other": [
+      "AL",
+      "AK",
+      "AZ",
+      "AR",
+      "CA",
+      "CO",
+      "CT",
+      "DE",
+      "FL",
+      "GA",
+      "HI",
+      "ID"
+    ],
+    "are you currently registered with finra": [
+      "Yes",
+      "No"
+    ],
+    "if yes to above are you actively maintaining any security licenses": [
+      "Yes",
+      "No"
+    ],
+    "we have several job paths as part of our qta program to help us understand which paths isare best for you which of these statements best describes your interest in ctc": [
+      "I want to be in a trading seat making quick decisions. I thrive under pressure and enjoy the feeling of competition in a high stakes environment.",
+      "I am fascinated by complicated problems. I want to present novel solutions to technical challenges using my data science, math and coding skills.",
+      "Neither of these statements capture why I am interested in CTC."
+    ],
+    "are you a us citizen lawful permanent resident of the us protected individual as defined by 8 usc 1324ba3 or eligible to obtain the required authorizations from the us department of state as required to conform to us government space technology export regulations including the international traffic in arms regulations itar": [
+      "Yes",
+      "No"
+    ],
+    "this role requires you to work onsite 5 days a week at our san jose location is that a requirement you can meet": [
+      "Yes",
+      "No"
+    ],
+    "will you now or in the future require sponsorship to work in the us": [
+      "Yes",
+      "No"
+    ],
+    "if you are not located in san jose ca are you willing to relocate": [
+      "Yes",
+      "No"
+    ],
+    "country": [
+      "United States",
+      "Canada",
+      "Switzerland",
+      "Afghanistan",
+      "Albania",
+      "Algeria",
+      "Andorra",
+      "Angola",
+      "Antigua and Barbuda",
+      "Argentina",
+      "Armenia",
+      "Australia"
+    ],
+    "are you legally authorized to work for all employers in the us": [
+      "Yes",
+      "No"
+    ],
+    "do you now or will you in the future require sponsorship h1b visa for continued work authorization in the us": [
+      "Yes",
+      "No"
+    ],
+    "are you willing to work inperson for 12 weeks during the internship": [
+      "Yes",
+      "No"
+    ],
+    "what is your top location preference": [
+      "Costa Mesa, CA (HQ)",
+      "Irvine, CA",
+      "Atlanta, GA",
+      "Reston, VA",
+      "Boston, MA",
+      "Seattle, WA"
+    ],
+    "will you be returning to school at the end of the internship to continue academic studies for at least one quartersemester": [
+      "Yes",
+      "No"
+    ],
+    "export controls this position requires access to information and technology that is subject to us export controls your responses to the questions below will be used solely to determine your eligibility under us law to receive information and materials subject to us export controls": [
+      "A United States citizen or national",
+      "A person lawfully admitted for permanent residence of the United States (i.e., “Green Card” holder)",
+      "A person admitted as a refugee to the United States under 8 U.S.C. 1157",
+      "A person admitted as an asylee to the United States under 8 U.S.C. 1158",
+      "None of the above"
+    ],
+    "us work authorization": [
+      "Yes",
+      "No"
+    ],
+    "will you require sponsorship from anduril for employment now or in the future eg h1b visa": [
+      "Yes",
+      "No"
+    ],
+    "how did you hear about anduril": [
+      "Google job search",
+      "News coverage of Anduril",
+      "Don't Work at Anduril campaign",
+      "Friend/know someone at the company",
+      "Outreach from an Anduril recruiter",
+      "JobsOhio",
+      "BuiltIn",
+      "Indeed",
+      "Anduril social media",
+      "Anduril YouTube videos",
+      "Podcast featuring an Anduril leader",
+      "LinkedIn"
+    ],
+    "employment eligibility status": [
+      "Yes, will require firm sponsorship",
+      "No. already has permanent work authorization"
+    ],
+    "location preference": [
+      "Chicago",
+      "London"
+    ],
+    "what degree are you currently pursuing or have recently completed": [
+      "Bachelor's",
+      "Master's",
+      "PhD"
+    ],
+    "please select all fields of study that closely align with your education background": [
+      "Statistics",
+      "Machine Learning",
+      "Mathematics",
+      "Computer Science",
+      "Engineering",
+      "Physics",
+      "Other"
+    ],
+    "for your most recent degree what iswas your gpa normalized to a 40 scale": [
+      "NA",
+      "< 3.0",
+      "3.0 -3.5",
+      "3.6-4.0"
+    ],
+    "what year are you expected to graduate": [
+      "2026",
+      "2027",
+      "2028",
+      "2029 or later"
+    ],
+    "have you participated in any of the following mathematics competitions": [
+      "IMO or EGMO",
+      "USAMO, USAJMO, or foreign National Olympiad",
+      "Putnam",
+      "USACO, IOI, or ICPC",
+      "I have not participated in any of these competitions"
+    ],
+    "have you completed any internships if yes were any of them at a hedge fund or a proprietary trading firm": [
+      "No, I have not completed any internships.",
+      "Yes, I have internship experience, but not within a hedge fund or proprietary trading firm.",
+      "Yes, I have internship experience within a hedge fund or proprietary trading firm."
+    ],
+    "astranis complies with us government space technology export regulations therefore will you state which of the following applies to you": [
+      "I am a U.S. Citizen.",
+      "I am a lawful permanent resident of the U.S. and Green Card Holder.",
+      "I am a refugee under 8 U.S.C. 1157.",
+      "I am an asylee under 8 U.S.C. 1158.",
+      "None of the above."
+    ],
+    "please confirm the season you are applying for": [
+      "Fall 2026"
+    ],
+    "at astranis we value inperson collaboration and a strong work ethic are you comfortable with working onsite at our san francisco hq 5 days a week": [
+      "Yes",
+      "No"
+    ],
+    "are you at least 18 years of age": [
+      "Yes",
+      "No"
+    ],
+    "what year do you graduate": [
+      "2027",
+      "2028",
+      "2029"
+    ],
+    "are you able to work fulltime onsite scottsdale az": [
+      "I am located near an office hub",
+      "I am open to relocation with assistance",
+      "I am looking for remote only"
+    ],
+    "are you legally authorized to work in the united states for any us employer now and in the future": [
+      "Yes",
+      "No"
+    ],
+    "will you now or in the future require sponsorship for employment in the united states": [
+      "Yes",
+      "No"
+    ],
+    "can you provide verification of both your identity and authorization to work in the united states to the extent required by law": [
+      "Yes",
+      "No"
+    ],
+    "if your scope of work requires exposure to us export administration controlled technology and you are a nonus person as defined below will you be able to coordinate with axon trade compliance on obtaining us department of commerce licensing as needed": [
+      "Yes",
+      "No"
+    ],
+    "do you have any contractual obligations agreements relationships or commitments to another person or entity that would impact impede or interfere with your ability to join axon": [
+      "Yes",
+      "No",
+      "Maybe / Would like to discuss"
+    ],
+    "have you ever been employed by axon": [
+      "Yes",
+      "No"
+    ],
+    "are you registered to attend renderatl 2026": [
+      "Yes",
+      "No"
+    ],
+    "are you legally authorized to work in the us": [
+      "Yes",
+      "No"
+    ],
+    "do you now or will you in the future require immigration sponsorship for work authorization for example h1b status": [
+      "Yes",
+      "No"
+    ],
+    "will you require sponsorship to continue working in the united states": [
+      "Yes",
+      "No"
+    ],
+    "this role is onsite based our of our cambridge ma headquarters are you local or willing to relocate": [
+      "Yes",
+      "No"
+    ],
+    "are you currently enrolled in a phd program": [
+      "Yes",
+      "No"
+    ],
+    "do you have publications in toptier ml vision or systems venues eg acl neurips cvpr eccv iccv mobicom mobisys mlsys icassp icml icrl icra iros": [
+      "Yes",
+      "No"
+    ],
+    "do you have deep understanding and handson experience in machine learning models for timeseries data including both transformerbased architectures and probabilistic models eg state estimation": [
+      "Yes",
+      "No"
+    ],
+    "what is your degree classification": [
+      "First",
+      "2.1",
+      "2.2",
+      "Third"
+    ],
+    "do you now or will you in the future require immigration sponsorship to work at cloudflare": [
+      "Yes",
+      "No"
+    ],
+    "please review and acknowledge cloudflares candidate privacy policy cloudflarecomcandidateprivacynotice": [
+      "Acknowledge/Confirm"
+    ],
+    "are you currently enrolled in a university or program and will return to the program upon completion of internship": [
+      "Yes",
+      "No"
+    ],
+    "if you are currently enrolled in a university or program when do you expect to graduate or complete your program select the closest date": [
+      "Before 2025",
+      "June 2025",
+      "December 2025",
+      "June 2026",
+      "December 2026",
+      "June 2027",
+      "December 2027",
+      "June 2028",
+      "December 2028",
+      "June 2029",
+      "N/A"
+    ],
+    "if you are enrolled in university what degree are you currently pursuing": [
+      "Bachelor's",
+      "Master's",
+      "MBA",
+      "PhD",
+      "Other (Associate’s, Bootcamp, etc)",
+      "N/A"
+    ],
+    "a successful internship may lead to consideration for a fulltime opportunity if you were to receive a fulltime offer when would you be available to start": [
+      "Immediately after the internship ends",
+      "Need to return to school and available upon graduation"
+    ],
+    "are you currently a resident of the greater austin area or do you have confirmed plans to be based there for the duration of this internship": [
+      "Yes",
+      "No"
+    ],
+    "are you available for a 12week fulltime 40 hours per week internship between september december 2026": [
+      "Yes",
+      "No"
+    ],
+    "are you able to work in our austin office 35 days a week": [
+      "Yes",
+      "No"
+    ],
+    "please reconfirm the university you currently attend": [
+      "Massachusetts Institute of Technology",
+      "Harvard University",
+      "Stanford University",
+      "University of Chicago",
+      "Princeton University",
+      "Yale University",
+      "Columbia University",
+      "University of Pennsylvania",
+      "Cornell University",
+      "New York University",
+      "Carnegie Mellon University",
+      "University of California Berkeley"
+    ],
+    "what is your expected graduation date": [
+      "Already graduated",
+      "June 2026",
+      "July 2026",
+      "August 2026",
+      "September 2026",
+      "October 2026",
+      "November 2026",
+      "December 2026",
+      "January 2027",
+      "February 2027",
+      "March 2027",
+      "April 2027"
+    ],
+    "do you have relevant internship experience at a proprietary trading firm": [
+      "Yes",
+      "No"
+    ],
+    "if yes select your most recent proprietary trading firm experience": [
+      "Jane Street",
+      "Citadel Securities",
+      "Jump Trading",
+      "Hudson River Trading (HRT)",
+      "Susquehanna International Group (SIG)",
+      "DRW",
+      "Optiver",
+      "IMC Trading",
+      "Tower Research Capital",
+      "Virtu Financial",
+      "Flow Traders",
+      "XTX Markets"
+    ],
+    "what country do you currently reside in": [
+      "Afghanistan",
+      "Albania",
+      "Algeria",
+      "Andorra",
+      "Angola",
+      "Antigua and Barbuda",
+      "Argentina",
+      "Armenia",
+      "Australia",
+      "Austria",
+      "Azerbaijan",
+      "Bahamas"
+    ],
+    "if applicable which us state do you reside in": [
+      "Alabama",
+      "Alaska",
+      "Arizona",
+      "Arkansas",
+      "California",
+      "Colorado",
+      "Connecticut",
+      "Delaware",
+      "Florida",
+      "Georgia",
+      "Hawaii",
+      "Idaho"
+    ],
+    "are you legally authorized to work in the country where this role is based": [
+      "Yes, I am authorized to work in this country for any employer",
+      "No, I am not authorized to work in this country for any employer",
+      "I am authorized to work in this country for my present employer only"
+    ],
+    "will you now or in the future require employer sponsorship for work authorization in this country": [
+      "No, I will not require sponsorship now or in the future to work in this country",
+      "Yes, I will require sponsorship now or in the future to work in this country"
+    ],
+    "what are your preferred pronouns": [
+      "She/Her",
+      "He/Him",
+      "They/Them",
+      "Prefer not to say"
+    ],
+    "how did you hear about dv trading": [
+      "LinkedIn",
+      "DV Recruitment",
+      "DV Employee",
+      "DV Intern",
+      "DV Website",
+      "Student Organization",
+      "Campus Event",
+      "Word of Mouth",
+      "SHRM",
+      "Other"
+    ],
+    "terms conditions": [
+      "Yes, I have read and agree to DV Trading's Privacy Policy."
+    ],
+    "godaddy employment history": [
+      "I have never worked for GoDaddy or one of its subsidiaries (Media Temple, Main Street Hub, Sucuri, Freedom Voice, Sellbrite, etc.).",
+      "I am a current employee of GoDaddy.",
+      "I am a current contingent worker with GoDaddy.",
+      "I am a former GoDaddy employee or one of its subsidiaries (Media Temple, Main Street Hub, Sucuri, Freedom Voice, Sellbrite, etc.)."
+    ],
+    "what is your current education level": [
+      "Freshman",
+      "Sophomore",
+      "Junior",
+      "Senior",
+      "Grad Student",
+      "I have already graduated"
+    ],
+    "in order to customize your potential internship experience please let us know about your anticipated graduation date in correlation with this internship period which may run between january and september": [
+      "My anticipated graduation date is within the same year as this internship.",
+      "My anticipated graduation date is in the spring or summer of the year after this internship.",
+      "My anticipated graduation date is further in the future from the above."
+    ],
+    "do you have the legal right to perform this role in the country in which you are applying": [
+      "Yes",
+      "No"
+    ],
+    "is your right to work based either now or in the future on obtaining a visa work permit or equivalent": [
+      "Yes",
+      "No"
+    ],
+    "have you ever previously interviewed with godaddy or any of its subsidiaries 123reg freedom voice heg media temple main street hub sellbrite sucuri etc": [
+      "Yes",
+      "No"
+    ],
+    "have you been introduced to godaddy or any of its subsidiaries by a recruitment agency within the last 12 months": [
+      "Yes",
+      "No"
+    ],
+    "have you ever been offered employment with godaddy or any of its subsidiaries 123reg freedom voice heg media temple main street hub sellbrite sucuri etc": [
+      "Yes",
+      "No"
+    ],
+    "how did you hear about us": [
+      "Other",
+      "Events",
+      "Social Media",
+      "GoDaddy Life Blog",
+      "GoDaddy Alumni/Previous Employee",
+      "Employee Referral",
+      "GoDaddy Recruiting Team",
+      "Job Boards",
+      "GoDaddy Career Site"
+    ],
+    "in addition to email communications godaddy utilizes a smswhatsapp texting tool to send quick updates and communicate with you throughout our candidate processes godaddy executives do not contact candidates or employees by sms or whatsapp per godaddy policy we will never text you a link to click please indicate below if you wish to receive smswhatsapp messages from godaddy standard messaging and data rates may apply": [
+      "I agree to opt-in to receive SMS/WhatsApp messaging",
+      "I am opting out of SMS/WhatsApp messaging"
+    ],
+    "by submitting your application i you confirm that the information you provide is accurate and complete to the best of your knowledge and you will inform us immediately if you subsequently become aware of any errors or inaccuracies ii you acknowledge you are applying for a role with a company within the godaddy group details of which will be provided at a later stage of the recruitment process if applicable and iii you confirm you have read and understood the terms of our privacy policy httpswwwgodaddycomlegalagreementsprivacypolicyiscgdbb3376d if you have questions regarding the application process or experience technical issues please email myrecruitergodaddycom if you have questions about our privacy practices please email privacygodaddycom": [
+      "Acknowledge/Confirm"
+    ],
+    "expected graduation": [
+      "2020 - Spring",
+      "2020 - Fall",
+      "2021 - Spring",
+      "2021 - Fall",
+      "2022 - Spring",
+      "2022 - Fall",
+      "2023 - Spring",
+      "2023 - Fall",
+      "2024 - Spring",
+      "2024 - Fall",
+      "2025 - Spring",
+      "2025 - Fall"
+    ],
+    "are you legally eligible to work in the us": [
+      "Yes",
+      "No"
+    ],
+    "will you now or in the future require work authorization or visa sponsorship for employment at hpr including authorizationsponsorship for cpt opt h1b etc": [
+      "Yes",
+      "No"
+    ],
+    "are you comfortable being onsite 5 days a week at our needham ma headquarters": [
+      "Yes",
+      "No"
+    ],
+    "are you currently enrolled in a coop program at sfu or ubc": [
+      "Yes",
+      "No"
+    ],
+    "are you currently legally authorized to work in canada for any employer": [
+      "Yes",
+      "No"
+    ],
+    "do you require sponsorship for employment visa status": [
+      "Yes",
+      "No"
+    ],
+    "what is your anticipated graduation date": [
+      "Fall 2027",
+      "Spring 2028",
+      "Fall 2028",
+      "Spring 2029",
+      "Fall 2029",
+      "Other"
+    ],
+    "have you tutored or tad for any classes": [
+      "Yes",
+      "No"
+    ],
+    "applicants must be actively enrolled in an undergraduate masters or doctoral degree program at the start of the internship and remain enrolled throughout the program": [
+      "Yes",
+      "No"
+    ],
+    "are you currently eligible to legally work in the united states": [
+      "Yes",
+      "No"
+    ],
+    "are you able to work onsite in one of our offices san francisco and or berkeley five days a week": [
+      "Yes",
+      "No"
+    ],
+    "please select the year you expect to complete your current university degree or position": [
+      "2030",
+      "2029",
+      "2028",
+      "2027",
+      "2026",
+      "2025"
+    ],
+    "please select the month you expect to complete your current university degree or position": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "what is your overall gpa": [
+      "4.81 - 5.0",
+      "4.61 - 4.8",
+      "4.31 - 4.6",
+      "4.01 - 4.3",
+      "3.86 - 4.0",
+      "3.71 - 3.85",
+      "3.51 - 3.70",
+      "3.31 - 3.5",
+      "< 3.3",
+      "First-Class Honours (UK)",
+      "Second-Class Honours (UK)",
+      "Third-Class Honours (UK)"
+    ],
+    "what is your universitys gpa range": [
+      "0.0 - 5.0",
+      "0.0 - 4.0",
+      "UK Scale"
+    ],
+    "do you hold any outstanding offers or have any deadlines to accept an offer": [
+      "Yes",
+      "No"
+    ],
+    "do you require employersponsored work authorization": [
+      "Yes",
+      "No"
+    ],
+    "do you have an office location preference": [
+      "Chicago",
+      "New York",
+      "Amsterdam"
+    ],
+    "what is your current affiliation with your university": [
+      "Completing Bachelors Degree",
+      "Completing Masters Degree",
+      "Completing PhD",
+      "Completing a Postdoc Agreement",
+      "Currently a non-Tenure-Track Professor",
+      "Currently a Tenure-Track Professor or Professor w/Tenure"
+    ],
+    "how did you hear about radix": [
+      "Radix Recruiter",
+      "Job Posting",
+      "Radix Careers Page",
+      "Radix Employee",
+      "Online Media"
+    ],
+    "please only apply to 1 opportunity at radix at a time if you have other interests please indicate them below here": [
+      "Quantitative Research (Full-Time)",
+      "C++ Software Development (Full-time)",
+      "DevOps / Automation Engineering (Full-time)",
+      "Hardware Engineering (Full-time)",
+      "Business Analytics (Full-time)"
+    ],
+    "have you ever worked for redwood materials": [
+      "No",
+      "Yes - I am a current employee or contractor",
+      "Yes - I am a former employee or contractor"
+    ],
+    "will you now or in the future require any type of immigrationvisa sponsorship or support sponsorship or support for an immigrationrelated employment benefit includes but is not limited to the following h1b h1b1 j1 tn e3 o1 job portability benefit i485 supplement js f1 cpt f1 stem opt or any employment authorization application that may require immigration support from redwood materials": [
+      "Yes",
+      "No",
+      "Unsure"
+    ],
+    "are you currently enrolled in a degree program": [
+      "Yes",
+      "No"
+    ],
+    "are you available to work from our office in san francisco": [
+      "Yes",
+      "No"
+    ],
+    "rocket lab is required to comply with us export compliance laws regulations including the international traffic in arms regulations itar and the export administration regulations ear these regulations restrict whom rocket lab can share materials with and whom can receive those materials this includes hardware technical data and defense services access to these materials is required for employment at rocket lab being unable to meet these export compliance requirements means that you will be ineligible for employment at rocket lab do you consent to rocket lab requesting information regarding citizenships passports and visas": [
+      "Yes",
+      "No"
+    ],
+    "what citizenships do you hold select all that apply": [
+      "Afghanistan",
+      "Albania",
+      "Algeria",
+      "Andorra",
+      "Angola",
+      "Antigua and Barbuda",
+      "Argentina",
+      "Armenia",
+      "Australia",
+      "Austria",
+      "Azerbaijan",
+      "The Bahamas"
+    ],
+    "what citizenships have you previously held select all that apply": [
+      "None previously held",
+      "Afghanistan",
+      "Albania",
+      "Algeria",
+      "Andorra",
+      "Angola",
+      "Antigua and Barbuda",
+      "Argentina",
+      "Armenia",
+      "Australia",
+      "Austria",
+      "Azerbaijan"
+    ],
+    "are you legally entitled to work in new zealand": [
+      "Yes, I am a New Zealand or Australian citizen.",
+      "Yes, I am a New Zealand or Australian resident.",
+      "Yes, I have a valid work visa.",
+      "Yes, I have a temporary visa that allows me to undertake casual or fixed term employment.",
+      "No, I am not legally entitled to work in New Zealand."
+    ],
+    "how did you hear about this opportunity": [
+      "Campus",
+      "Company Website",
+      "Company Social Media",
+      "Event - Industry",
+      "Event - Recruiting",
+      "Employee of Rocket Lab",
+      "Facebook",
+      "Friend or Family",
+      "Glassdoor",
+      "I am in the industry",
+      "Indeed",
+      "LinkedIn"
+    ],
+    "highest level of educationqualification completed": [
+      "None",
+      "Certificate or Diploma",
+      "Bachelor's Degree or Equivalent",
+      "Bachelor Honours Degree",
+      "Postgraduate Certificate/Diploma",
+      "Master's Degree",
+      "Doctoral Degree"
+    ],
+    "do you have any previous military experience": [
+      "Yes",
+      "No"
+    ],
+    "do you have any previous or pending criminal convictions or charges including drink or drugrelated driving convictions but not including any concealed under the criminal records clean slate act": [
+      "Yes",
+      "No"
+    ],
+    "any offer of employment with rocket lab is contingent on a successful criminal background check and successful reference checks please indicate below if you can meet these hiring requirements": [
+      "Yes",
+      "No"
+    ],
+    "how did you hear about the role": [
+      "Company Event (Career Fair, Tech Talk, Info Session, Guest Lecture)",
+      "University Career Portal (e.g., Handshake)",
+      "Company Website / Careers Page",
+      "LinkedIn",
+      "Social Media",
+      "Company Recruiter Outreach",
+      "Friend / Peer / Word of Mouth",
+      "Student Organization / Club",
+      "Professor / Faculty",
+      "Alumni / Former Intern",
+      "Guest Lecture",
+      "Tech Forum (Github, Discord)"
+    ],
+    "depending on the needs of the role we may have openings in multiple locations please choose which locations you are open to working inrelocating to": [
+      "Austin, TX",
+      "Santa Clara, CA",
+      "Boston, MA",
+      "Fort Collins, CO",
+      "Toronto, Canada",
+      "Remote Only"
+    ],
+    "are you willing to work in our toronto office for 5 days per week": [
+      "Yes",
+      "No"
+    ],
+    "if you have applied for a pey role please confirm whether or not you are open to 12 or 16 month duration": [
+      "12 months",
+      "16 months",
+      "Flexible"
+    ],
+    "in the event that the position requires it are you open a pey role based out of one of our us offices j1 visa sponsorship will be provided": [
+      "Yes",
+      "No"
+    ],
+    "if yes to the above questions which cities are you open to": [
+      "Austin, TX",
+      "Santa Clara, CA",
+      "Boston, MA",
+      "Fort Collins, CO",
+      "All of the above"
+    ],
+    "i have read and understand the export control statement included in the job description above": [
+      "Yes",
+      "No"
+    ],
+    "how did you hear about twilio": [
+      "Careers Website",
+      "LinkedIn",
+      "Twitter",
+      "Glassdoor",
+      "Indeed",
+      "Twilio Blog",
+      "Conference or Event",
+      "Content (e.g. videos, ads, billboards etc)",
+      "Other"
+    ],
+    "are you legally authorized to work in the country in which this role is located": [
+      "Yes",
+      "No"
+    ],
+    "what is the source of your right to work where this role is listed": [
+      "Citizen or permanent resident where this role is listed",
+      "Citizen of a country with an unlimited right to work where this role is listed",
+      "Valid visa with permission to work with any employer where this role is listed",
+      "I do not currently have an unlimited right to work where this role is listed and will require sponsorship"
+    ],
+    "by clicking the acknowledge button you acknowledge that twilio processes data in accordance with the twilio applicant privacy policy": [
+      "Acknowledge"
+    ],
+    "by checking this box i confirm i have read reviewed and understood the guidelines outlined in the candidate ai responsible use policy i affirm that all the information and materials i submit throughout my application and candidacy will reflect my own work and experience": [
+      "Acknowledge"
+    ]
+  },
   "jobs": [
     {
       "board": "walleyecapital-external-students",
