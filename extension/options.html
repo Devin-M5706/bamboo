@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>jobapplr</title>
+    <style>
+      :root { color-scheme: light dark; }
+      body {
+        font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+        max-width: 46rem; margin: 2rem auto; padding: 0 1rem;
+      }
+      h1 { font-size: 1.25rem; margin-bottom: .25rem; }
+      .sub { opacity: .7; margin-top: 0; }
+      textarea { width: 100%; height: 11rem; font-family: ui-monospace, Consolas, monospace; font-size: 12px; }
+      fieldset { border: 1px solid color-mix(in srgb, currentColor 25%, transparent); border-radius: 6px; margin: 1rem 0; }
+      .live { border-color: #b00020; }
+      button { padding: .45rem .9rem; border-radius: 6px; cursor: pointer; }
+      #status { margin-left: .6rem; opacity: .8; }
+      .warn { color: #b00020; font-weight: 600; }
+      ul { padding-left: 1.1rem; }
+    </style>
+  </head>
+  <body>
+    <h1>jobapplr</h1>
+    <p class="sub">Fills applications from verified facts. Refuses whatever it cannot trace.</p>
+
+    <fieldset>
+      <legend>Evidence ledger</legend>
+      <p class="sub">Paste the contents of <code>data/ledger.json</code>.</p>
+      <textarea id="ledger" spellcheck="false" placeholder='{ "profile": {...}, "facts": [...] }'></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>Answer bank</legend>
+      <p class="sub">Paste the contents of <code>data/answers.json</code>.</p>
+      <textarea id="answers" spellcheck="false" placeholder='{ "answers": {...} }'></textarea>
+    </fieldset>
+
+    <fieldset id="livebox">
+      <legend>Submission</legend>
+      <label><input type="checkbox" id="dryRun" checked /> Dry run — fill the form but never submit</label>
+      <p class="sub" id="livewarn"></p>
+    </fieldset>
+
+    <button id="save">Save</button><span id="status"></span>
+
+    <fieldset>
+      <legend>Recent runs</legend>
+      <div id="reports">None yet.</div>
+    </fieldset>
+
+    <script src="options.js"></script>
+  </body>
+</html>

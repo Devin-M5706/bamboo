@@ -1,0 +1,46 @@
+{
+  "_readme": [
+    "Copy this to answers.json. These are the ~20 prompts that recur across Greenhouse,",
+    "Lever and Ashby internship forms. Write each one ONCE, in your own voice, then run",
+    "`npm run check` until nothing is refused.",
+    "",
+    "derived_from lists the ledger fact ids whose text supports the claims in your answer.",
+    "If you write a number or a tool name that is not in those facts, the validator refuses",
+    "the answer. That is the feature, not a bug -- fix it by adding the fact (if true) or",
+    "removing the claim (if not)."
+  ],
+  "answers": {
+    "why_company": {
+      "match": [
+        "why (do you want to|are you interested in) work(ing)? (at|for|with)",
+        "why (this company|us|our team)",
+        "what (interests|excites) you about"
+      ],
+      "text": "REPLACE ME. Note: a genuinely company-specific answer usually cannot be pre-written. Consider keeping this one deliberately short and honest about what kind of work you want, rather than faking familiarity you do not have.",
+      "derived_from": ["why-infra"],
+      "maxLength": 1200
+    },
+    "hardest_problem": {
+      "match": [
+        "(hardest|most (difficult|challenging)) (technical )?(problem|project|bug)",
+        "describe a (difficult|challenging) (problem|situation)",
+        "tell us about a time you (solved|debugged|overcame)"
+      ],
+      "text": "I built jobapplr, a Node tool that polls the Greenhouse, Lever and Ashby public job board APIs across 67 company boards. The hard part was not the automation. It was that the internship aggregator repo everyone builds on lags by up to five days, so I mined it once for company board tokens and polled the vendor APIs directly instead, which cut detection latency to the polling interval.",
+      "derived_from": ["proj-jobapplr", "proj-jobapplr-insight"],
+      "maxLength": 2000
+    },
+    "proud_project": {
+      "match": ["(project|something) you('re| are) (most )?proud of", "favorite project", "tell us about a project"],
+      "text": "REPLACE ME with a project from your ledger.",
+      "derived_from": ["proj-jobapplr"],
+      "maxLength": 2000
+    },
+    "strengths": {
+      "match": ["(greatest|biggest) strength", "what (are|do) you (good at|bring)"],
+      "text": "REPLACE ME.",
+      "derived_from": [],
+      "maxLength": 1000
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "_readme": [
+    "Copy this to ledger.json and replace every fact with something true about you.",
+    "Rules that make this work:",
+    "  1. One atomic claim per fact. Not a paragraph. Not a story.",
+    "  2. Only things you can defend in an interview six weeks from now.",
+    "  3. Put every number, tool name, and proper noun you might want to use in an",
+    "     answer somewhere in text or tags -- the validator can only trace what is here.",
+    "  4. Delete anything you are not sure about. An absent fact costs you a sentence.",
+    "     A wrong fact costs you the interview."
+  ],
+  "profile": {
+    "name": "",
+    "email": "",
+    "phone": "",
+    "school": "",
+    "gradYear": "",
+    "linkedin": "",
+    "github": "",
+    "website": "",
+    "resumePath": ""
+  },
+  "facts": [
+    {
+      "id": "proj-jobapplr",
+      "text": "I built jobapplr, a Node tool that polls the Greenhouse, Lever and Ashby public job board APIs across 67 company boards and refuses to submit any application text that cannot be traced to a verified fact file.",
+      "tags": ["Node", "JavaScript", "Greenhouse", "Lever", "Ashby", "API", "67"],
+      "verified": true
+    },
+    {
+      "id": "proj-jobapplr-insight",
+      "text": "While building jobapplr I found that the internship aggregator repo everyone uses lags by up to five days, so I mined it once for company board tokens and polled the vendor APIs directly instead, which cut detection latency to the polling interval.",
+      "tags": ["latency", "five days", "polling"],
+      "verified": true
+    },
+    {
+      "id": "coursework-ds",
+      "text": "REPLACE ME: a course you actually took, with the specific thing you built in it.",
+      "tags": [],
+      "verified": false
+    },
+    {
+      "id": "why-infra",
+      "text": "REPLACE ME: one true sentence about the kind of problem you want to work on and why, that is not flattery aimed at any particular employer.",
+      "tags": [],
+      "verified": false
+    }
+  ]
+}

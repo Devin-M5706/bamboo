@@ -1,0 +1,22 @@
+{
+  "name": "jobapplr",
+  "version": "0.1.0",
+  "description": "Autonomous internship applier with a pre-validated evidence ledger",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "bin": {
+    "jobapplr": "./src/cli.js"
+  },
+  "scripts": {
+    "mine": "node src/cli.js mine",
+    "poll": "node src/cli.js poll",
+    "watch": "node src/cli.js watch",
+    "check": "node src/cli.js check",
+    "queue": "node src/cli.js queue",
+    "test": "node --test test/*.test.js",
+    "build:ext": "node scripts/build-extension.js"
+  }
+}
