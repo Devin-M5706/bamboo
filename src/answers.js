@@ -26,29 +26,8 @@ export async function loadAnswers(file = ANSWERS_FILE) {
 }
 
 /**
- * Find the bank entry whose match patterns fit a form question.
- * Returns null rather than guessing -- an unmatched question is a refusal, and
- * refusals are the point.
+ * Retrieval lives in matching.core.js so the extension can share it verbatim.
+ * Do not reimplement it here -- two copies is how the CLI and the browser end up
+ * disagreeing about which answer belongs in a field.
  */
-export function matchQuestion(question, answers) {
-  const q = String(question ?? '').trim();
-  if (!q) return null;
-
-  let best = null;
-  for (const [key, entry] of Object.entries(answers ?? {})) {
-    for (const pattern of entry.match ?? []) {
-      let re;
-      try {
-        re = new RegExp(pattern, 'i');
-      } catch {
-        continue;
-      }
-      const m = q.match(re);
-      if (!m) continue;
-      // Longer matches win: "why do you want to work at" beats "why".
-      const score = m[0].length;
-      if (!best || score > best.score) best = { key, entry, score };
-    }
-  }
-  return best ? { key: best.key, ...best.entry } : null;
-}
+export { matchQuestion } from './matching.core.js';

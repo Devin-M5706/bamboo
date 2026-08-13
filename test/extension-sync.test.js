@@ -14,6 +14,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SHARED = [
   ['validator.core.js', 'validator.js'],
   ['selects.js', 'selects.js'],
+  ['matching.core.js', 'matching.js'],
 ];
 
 for (const [src, out] of SHARED) {

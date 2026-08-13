@@ -28,24 +28,11 @@ async function getConfig() {
   };
 }
 
-function matchQuestion(question, answers) {
-  const q = String(question ?? '').trim();
-  if (!q) return null;
-  let best = null;
-  for (const [key, entry] of Object.entries(answers ?? {})) {
-    for (const pattern of entry.match ?? []) {
-      let re;
-      try {
-        re = new RegExp(pattern, 'i');
-      } catch {
-        continue;
-      }
-      const m = q.match(re);
-      if (m && (!best || m[0].length > best.score)) best = { key, entry, score: m[0].length };
-    }
-  }
-  return best ? { key: best.key, ...best.entry } : null;
-}
+// Retrieval comes from the shared core (extension/vendor/matching.js, generated from
+// src/matching.core.js). Do not reimplement it here -- `bamboo check` and this file
+// must agree on which answer belongs in a field, or check passes while the extension
+// submits something else.
+const matchQuestion = (question, answers) => JA.matching.matchQuestion(question, answers);
 
 function fillProfile(vendor, profile) {
   const map = JA.FIELD_MAP[vendor] ?? {};
