@@ -71,7 +71,7 @@ async function run() {
   const { ledger, answers, settings } = await getConfig();
 
   if (!ledger.facts?.length) {
-    log('ABORT: evidence ledger is empty. Load data/ledger.json on the options page.');
+    log('ABORT: evidence ledger is empty. Load ~/.bamboo/ledger.json on the options page.');
     return;
   }
 

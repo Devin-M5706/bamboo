@@ -80,7 +80,7 @@ export function ledgerTable(entries, total = columns()) {
   return out.join('\n');
 }
 
-/** Adapt data/ledger.json facts into the table's shape. */
+/** Adapt ledger.json facts into the table's shape. */
 export const factsToEntries = (facts) =>
   facts.map((f, i) => ({
     id: String(i + 1),

@@ -1,13 +1,13 @@
 import fs from 'node:fs/promises';
-import path from 'node:path';
-import { DATA_DIR, REQUEST_STAGGER_MS } from './config.js';
+import { REQUEST_STAGGER_MS, SURVEY_FILE } from './config.js';
 import { loadBoards } from './poll.js';
 import { fetchBoard } from './sources.js';
 import { aggregateQuestions, fetchJobDetail } from './questions.js';
 import { checkEligibility } from './eligibility.js';
 
 const sleep = (n) => new Promise((r) => setTimeout(r, n));
-const OUT = path.join(DATA_DIR, 'questions-survey.json');
+// config.js owns every path, so the CLI can print where this landed without guessing.
+const OUT = SURVEY_FILE;
 
 /**
  * Sample real internship postings and record which free-text prompts actually appear.
