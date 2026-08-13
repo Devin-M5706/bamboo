@@ -1,0 +1,35 @@
+name: Feature request
+description: Something bamboo should be able to do
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do that you cannot do now
+      description: The problem, not the feature. Features are the answer, not the question.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: >
+        This project has changed direction twice because measurement contradicted a
+        plan. If you have numbers -- how many postings, how many forms, how often --
+        put them here. "It would be nice" is a weaker case than "4 of 32 forms ask this".
+    validations:
+      required: false
+
+  - type: dropdown
+    id: honesty
+    attributes:
+      label: Does this involve claiming anything on the user's behalf?
+      description: >
+        Anything that writes text or picks an answer for an employer has to survive
+        the trace-or-refuse rule. Say so up front.
+      options:
+        - "No -- it only reads, filters, or displays"
+        - "Yes -- it writes or selects something an employer will see"
+    validations:
+      required: true

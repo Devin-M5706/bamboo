@@ -1,0 +1,115 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# A newer push to the same branch cancels the older run. Saves minutes and stops
+# reviewers reading results from a commit that is already superseded.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test (node ${{ matrix.node }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # Windows is the primary development platform here and has already produced
+        # two platform-specific bugs (`node --test test/` not resolving a directory,
+        # CRLF handling). Linux is what any CI or server run would use. Test both.
+        os: [ubuntu-latest, windows-latest]
+        node: ['22', '24']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      # No lockfile and no runtime dependencies by design, so there is nothing to
+      # install. If that ever changes, this is where `npm ci` goes.
+      - name: Assert zero runtime dependencies
+        shell: bash
+        run: |
+          deps=$(node -p "Object.keys(require('./package.json').dependencies || {}).length")
+          if [ "$deps" != "0" ]; then
+            echo "::error::package.json gained $deps runtime dependency/ies."
+            echo "This project runs unattended; every dependency is something that can"
+            echo "break while nobody is watching. Justify it in the PR or remove it."
+            exit 1
+          fi
+
+      - name: Test
+        run: npm test
+
+  sync:
+    name: extension copies are in sync
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # validator.core.js and selects.js are copied verbatim into the extension by
+      # build:ext. If a PR edits a core file and forgets to rebuild, the CLI and the
+      # browser disagree about what counts as honest -- and only one of them refuses.
+      - name: Rebuild and check for drift
+        run: |
+          npm run build:ext
+          if ! git diff --quiet -- extension/vendor/; then
+            echo "::error::extension/vendor/ is stale. Run: npm run build:ext"
+            git diff --stat -- extension/vendor/
+            exit 1
+          fi
+
+  guards:
+    name: invariant guards
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # The product's whole thesis is that it refuses rather than inventing. These
+      # greps are cheap insurance against a default being flipped to make a demo easier.
+      - name: Dry run must remain the default
+        shell: bash
+        run: |
+          fail=0
+          grep -q 'DRY_RUN_DEFAULT = true' src/config.js || { echo "::error::src/config.js: DRY_RUN_DEFAULT is not true"; fail=1; }
+          grep -q 'dryRun: true' extension/content/apply.js || { echo "::error::extension/content/apply.js: dryRun does not default to true"; fail=1; }
+          exit $fail
+
+      - name: Shared cores must stay import-free
+        shell: bash
+        run: |
+          fail=0
+          for f in src/validator.core.js src/selects.js; do
+            if grep -qE '^\s*import\s' "$f"; then
+              echo "::error file=$f::has an import; the extension cannot resolve imports"
+              fail=1
+            fi
+          done
+          exit $fail
+
+      - name: No personal data committed
+        shell: bash
+        run: |
+          fail=0
+          for f in data/ledger.json data/answers.json data/config.json; do
+            if git ls-files --error-unmatch "$f" >/dev/null 2>&1; then
+              echo "::error::$f is tracked. It holds real personal data and must stay gitignored."
+              fail=1
+            fi
+          done
+          exit $fail

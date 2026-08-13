@@ -1,0 +1,74 @@
+name: Bug report
+description: Something behaved differently than it should have
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Before you paste anything:** `ledger.json` and `answers.json` hold your real
+        experience and application answers. Redact them. A bug report is public even in
+        a private repo once it leaves your machine.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: The observed behaviour, not your theory about the cause.
+      placeholder: "`bamboo poll` queued a posting that requires US citizenship."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: The exact commands, in order.
+      placeholder: |
+        1. bamboo mine
+        2. bamboo poll
+        3. bamboo feed
+      render: shell
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part
+      options:
+        - polling / sources
+        - eligibility filtering
+        - validator (text refusal)
+        - selects (dropdown refusal)
+        - extension / form filling
+        - CLI screens
+        - setup / install / ~/.bamboo
+        - not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: "Output of `node --version` and `bamboo where`. Redact paths if they embarrass you."
+      render: shell
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: severity
+    attributes:
+      label: Does this affect correctness?
+      options:
+        - label: It submitted, or nearly submitted, something untrue
+        - label: It refused something it should have accepted
+        - label: It accepted something it should have refused
+        - label: Neither — cosmetic or ergonomic
