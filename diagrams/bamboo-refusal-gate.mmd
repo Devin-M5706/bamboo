@@ -1,0 +1,35 @@
+graph TD
+  Q[(queue.json<br/>eligible posting)]:::out --> EXT[Chrome extension<br/>reads the real form]
+
+  LEDGER[(ledger.json<br/>facts a person verified)]:::human --> EXT
+  BANK[(answers.json<br/>written offline)]:::human --> EXT
+
+  EXT --> FIELD{field type?}
+
+  FIELD -->|free text| MATCH[matching.core.js<br/>which answer fits?]:::core
+  MATCH -->|no entry| REFUSE
+  MATCH -->|found| VAL{validator.core.js<br/>every number and proper noun<br/>traceable to a fact?}:::core
+  VAL -->|untraceable| REFUSE
+
+  FIELD -->|dropdown| SEL{selects.js<br/>resolves from a<br/>declared profile field?}:::core
+  SEL -->|no rule or unset| REFUSE
+  SEL -->|custom widget| REFUSE
+
+  FIELD -->|file upload| MANUAL[always manual<br/>browsers forbid it]:::safe
+
+  VAL -->|traceable| FILL[fill the field]
+  SEL -->|resolved| FILL
+
+  REFUSE[REFUSE<br/>required field: abandon<br/>optional: leave blank]:::refuse
+  REFUSE --> REPORT[report what and why]:::safe
+
+  FILL --> DRY{dry run?}
+  DRY -->|DEFAULT| STOP[fill and stop<br/>nothing submitted]:::safe
+  DRY -->|explicit opt-in| SUBMIT[submit under your name]:::danger
+
+  classDef core fill:#fff3e0,stroke:#e8783f,stroke-width:2px
+  classDef human fill:#e6f7f1,stroke:#4fc3a1,stroke-width:2px
+  classDef refuse fill:#fdecea,stroke:#d33,stroke-width:2px
+  classDef safe fill:#e6f7f1,stroke:#4fc3a1
+  classDef danger fill:#fdecea,stroke:#b00020,stroke-width:2px
+  classDef out fill:#fff3e0,stroke:#e8783f

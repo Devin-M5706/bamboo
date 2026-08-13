@@ -19,6 +19,28 @@ The same rule covers dropdowns, which turn out to matter more. "I am authorized 
 the United States for any employer" is a legal assertion, not a preference. It resolves from
 a declared profile field or it refuses.
 
+## How it works
+
+**Ingestion — the aggregator is a directory, not a feed**
+
+![Ingestion pipeline](diagrams/bamboo-ingestion.png)
+
+Mine the aggregator once for board tokens, then poll the vendors directly. Greenhouse's
+`first_published` is the true posting time the aggregator does not have. The cold start
+records what already exists and queues nothing, so a first run does not flood you with
+8,000 stale postings.
+
+**The refusal gate — the part that makes this different**
+
+![Refusal gate](diagrams/bamboo-refusal-gate.png)
+
+Five paths lead to REFUSE and one leads to a filled field. Free text must trace to a
+verified fact, dropdowns must resolve from a declared profile field, custom widgets are
+reported rather than faked, and file uploads are always manual. Submitting requires an
+explicit opt-in; dry run is the default.
+
+Sources are in `diagrams/*.mmd`, editable scenes in `diagrams/*.excalidraw`.
+
 ## Install
 
 Any machine with Node 22+ and access to this repo:
