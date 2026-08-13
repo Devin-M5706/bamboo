@@ -26,6 +26,8 @@
     "help": "node src/cli.js help",
     "test": "node --test test/*.test.js",
     "build:ext": "node scripts/build-extension.js",
+    "capture:ui": "node scripts/capture-ui.js",
+    "render:ui": "node scripts/render-ui.js",
     "contacts": "node src/cli.js contacts"
   },
   "files": [

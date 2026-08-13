@@ -189,7 +189,7 @@ async function main() {
     await fs.writeFile(file, html);
     console.log(`${s.name.padEnd(8)} ${raw.split('\n').length} lines -> ${path.relative(root, file)}`);
   }
-  console.log(`\nRasterise with the diagram-render bundle or any headless browser.`);
+  console.log(`\nRasterise these to PNG with: npm run render:ui`);
 }
 
 // pathToFileURL, not string concatenation: on Windows import.meta.url is
