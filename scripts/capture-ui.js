@@ -13,11 +13,36 @@
  */
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs/promises';
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = process.argv[2] || path.join(root, 'docs', 'ui');
+
+/**
+ * Strip machine-identifying paths out of captured output.
+ *
+ * These images are committed to a public repo. Several screens print real paths --
+ * `check` names your ledger when it is empty, and a missing file surfaces an ENOENT
+ * with the full path in it -- so a capture run from a fresh checkout would publish the
+ * maintainer's OS username and directory layout inside a PNG, where no reviewer would
+ * think to look for it. Redact here rather than in the CLI: the terminal is exactly
+ * where an absolute path is useful.
+ */
+export function redactPaths(text) {
+  let out = text;
+  // Repo root before home: it is the longer, more specific prefix, and on a dev machine
+  // it usually sits underneath the home directory.
+  for (const [real, mask] of [[root, '.'], [os.homedir(), '~']]) {
+    if (!real) continue;
+    for (const variant of new Set([real, real.replace(/\\/g, '/'), real.replace(/\//g, '\\')])) {
+      const escaped = variant.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      out = out.replace(new RegExp(escaped, 'gi'), mask);
+    }
+  }
+  return out;
+}
 
 /** Screens worth showing. Width is chosen per screen so nothing wraps. */
 const SCREENS = [
@@ -136,7 +161,7 @@ async function main() {
     } catch (err) {
       raw = (err.stdout || '') + (err.stderr || '');
     }
-    const html = terminalHtml(ansiToHtml(raw.replace(/\r/g, '')), {
+    const html = terminalHtml(ansiToHtml(redactPaths(raw.replace(/\r/g, ''))), {
       caption: s.caption,
       lineHeight: s.lineHeight ?? 1.5,
     });

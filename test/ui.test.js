@@ -1,5 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import os from 'node:os';
+import path from 'node:path';
+import { redactPaths } from '../scripts/capture-ui.js';
 import { PALETTE, setColor, stripAnsi, width } from '../src/ui/theme.js';
 import { BLURB, drawPanda, drawWordmark, hero, panda, wordmark } from '../src/ui/banner.js';
 import { COLS, DESC_COL, feed, feedRow, reasonLine, scoreColor, statusBar } from '../src/ui/feed.js';
@@ -233,4 +236,30 @@ test('init asks for the two fields the dropdown resolver actually needs', () => 
 test('the safe answer is the default on the submit question', () => {
   const q = QUESTIONS.find((x) => x.key === 'forReal');
   assert.equal(q.choices[q.initial[0]].value, false, 'dry run must be preselected');
+});
+
+test('captured screens never publish a real home path', () => {
+  const home = os.homedir();
+  // What `bamboo check` prints on a machine whose ledger is still empty. These images
+  // are committed to a public repo, so a username inside one is a leak nobody reviews.
+  const raw = [
+    `LEDGER   empty -- write ${path.join(home, '.bamboo', 'ledger.json')} before going live`,
+    `         template: ${path.join(home, 'src', 'bamboo', 'data', 'ledger.example.json')}`,
+    `ANSWERS  missing -- ENOENT: open '${path.join(home, '.bamboo', 'answers.json')}'`,
+  ].join('\n');
+
+  const safe = redactPaths(raw);
+  assert.ok(!safe.includes(home), 'home directory must not survive redaction');
+  assert.ok(safe.includes('~'), 'home should be masked to ~, not deleted');
+  assert.ok(safe.includes('ledger.json'), 'the useful part of the path stays');
+});
+
+test('redaction survives mixed path separators', () => {
+  // config.js joins with backslashes on Windows; BAMBOO_HOME and file URLs arrive with
+  // forward slashes. A redactor that only matches one of them leaks on the other.
+  const home = os.homedir();
+  for (const variant of [home.replace(/\\/g, '/'), home.replace(/\//g, '\\')]) {
+    const safe = redactPaths(`home  ${variant}/.bamboo/ledger.json`);
+    assert.ok(!safe.toLowerCase().includes(variant.toLowerCase()), `leaked: ${variant}`);
+  }
 });
