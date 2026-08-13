@@ -1,0 +1,34 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#14161f; padding:22px; font-family: ui-monospace, "JetBrains Mono", "Cascadia Mono", Consolas, monospace; }
+  .win { background:#1f212d; border-radius:10px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,.5); width:max-content; }
+  .bar { display:flex; align-items:center; gap:8px; padding:10px 14px; background:#282b3a; }
+  .dot { width:11px; height:11px; border-radius:50%; }
+  .cap { margin-left:8px; color:#9a9eb0; font-size:12px; }
+  pre { margin:0; padding:16px 18px; color:#d7dae5; font-size:13px; line-height:1.5;
+        white-space:pre; tab-size:8; }
+</style>
+<div class="win" id="shot">
+  <div class="bar">
+    <span class="dot" style="background:#ff5f57"></span>
+    <span class="dot" style="background:#febc2e"></span>
+    <span class="dot" style="background:#28c840"></span>
+    <span class="cap">bamboo help</span>
+  </div>
+  <pre>
+  <span style="color:rgb(232,120,63)">init   </span>  <span style="color:rgb(127,134,152)">set up boards, cadence and where your ledger lives</span>
+  <span style="color:rgb(232,120,63)">watch  </span>  <span style="color:rgb(127,134,152)">follow new postings as they land, and draft for the good ones</span>
+  <span style="color:rgb(232,120,63)">review </span>  <span style="color:rgb(127,134,152)">read what bamboo drafted before anything goes out</span>
+  <span style="color:rgb(232,120,63)">apply  </span>  <span style="color:rgb(127,134,152)">send the drafts you approved</span>
+  <span style="color:rgb(232,120,63)">ledger </span>  <span style="color:rgb(127,134,152)">the facts bamboo is allowed to claim about you</span>
+  <span style="color:rgb(232,120,63)">boards </span>  <span style="color:rgb(127,134,152)">which job boards are being watched</span>
+  <span style="color:rgb(232,120,63)">status </span>  <span style="color:rgb(127,134,152)">what bamboo has been up to</span>
+  <span style="color:rgb(232,120,63)">nap    </span>  <span style="color:rgb(127,134,152)">stop watching</span>
+
+  <span style="color:rgb(86,91,110)">--dry-run is the default.</span> <span style="color:rgb(79,195,161)">--for-real</span><span style="color:rgb(86,91,110)"> is not.</span>
+
+</pre>
+</div>
+<div id="done"></div>

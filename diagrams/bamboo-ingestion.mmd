@@ -1,0 +1,22 @@
+graph LR
+  AGG[Aggregator repo<br/>lags days, no true timestamp]:::stale
+  AGG -->|mine ONCE for tokens| BOARDS[(boards.json<br/>65 board tokens)]
+
+  BOARDS --> SRC[sources.js<br/>3 vendor adapters]
+  GH[Greenhouse<br/>first_published]:::ext --> SRC
+  LV[Lever]:::ext --> SRC
+  ASH[Ashby]:::ext --> SRC
+
+  SRC -->|one Posting shape| POLL[poll.js<br/>diff vs 8,430 seen ids]
+  POLL -->|cold start| RECORD[record only<br/>queue nothing]:::safe
+  POLL -->|title passes| ENRICH[questions.js<br/>fetch description]
+
+  ENRICH --> ELIG{eligibility.js}
+  ELIG -->|citizenship / sponsorship<br/>12.5% flip here| DROP[dropped<br/>with reason]:::refuse
+  ELIG -->|passes| Q[(queue.json)]:::out
+
+  classDef ext fill:#e8f0fe,stroke:#5b8def
+  classDef stale fill:#f3f3f3,stroke:#999,stroke-dasharray:4 3
+  classDef refuse fill:#fdecea,stroke:#d33
+  classDef safe fill:#e6f7f1,stroke:#4fc3a1
+  classDef out fill:#fff3e0,stroke:#e8783f,stroke-width:2px
