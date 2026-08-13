@@ -1,8 +1,8 @@
-<img width="1273" height="547" alt="Screenshot 2026-08-12 171004" src="https://github.com/user-attachments/assets/def9b064-b506-4f0d-87ec-de14c5eeaaec" />
 # bamboo
-
 Watches job boards and fills internship applications from a verified evidence ledger.
 Refuses to write anything it cannot trace back to a fact you checked.
+<img width="1273" height="547" alt="Screenshot 2026-08-12 171004" src="https://github.com/user-attachments/assets/def9b064-b506-4f0d-87ec-de14c5eeaaec" />
+
 
 ## Why it works this way
 
