@@ -58,6 +58,17 @@ until nothing is.
 These are generated, not screenshotted: `node scripts/capture-ui.js` re-renders every
 image from real command output, so they cannot drift from what the CLI actually prints.
 
+## Documentation
+
+Full docs live in [`docs/`](docs/), organised by what you are trying to do.
+
+| | |
+|---|---|
+| **New here?** | [Getting started](docs/tutorial-getting-started.md) — install to real postings in 15 min |
+| **Ready to set up?** | [Write your evidence ledger](docs/howto-write-your-ledger.md) — the gating step |
+| **Looking something up?** | [CLI](docs/reference-cli.md) · [Configuration](docs/reference-configuration.md) · [Data files](docs/reference-data-files.md) |
+| **Wondering why?** | [Why it refuses](docs/explanation-why-it-refuses.md) · [Architecture](docs/explanation-architecture.md) · [Boundaries](docs/explanation-boundaries.md) |
+
 ## Install
 
 Any machine with Node 22+ and access to this repo:
