@@ -73,7 +73,17 @@ export function truncate(s, n) {
   return n <= 1 ? plain.slice(0, n) : plain.slice(0, n - 1) + '…';
 }
 
-export const columns = () => process.stdout.columns || 80;
+/**
+ * Terminal width. Honours the COLUMNS env var, which is the standard override and the
+ * only way to get a real width when stdout is a pipe -- process.stdout.columns is
+ * undefined there, so a piped banner would silently drop below the 112-column
+ * threshold and lose the panda.
+ */
+export const columns = () => {
+  const env = Number.parseInt(process.env.COLUMNS ?? '', 10);
+  if (Number.isFinite(env) && env > 0) return env;
+  return process.stdout.columns || 80;
+};
 
 /**
  * Colour is opt-out: NO_COLOR, a non-TTY pipe, or --no-color all disable it.
