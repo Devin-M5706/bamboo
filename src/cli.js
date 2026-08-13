@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import fs from 'node:fs/promises';
-import { ANSWERS_FILE, DRY_RUN_DEFAULT, LEDGER_FILE, POLL_INTERVAL_MS, QUEUE_FILE, ROOT, STATE_FILE } from './config.js';
+import { ANSWERS_FILE, BOARDS_FILE, DRY_RUN_DEFAULT, LEDGER_EXAMPLE, LEDGER_FILE, POLL_INTERVAL_MS, QUEUE_FILE, ROOT, STATE_FILE, SURVEY_FILE } from './config.js';
 import { mine } from './miner.js';
 import { pollOnce } from './poll.js';
 import { loadLedger } from './ledger.js';
@@ -37,7 +37,7 @@ async function cmdMine() {
   const r = await mine();
   console.log(`  read ${fmt(r.listings)} listings`);
   console.log(`  found ${r.total} boards:`, r.byVendor);
-  console.log('  wrote data/boards.json');
+  console.log(`  wrote ${BOARDS_FILE}`);
 }
 
 async function cmdPoll() {
@@ -70,7 +70,8 @@ async function cmdCheck() {
 
   const ledger = await loadLedger();
   if (ledger.empty) {
-    console.log('LEDGER   empty -- write data/ledger.json before going live (see data/ledger.example.json)');
+    console.log(`LEDGER   empty -- write ${LEDGER_FILE} before going live`);
+    console.log(`         template: ${LEDGER_EXAMPLE}`);
     failed = true;
   } else if (!ledger.ok) {
     console.log(`LEDGER   ${ledger.facts.length} facts, INVALID`);
@@ -144,7 +145,7 @@ async function cmdSurvey() {
   for (const p of r.prompts.slice(0, 25)) {
     console.log(`  ${String(p.jobs).padStart(3)}x  ${p.required}req  ${p.label.slice(0, 90)}`);
   }
-  console.log(`\nFull results: data/questions-survey.json`);
+  console.log(`\nFull results: ${SURVEY_FILE}`);
   console.log('Write answer-bank entries for the prompts at the top of this list.');
 }
 

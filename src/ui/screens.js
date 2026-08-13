@@ -4,6 +4,7 @@
  * The view modules stay pure and data-shaped; this file is where real postings, real
  * ledger facts and real validator refusals get mapped onto them.
  */
+import { LEDGER_FILE } from '../config.js';
 import { PALETTE, paint } from './theme.js';
 import { feedRow, reasonLine, statusBar, timestamp } from './feed.js';
 import { factsToEntries, ledgerTable } from './ledger-view.js';
@@ -59,7 +60,7 @@ export function queueScreen(items, { boards = 0, seen = 0 } = {}, total) {
   return out.join('\n');
 }
 
-/** Render the evidence ledger from data/ledger.json facts. */
+/** Render the evidence ledger from the facts in ~/.bamboo/ledger.json. */
 export function ledgerScreen(facts, total) {
   if (!facts.length) {
     return [
@@ -67,7 +68,8 @@ export function ledgerScreen(facts, total) {
       paint('  Your ledger is empty.', PALETTE.text),
       paint('  Nothing can be claimed on your behalf until you write it.', PALETTE.faint),
       '',
-      `  ${paint('cp data/ledger.example.json data/ledger.json', PALETTE.orange)}`,
+      `  ${paint('bamboo setup', PALETTE.orange)} ${paint('seeds it from the template, then edit:', PALETTE.faint)}`,
+      `  ${paint(LEDGER_FILE, PALETTE.faint)}`,
       '',
     ].join('\n');
   }
