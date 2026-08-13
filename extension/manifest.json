@@ -3,7 +3,11 @@
   "name": "bamboo",
   "version": "0.1.0",
   "description": "Fills internship applications from a pre-validated evidence ledger. Refuses anything it cannot trace.",
-  "permissions": ["storage", "activeTab", "scripting"],
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
   "host_permissions": [
     "https://boards.greenhouse.io/*",
     "https://job-boards.greenhouse.io/*",
@@ -22,7 +26,13 @@
         "https://jobs.ashbyhq.com/*",
         "https://jobs.lever.co/*"
       ],
-      "js": ["vendor/validator.js", "vendor/selects.js", "content/common.js", "content/apply.js"],
+      "js": [
+        "vendor/validator.js",
+        "vendor/selects.js",
+        "vendor/matching.js",
+        "content/common.js",
+        "content/apply.js"
+      ],
       "run_at": "document_idle"
     }
   ],

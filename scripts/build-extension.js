@@ -18,6 +18,7 @@ const outDir = path.join(root, 'extension', 'vendor');
 const TARGETS = [
   { src: 'validator.core.js', out: 'validator.js', ns: 'validator', exports: ['extractClaims', 'validateAnswer', 'validateBank'] },
   { src: 'selects.js', out: 'selects.js', ns: 'selects', exports: ['RULES', 'resolveSelect', 'resolveAllSelects'] },
+  { src: 'matching.core.js', out: 'matching.js', ns: 'matching', exports: ['matchQuestion'] },
 ];
 
 await fs.mkdir(outDir, { recursive: true });
