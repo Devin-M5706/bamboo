@@ -11,6 +11,7 @@
 import fs from 'node:fs/promises';
 import readline from 'node:readline';
 import { CONFIG_FILE, LEDGER_FILE } from '../config.js';
+import { updateJson, writeJson } from '../store.js';
 import { columns } from './theme.js';
 import { initScreen } from './init-view.js';
 
@@ -186,32 +187,31 @@ export async function runInit({ input = process.stdin, output = process.stdout }
  * of truth for "am I authorized to work here" would be a bug waiting to happen.
  */
 export async function saveInit(config, { configFile = CONFIG_FILE, ledgerFile = LEDGER_FILE } = {}) {
-  await fs.writeFile(
-    configFile,
-    JSON.stringify(
-      {
-        boards: config.boards,
-        intervalMinutes: config.intervalMinutes,
-        forReal: config.forReal,
-        savedAt: new Date().toISOString(),
-      },
-      null,
-      2,
-    ) + '\n',
-  );
+  await writeJson(configFile, {
+    boards: config.boards,
+    intervalMinutes: config.intervalMinutes,
+    forReal: config.forReal,
+    savedAt: new Date().toISOString(),
+  });
 
-  let ledger = { profile: {}, facts: [] };
-  try {
-    ledger = JSON.parse(await fs.readFile(ledgerFile, 'utf8'));
-  } catch {
-    // no ledger yet; init creates the profile half of one
-  }
-  ledger.profile = {
-    ...(ledger.profile ?? {}),
-    workAuthorization: config.workAuthorization,
-    graduationYear: config.graduationYear,
-  };
-  await fs.writeFile(ledgerFile, JSON.stringify(ledger, null, 2) + '\n');
+  /**
+   * The ledger is the one file here that cannot be regenerated. updateJson refuses to
+   * write when the existing file is present-but-unparseable, so a hand-edit typo
+   * surfaces as an error instead of silently replacing every verified fact with {}.
+   * backup:true keeps the previous good contents at ledger.json.bak.
+   */
+  await updateJson(
+    ledgerFile,
+    (ledger) => ({
+      ...ledger,
+      profile: {
+        ...(ledger.profile ?? {}),
+        workAuthorization: config.workAuthorization,
+        graduationYear: config.graduationYear,
+      },
+    }),
+    { backup: true, whenMissing: { profile: {}, facts: [] } },
+  );
 
   return { configFile, ledgerFile };
 }
