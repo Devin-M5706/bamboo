@@ -53,6 +53,11 @@ until nothing is.
 
 ![bamboo check](docs/ui/check.png)
 
+This is what it says before you have written anything — every dropdown unset, so every
+form asking one would be refused. Working down this list is the whole setup process.
+
+![bamboo check on a first run](docs/ui/first-run.png)
+
 ![bamboo help](docs/ui/help.png)
 
 These are generated, not screenshotted: `node scripts/capture-ui.js` re-renders every
