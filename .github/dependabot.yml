@@ -1,0 +1,18 @@
+version: 2
+updates:
+  # This project has zero runtime dependencies on purpose, so npm updates should be
+  # rare to nonexistent. Dependabot is here to catch the case where one sneaks in and
+  # then goes stale, not to churn a lockfile that does not exist.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 3
+    labels: [dependencies]
+
+  # Action versions are the dependency this repo actually has.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    labels: [dependencies, ci]

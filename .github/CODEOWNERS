@@ -1,0 +1,14 @@
+# Every path needs an owner. Solo project today, so that owner is one person --
+# but the file exists so the boundaries are explicit rather than implied, and so
+# adding a second person later is a one-line change instead of a conversation.
+
+*                       @Devin-M5706
+
+# The refusal cores decide what this tool is willing to claim on your behalf.
+# A change here is never routine, even when the diff is one line.
+/src/validator.core.js  @Devin-M5706
+/src/selects.js         @Devin-M5706
+/src/store.js           @Devin-M5706
+
+# CI encodes the invariants. Weakening a guard should be as visible as breaking one.
+/.github/workflows/     @Devin-M5706
