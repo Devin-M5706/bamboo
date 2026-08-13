@@ -60,8 +60,10 @@ form asking one would be refused. Working down this list is the whole setup proc
 
 ![bamboo help](docs/ui/help.png)
 
-These are generated, not screenshotted: `node scripts/capture-ui.js` re-renders every
-image from real command output, so they cannot drift from what the CLI actually prints.
+These are generated, not screenshotted: `npm run capture:ui` re-renders every screen from
+real command output and `npm run render:ui` rasterises it, so they cannot drift from what
+the CLI actually prints. Rendering needs a Chrome, Chromium or Edge on the machine (set
+`CHROME_PATH` if it is somewhere unusual); nothing is installed for it.
 
 ## Documentation
 
