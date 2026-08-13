@@ -30,11 +30,13 @@ const outDir = process.argv[2] || path.join(root, 'docs', 'ui');
  * think to look for it. Redact here rather than in the CLI: the terminal is exactly
  * where an absolute path is useful.
  */
-export function redactPaths(text) {
+export function redactPaths(text, extra = []) {
   let out = text;
-  // Repo root before home: it is the longer, more specific prefix, and on a dev machine
-  // it usually sits underneath the home directory.
-  for (const [real, mask] of [[root, '.'], [os.homedir(), '~']]) {
+  // `extra` first, then repo root, then home: each pass is a longer, more specific
+  // prefix than the next. The scratch home used by freshHome maps to the real
+  // ~/.bamboo, which the home pass then shortens to `~` -- so a capture taken against
+  // a temp directory shows the path a reader would actually have.
+  for (const [real, mask] of [...extra, [root, '.'], [os.homedir(), '~']]) {
     if (!real) continue;
     for (const variant of new Set([real, real.replace(/\\/g, '/'), real.replace(/\//g, '\\')])) {
       const escaped = variant.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -52,6 +54,10 @@ const SCREENS = [
   { name: 'ledger', args: ['ledger'], cols: 100, caption: 'bamboo ledger' },
   { name: 'check', args: ['check'], cols: 108, caption: 'bamboo check' },
   { name: 'help', args: ['help'], cols: 92, caption: 'bamboo help' },
+  // What `check` says before you have written anything -- the state every new user is
+  // in and the one the other captures cannot show, since they run against a populated
+  // home. freshHome runs it against an empty scratch directory instead.
+  { name: 'first-run', args: ['check'], cols: 108, caption: 'bamboo check — first run', freshHome: true },
 ];
 
 const esc = (s) =>
@@ -150,18 +156,32 @@ async function main() {
   const cli = path.join(root, 'src', 'cli.js');
 
   for (const s of SCREENS) {
+    const env = { ...process.env, FORCE_COLOR: '1', COLUMNS: String(s.cols) };
+    const extra = [];
+    let scratch = null;
+
+    if (s.freshHome) {
+      // An empty directory, never the real home: `check` must find nothing so it
+      // prints the first-run state. It only reads, so nothing is written here.
+      scratch = await fs.mkdtemp(path.join(os.tmpdir(), 'bamboo-capture-'));
+      env.BAMBOO_HOME = scratch;
+      extra.push([scratch, path.join(os.homedir(), '.bamboo')]);
+    }
+
     let raw;
     try {
       raw = execFileSync(process.execPath, [cli, ...s.args], {
         encoding: 'utf8',
-        env: { ...process.env, FORCE_COLOR: '1', COLUMNS: String(s.cols) },
+        env,
         // `check` exits 1 when the ledger is not ready, which is correct behaviour
         // and still produces the output we want to show.
       });
     } catch (err) {
       raw = (err.stdout || '') + (err.stderr || '');
+    } finally {
+      if (scratch) await fs.rm(scratch, { recursive: true, force: true });
     }
-    const html = terminalHtml(ansiToHtml(redactPaths(raw.replace(/\r/g, ''))), {
+    const html = terminalHtml(ansiToHtml(redactPaths(raw.replace(/\r/g, ''), extra)), {
       caption: s.caption,
       lineHeight: s.lineHeight ?? 1.5,
     });

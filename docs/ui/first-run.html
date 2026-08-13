@@ -1,0 +1,31 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; background:#14161f; padding:22px; font-family: ui-monospace, "JetBrains Mono", "Cascadia Mono", Consolas, monospace; }
+  .win { background:#1f212d; border-radius:10px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,.5); width:max-content; }
+  .bar { display:flex; align-items:center; gap:8px; padding:10px 14px; background:#282b3a; }
+  .dot { width:11px; height:11px; border-radius:50%; }
+  .cap { margin-left:8px; color:#9a9eb0; font-size:12px; }
+  pre { margin:0; padding:16px 18px; color:#d7dae5; font-size:13px; line-height:1.5;
+        white-space:pre; tab-size:8; }
+</style>
+<div class="win" id="shot">
+  <div class="bar">
+    <span class="dot" style="background:#ff5f57"></span>
+    <span class="dot" style="background:#febc2e"></span>
+    <span class="dot" style="background:#28c840"></span>
+    <span class="cap">bamboo check — first run</span>
+  </div>
+  <pre>LEDGER   empty -- write ~\.bamboo\ledger.json before going live
+         template: .\data\ledger.example.json
+ANSWERS  missing -- ENOENT: no such file or directory, open '~\.bamboo\answers.json'
+DROPDOWN 0/14 profile fields set
+         unset (these questions will be refused): workAuthorization, graduationYear, graduationMonth, degreeLevel, gpaUndergraduate, gpaGraduate, satScore, actScore, state, country, finraRegistered, securityClearance, usCitizen, criminalHistory
+QUEUE    0 pending of 0
+SUBMIT   DRY RUN (nothing will be submitted)
+
+NOT READY. Fix the above before enabling live submit.
+</pre>
+</div>
+<div id="done"></div>

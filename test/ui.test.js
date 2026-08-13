@@ -254,6 +254,19 @@ test('captured screens never publish a real home path', () => {
   assert.ok(safe.includes('ledger.json'), 'the useful part of the path stays');
 });
 
+test('a scratch capture home renders as the path a reader would have', () => {
+  // The first-run screen runs against an empty temp directory, but publishing
+  // "AppData\Local\Temp\bamboo-capture-x9f2\ledger.json" would teach the reader a path
+  // that is true of nobody. It maps to the real ~/.bamboo instead.
+  const scratch = path.join(os.tmpdir(), 'bamboo-capture-x9f2');
+  const raw = `LEDGER   empty -- write ${path.join(scratch, 'ledger.json')} before going live`;
+
+  const safe = redactPaths(raw, [[scratch, path.join(os.homedir(), '.bamboo')]]);
+  assert.ok(!safe.includes(scratch), 'the temp directory must not appear');
+  assert.ok(!safe.includes(os.homedir()), 'and the mapping must still get shortened to ~');
+  assert.match(safe, /~[\\/]\.bamboo[\\/]ledger\.json/);
+});
+
 test('redaction survives mixed path separators', () => {
   // config.js joins with backslashes on Windows; BAMBOO_HOME and file URLs arrive with
   // forward slashes. A redactor that only matches one of them leaks on the other.
