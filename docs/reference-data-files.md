@@ -227,13 +227,64 @@ nothing. You lose dedup history but are not flooded.
 
 Written by `bamboo init`.
 
+### applications.json
+
+Written by `bamboo track`. The source of truth for the tracker; the CSV and the Google
+Sheet are projections of it and can be deleted and rebuilt.
+
+```json
+{
+  "version": 1,
+  "lastSyncedAt": "2026-08-16T14:02:11.000Z",
+  "lastInternalDate": "1755352931000",
+  "records": [{
+    "id": "stripe::software-engineer-intern",
+    "messageId": "18f2c...",
+    "threadId": "18f2c...",
+    "company": "Stripe",
+    "role": "Software Engineer Intern",
+    "location": "New York, NY",
+    "source": "greenhouse",
+    "jobUrl": "https://...",
+    "appliedAt": "2026-08-14T18:22:00.000Z",
+    "status": "applied",
+    "statusHistory": [{ "status": "applied", "at": "...", "messageId": "..." }],
+    "confidence": "high",
+    "needsReview": false,
+    "reviewReasons": [],
+    "extractedBy": "deterministic",
+    "updatedAt": "..."
+  }]
+}
+```
+
+| Field | Meaning |
+|---|---|
+| `lastInternalDate` | Gmail watermark. Messages at or before it are not re-read. |
+| `status` | `applied` → `screen` → `interview` → `offer`. Forward only. `rejected` and `withdrawn` are reachable from anywhere and terminal. |
+| `confidence` | `high` only when company and role both came from a matched pattern or a grounded extraction. |
+| `needsReview` | A field could not be traced to the email text. `reviewReasons` says which. |
+| `extractedBy` | `deterministic` (patterns) or `agent` (the model, then grounded). |
+
+`applications.csv` is the same data in the spreadsheet's column order. Values beginning
+`=`, `+`, `-` or `@` are apostrophe-prefixed, so a company named `-Foo` cannot execute as a
+formula when the file is opened in Excel or Sheets.
+
+### google-token.json
+
+An OAuth refresh token for the tracked mailbox, written by `bamboo connect`. **Treat it as
+a password** — it grants read access to your email. Gitignored, CI-guarded, and never
+printed or included in an error message. Revoke it at
+[myaccount.google.com/permissions](https://myaccount.google.com/permissions).
+
 ---
 
 ## What is never committed
 
 `ledger.json`, `answers.json` and `config.json` hold real personal data: work
-authorization, employment history, application answers. They are gitignored, and CI fails
-if any becomes tracked.
+authorization, employment history, application answers. `applications.json` and
+`applications.csv` name real companies you applied to, and `google-token.json` is a live
+credential for your inbox. All of them are gitignored, and CI fails if any becomes tracked.
 
 Never paste their contents into an issue, a PR, or a commit message.
 

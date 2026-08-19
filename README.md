@@ -161,6 +161,96 @@ Then uncheck Dry run on the options page. It refuses to enable live mode with an
 **Resume upload is always manual.** Browsers do not let scripts populate file inputs, and
 that is a security boundary worth having.
 
+## Tracking what you applied to
+
+Applying is half the problem. The other half is remembering, six weeks later, which company
+that recruiter is from. `bamboo track` keeps a spreadsheet of every application, updated
+from your inbox.
+
+```bash
+export BAMBOO_TRACKED_EMAIL=you@example.com   # the address you apply with
+bamboo connect     # one-time Google authorisation for that mailbox
+bamboo track       # dry run: shows what it would record, writes nothing
+bamboo track --live
+bamboo applications   # the table, in the terminal
+```
+
+**The trigger is the confirmation email, not the applier.** Every employer sends a "we
+received your application" receipt to the address you applied with. That receipt is the
+only signal that exists for *every* application — including the ones you submitted by hand,
+which is most of them. Watching the extension would track a fraction of reality; watching
+the inbox tracks all of it. The tracked address comes from `BAMBOO_TRACKED_EMAIL`; unset,
+`connect` and `track` refuse rather than guess which mailbox is yours.
+
+```
+Gmail (you@example.com)
+  │  google/gmail.js        receipts since the last watermark
+  ▼
+tracker/detect.js           deterministic: ATS sender domains + subject templates
+  │                         handles the recurring cases at zero cost
+  ▼  (only what it could not classify)
+tracker/agent.js            Claude reads the residue, then must ground every field
+  │                         it returns in the email text or that field becomes null
+  ▼
+tracker/applications.js     dedupe, forward-only status, ~/.bamboo/applications.json
+  │
+  ├──▶ tracker/csv.js       ~/.bamboo/applications.csv     (always, no auth needed)
+  └──▶ google/sheets.js     your Google Sheet               (when configured)
+```
+
+### Where the AI agent is, and where it is not
+
+The agent runs in the tracker, never in the apply path. It reads mail that has *already*
+been sent and writes to a spreadsheet. It cannot influence what gets submitted to an
+employer, and a CI guard greps the apply path to keep it that way — the moment
+`answers.js`, `selects.js`, `validator.core.js`, `poll.js` or anything under `extension/`
+mentions a model, the build fails.
+
+It also inherits the project's one invariant. After the model returns an extraction, every
+company, role and location it produced must actually appear in the email text under the
+same normalisation `validator.core.js` uses. A value that is not in the email was invented:
+that field is set to `null`, the row is flagged `needs-review`, and confidence drops to
+low. It is never repaired and the model is never asked again. A model checking its own
+work is not a safeguard, so it does not get to.
+
+The deterministic detector runs first and handles the recurring ATS templates, so the agent
+only ever sees what patterns could not classify. With no `ANTHROPIC_API_KEY` set the agent
+never runs at all, and unclassifiable mail is skipped rather than guessed at.
+
+### Setup
+
+The Google credentials are yours, not bundled — this reads your email, so the OAuth client
+should belong to you:
+
+1. Create an OAuth client (Desktop app) at
+   [console.cloud.google.com/apis/credentials](https://console.cloud.google.com/apis/credentials),
+   with the Gmail and Sheets APIs enabled.
+2. Export `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`.
+3. `bamboo connect` — opens the consent screen, stores a refresh token in
+   `~/.bamboo/google-token.json`.
+4. Optional: `export ANTHROPIC_API_KEY=...` to enable the agent for mail the patterns miss.
+5. Optional: set `TRACKER.sheets.spreadsheetId` in `src/config.js` to write to an existing
+   sheet. Left `null`, the CSV at `~/.bamboo/applications.csv` is still written and imports
+   into Sheets or Excel directly.
+
+Scopes are `gmail.readonly` and `spreadsheets`. bamboo cannot send, delete or modify mail.
+
+`~/.bamboo/google-token.json` grants read access to your inbox. It is gitignored, CI fails
+if it is ever tracked, and no token is ever printed or included in an error message.
+
+### What it records
+
+Columns: `Applied On`, `Company`, `Role`, `Location`, `Status`, `Source`, `Job URL`,
+`Last Update`, `Confidence`, `Needs Review`, `Message ID`.
+
+Status moves forward only — `applied → screen → interview → offer`, with `rejected` and
+`withdrawn` reachable from anywhere and terminal. A later email cannot reopen a closed
+application, and re-running `track` over the same messages changes nothing.
+
+`~/.bamboo/applications.json` is the source of truth; the spreadsheet is a projection of
+it. Delete the sheet and the next sync rebuilds it. Missing values render as `—`, never
+`0` and never a plausible guess.
+
 ## Commands
 
 Installed globally as `bamboo <command>`; from a clone, `npm run <command>`.
@@ -178,6 +268,9 @@ Installed globally as `bamboo <command>`; from a clone, `npm run <command>`.
 | `feed` | Queued postings as the live-feed view |
 | `ledger` | The evidence ledger as a table |
 | `survey` | Sample real Greenhouse forms; report which prompts recur |
+| `connect` | One-time Google authorisation for the tracked mailbox |
+| `track` | Read the tracked inbox; update the applications record and spreadsheet (`--live` to write) |
+| `applications` | Tracked applications as a table |
 | `banner` | Startup banner (needs a TTY for colour) |
 | `help` | Command list |
 
@@ -201,9 +294,14 @@ src/
   validator.core.js trace-or-refuse for text  (NO IMPORTS — shared with the extension)
   selects.js        trace-or-refuse for dropdowns  (NO IMPORTS — shared)
   answers.js        answer bank retrieval
+  google/           oauth.js, gmail.js, sheets.js — raw REST, no SDKs (zero deps)
+  tracker/          detect.js, agent.js, applications.js, csv.js, sync.js
   ui/               theme, banner, feed, ledger table, init wizard, help
 extension/          MV3 extension; content scripts fill and optionally submit
 ```
+
+`src/tracker/` and `src/google/` are the tracker path. Nothing in the apply path imports
+them, and CI enforces that — an LLM belongs nowhere near a form submission.
 
 `validator.core.js` and `selects.js` are the single source of truth for refusal logic.
 `npm run build:ext` copies them into the extension verbatim;
@@ -249,6 +347,11 @@ enriches title-eligible Greenhouse postings before deciding, and queue items car
   every score is currently `null`, which correctly prints `—` rather than a made-up number.
 - **The extension has never touched a real form.** Selectors in
   `extension/content/common.js` come from public markup and are unverified.
+- **The tracker has never read a real inbox.** Every test runs against fixtures with an
+  injected `fetch`. The subject-line patterns in `tracker/detect.js` come from public ATS
+  templates; expect to add patterns once real mail goes through it, and expect the agent
+  to carry more of the load until you do. Rows it cannot fully trace are flagged
+  `needs-review` rather than quietly filled, so the failure mode is visible.
 - **Custom combobox widgets are refused, not filled.** Greenhouse and Ashby increasingly use
   React selects; faking clicks on one can leave a form looking answered while the value is
   unset, so they are reported for manual handling instead.
