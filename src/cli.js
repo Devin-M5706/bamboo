@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import fs from 'node:fs/promises';
-import { ANSWERS_FILE, BOARDS_FILE, DRY_RUN_DEFAULT, LEDGER_EXAMPLE, LEDGER_FILE, POLL_INTERVAL_MS, QUEUE_FILE, ROOT, STATE_FILE, SURVEY_FILE } from './config.js';
+import { ANSWERS_FILE, APPLICATIONS_CSV, BOARDS_FILE, DRY_RUN_DEFAULT, LEDGER_EXAMPLE, LEDGER_FILE, POLL_INTERVAL_MS, QUEUE_FILE, ROOT, STATE_FILE, SURVEY_FILE, TRACKER } from './config.js';
 import { mine } from './miner.js';
 import { pollOnce } from './poll.js';
 import { loadLedger } from './ledger.js';
@@ -14,6 +14,7 @@ import { hero } from './ui/banner.js';
 import { help } from './ui/help.js';
 import { ledgerScreen, queueScreen } from './ui/screens.js';
 import { contactsScreen } from './ui/contacts-view.js';
+import { renderApplications } from './ui/applications-view.js';
 import { runInit, saveInit } from './ui/init.js';
 import { PALETTE, columns, paint, setColor, shouldUseColor } from './ui/theme.js';
 
@@ -260,11 +261,114 @@ async function cmdContacts() {
   );
 }
 
+/**
+ * One-time Google authorisation for the tracked mailbox.
+ *
+ * Read-only Gmail scope plus Sheets. The refresh token is written to ~/.bamboo and is
+ * the one file here that grants access to your email -- it is gitignored and CI fails
+ * if it is ever tracked.
+ */
+/**
+ * Both tracker commands need to know which mailbox is yours, and there is no sane
+ * default for it: guessing would authorise the wrong account or file another person's
+ * receipts as your applications. Refuse with the fix, the way everything else here does.
+ */
+function requireTrackedEmail() {
+  if (TRACKER.trackedEmail) return true;
+  console.error(
+    `${paint('REFUSED', PALETTE.orange)} no tracked mailbox is set.\n\n` +
+      `  bamboo reads confirmation emails from one address, and will not guess which.\n` +
+      `  Set it, then re-run:\n\n` +
+      `    ${paint('BAMBOO_TRACKED_EMAIL=you@example.com', PALETTE.orange)}\n`,
+  );
+  process.exitCode = 1;
+  return false;
+}
+
+async function cmdConnect() {
+  if (!requireTrackedEmail()) return;
+  const { authorize } = await import('./google/oauth.js');
+  const r = await authorize();
+  console.log(
+    `\n  ${paint('✓', PALETTE.mint)} ${paint('connected', PALETTE.muted)}  ${paint(
+      r?.email || TRACKER.trackedEmail,
+      PALETTE.text,
+    )}`,
+  );
+  console.log(
+    `\n  ${paint('next', PALETTE.faint)}  ${paint('bamboo track', PALETTE.orange)} ${paint(
+      'to see what it would record',
+      PALETTE.muted,
+    )}\n`,
+  );
+}
+
+/** Read the tracked inbox and update the applications record + spreadsheet. */
+async function cmdTrack() {
+  if (!requireTrackedEmail()) return;
+  const { sync } = await import('./tracker/sync.js');
+  const dryRun = has('--live') ? false : TRACKER.dryRun;
+  const r = await sync({ dryRun, verbose: true });
+
+  console.log('');
+  console.log(
+    `  ${paint('scanned', PALETTE.faint)}  ${r.scanned} message(s), ${r.matched} application receipt(s)`,
+  );
+  console.log(
+    `  ${paint('records', PALETTE.faint)}  ${r.created} new, ${r.updated} updated, ${r.skipped} unchanged`,
+  );
+  if (r.usedAgent) {
+    console.log(`  ${paint('agent', PALETTE.faint)}    ${r.usedAgent} message(s) needed the model`);
+  }
+  if (r.needsReview) {
+    console.log(
+      `  ${paint('review', PALETTE.orange)}   ${paint(
+        `${r.needsReview} record(s) could not be fully traced to the email -- check them`,
+        PALETTE.orange,
+      )}`,
+    );
+  }
+  console.log(`  ${paint('csv', PALETTE.faint)}      ${paint(APPLICATIONS_CSV, PALETTE.faint)}`);
+  if (r.sheet?.refusedReason) {
+    // A refusal here returns appended:0, which would otherwise read as "nothing to do".
+    console.log(`  ${paint('sheet', PALETTE.orange)}    ${paint('REFUSED', PALETTE.orange)} ${r.sheet.refusedReason}`);
+    if (r.sheet.headerMismatch) {
+      console.log(`  ${paint('', PALETTE.faint)}         expected: ${r.sheet.headerMismatch.expected.join(' | ')}`);
+      console.log(`  ${paint('', PALETTE.faint)}         found:    ${r.sheet.headerMismatch.actual.join(' | ')}`);
+    }
+  } else if (r.sheet) {
+    console.log(
+      `  ${paint('sheet', PALETTE.faint)}    ${r.sheet.appended} appended, ${r.sheet.updated} updated`,
+    );
+  }
+  if (r.dryRun) {
+    console.log(
+      `\n  ${paint('DRY RUN', PALETTE.orange)} ${paint(
+        '-- nothing was written. Re-run with --live to apply.',
+        PALETTE.muted,
+      )}`,
+    );
+  }
+  console.log('');
+}
+
+/** The tracked applications, as a table. */
+async function cmdApplications() {
+  const { loadApplications } = await import('./tracker/applications.js');
+  const state = await loadApplications();
+  console.log('');
+  console.log(renderApplications(state.records, { width: columns() }));
+  console.log('');
+}
+
 const COMMANDS = {
   setup: cmdSetup,
   install: cmdSetup,
   where: cmdWhere,
   contacts: cmdContacts,
+  connect: cmdConnect,
+  track: cmdTrack,
+  applications: cmdApplications,
   init: cmdInit,
   mine: cmdMine,
   poll: cmdPoll,
