@@ -256,6 +256,83 @@ Set `GITHUB_TOKEN` to raise the API rate limit.
 
 ---
 
+## connect
+
+One-time Google authorisation for the tracked mailbox.
+
+```bash
+bamboo connect
+```
+
+Opens the consent screen in a browser, then stores a refresh token in
+`~/.bamboo/google-token.json`. Requires `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` from
+an OAuth client you own — see [track](#track) for why the credentials are not bundled.
+
+Scopes requested are `gmail.readonly` and `spreadsheets`. bamboo cannot send, delete, or
+modify mail.
+
+The token file grants read access to your inbox. It is gitignored, CI fails if it is ever
+tracked, and no token is printed or included in an error message.
+
+---
+
+## track
+
+Read the tracked inbox and update the applications record and spreadsheet.
+
+```bash
+bamboo track            # dry run: reports what it would write, writes nothing
+bamboo track --live     # actually write
+```
+
+The tracked address is `TRACKER.trackedEmail` in `src/config.js`.
+
+**The trigger is the confirmation email, not the applier.** Every employer sends a receipt
+to the address you applied with, and that receipt is the only signal that exists for every
+application — including the ones you submitted by hand. This is why the tracker watches an
+inbox rather than the extension.
+
+What one cycle does, in order:
+
+1. Fetch receipts newer than the stored `internalDate` watermark
+2. Classify each with `tracker/detect.js` — deterministic, sender domain plus subject
+   template, no model
+3. Send only what that could not classify to `tracker/agent.js`
+4. Ground every field the model returned against the email text; anything not found becomes
+   `null` and the row is flagged `needs-review`
+5. Merge into `~/.bamboo/applications.json`, deduping and advancing status forward only
+6. Write `~/.bamboo/applications.csv`, and the Google Sheet if one is configured
+
+Re-running over the same messages changes nothing — the sync is idempotent.
+
+| Env var | Effect |
+|---|---|
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Required. Your own OAuth client. |
+| `ANTHROPIC_API_KEY` | Optional. Without it the agent never runs and mail the patterns cannot classify is skipped rather than guessed at. |
+
+The Google credentials are not bundled because this reads your email — the OAuth client
+should be one you own and can revoke.
+
+**Related:** [applications](#applications), [Boundaries](explanation-boundaries.md)
+
+---
+
+## applications
+
+Show tracked applications as a table.
+
+```bash
+bamboo applications
+```
+
+Columns follow the spreadsheet: company, role, status, when you applied, and whether the
+row needs review. Missing values render `—`, never `0` and never a guess.
+
+`~/.bamboo/applications.json` is the source of truth; the spreadsheet is a projection of it
+and can be deleted and rebuilt.
+
+---
+
 ## banner
 
 Print the startup banner.

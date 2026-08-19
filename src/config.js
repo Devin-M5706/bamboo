@@ -30,6 +30,13 @@ export const QUEUE_FILE = path.join(DATA_DIR, 'queue.json');
 export const CONFIG_FILE = path.join(DATA_DIR, 'config.json');
 export const SURVEY_FILE = path.join(DATA_DIR, 'questions-survey.json');
 
+// Application tracker. APPLICATIONS_FILE is the durable record and the source of
+// truth; the spreadsheet is a projection of it and can be rebuilt at any time.
+export const APPLICATIONS_FILE = path.join(DATA_DIR, 'applications.json');
+export const APPLICATIONS_CSV = path.join(DATA_DIR, 'applications.csv');
+// OAuth refresh token for the tracked mailbox. Secret: never logged, never committed.
+export const GOOGLE_TOKEN_FILE = path.join(DATA_DIR, 'google-token.json');
+
 // Source of board tokens. We mine this once for company identity, then poll the
 // vendor APIs directly -- the repo itself lags by days and has no true posting time.
 export const LISTINGS_URL =
@@ -43,6 +50,49 @@ export const DRY_RUN_DEFAULT = true;
 export const POLL_INTERVAL_MS = 5 * 60 * 1000;
 export const REQUEST_STAGGER_MS = 250;
 export const REQUEST_TIMEOUT_MS = 20_000;
+
+/**
+ * Application tracker.
+ *
+ * The trigger is the confirmation email, not the applier. You apply to most jobs by
+ * hand, and an employer's "we received your application" receipt is the only signal
+ * that exists for every application regardless of how it was submitted. Watching the
+ * inbox therefore tracks everything; watching the extension would track a fraction.
+ *
+ * dryRun is the default here for the same reason it is in the applier: the first run
+ * of anything that writes to an external service should show you what it would do.
+ */
+export const TRACKER = {
+  // The address you apply with. Receipts sent anywhere else are not yours to track.
+  //
+  // This is read from the environment rather than written here. A mailbox address is
+  // personal data and this package is published: hardcoding one leaks the maintainer's
+  // inbox to every reader and makes the setting wrong for everybody else. Unset means
+  // `connect` and `track` refuse with an instruction, which is the same trade this
+  // codebase makes everywhere else -- refuse rather than guess.
+  trackedEmail: process.env.BAMBOO_TRACKED_EMAIL || null,
+  // Print the planned spreadsheet writes; change nothing. Flip with `--live`.
+  dryRun: true,
+  // Never read mail older than this on a cold start; a first sync should not walk years.
+  lookbackDays: 90,
+  // Gmail messages fetched per sync. Bounds a cold start's cost.
+  maxMessagesPerSync: 200,
+  agent: {
+    // The agent only sees mail the deterministic detector could not classify.
+    // Absent an API key it never runs, and unclassifiable mail is skipped, not guessed.
+    enabled: true,
+    model: 'claude-opus-5',
+    // Classification, not reasoning. Low effort is the right cost/latency point.
+    effort: 'low',
+    // Below this, the row is written but flagged needs-review rather than trusted.
+    minConfidence: 'medium',
+  },
+  sheets: {
+    // Set to an existing spreadsheet id to write there; null creates one on first live run.
+    spreadsheetId: null,
+    sheetName: 'Applications',
+  },
+};
 
 // Applied to every posting before it reaches the applier. See src/eligibility.js.
 export const ELIGIBILITY = {

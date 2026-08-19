@@ -15,6 +15,9 @@ shipped defaults from `src/config.js`.
 | `COLUMNS` | terminal width | Override the detected width. Required when piping, since `process.stdout.columns` is undefined there. |
 | `GITHUB_TOKEN` | unset | Raises the GitHub API rate limit for `bamboo contacts`. |
 | `BAMBOO_NAME` | `bamboo` | Rebrand the CLI name in output. The wordmark font covers A–Z. |
+| `GOOGLE_CLIENT_ID` | unset | Required by `bamboo connect` / `track`. Your own OAuth client. |
+| `GOOGLE_CLIENT_SECRET` | unset | Required by `bamboo connect` / `track`. |
+| `ANTHROPIC_API_KEY` | unset | Optional. Enables the tracker's extraction agent. Unset, the agent never runs and unclassifiable mail is skipped rather than guessed at. |
 
 ---
 
@@ -33,6 +36,9 @@ Two roots, and the distinction matters.
 | `queue.json` | Pending applications | Yes, by polling again. |
 | `boards.json` | Mined board tokens | Yes, `bamboo mine`. |
 | `questions-survey.json` | Last survey results | Yes, `bamboo survey`. |
+| `applications.json` | Tracked applications | Partly — only from mail still in the inbox. |
+| `applications.csv` | Spreadsheet projection | Yes, from `applications.json`. |
+| `google-token.json` | OAuth refresh token for the mailbox | Yes, `bamboo connect`. **Secret.** |
 | `.env` | API keys, if you set any | No. |
 
 **The package** — read-only at runtime, replaced on every update:
@@ -134,6 +140,32 @@ all six were passing the title-only filter.
 
 Queue items carry `eligibilityVerified`. When `false`, eligibility was decided on the title
 alone — treat that posting as unchecked.
+
+---
+
+## Tracker
+
+`TRACKER` in `src/config.js`. Governs `bamboo track`.
+
+| Setting | Default | Effect |
+|---|---|---|
+| `trackedEmail` | unset | Read from `BAMBOO_TRACKED_EMAIL`. The address you apply with; receipts delivered anywhere else are ignored. Unset, `connect` and `track` refuse rather than guess a mailbox. |
+| `dryRun` | `true` | Report the writes; make none. `--live` overrides for one run. |
+| `lookbackDays` | `90` | How far back a cold start reads. Bounds a first sync. |
+| `maxMessagesPerSync` | `200` | Ceiling on messages fetched per cycle. |
+| `agent.enabled` | `true` | Whether the model sees mail the patterns could not classify. |
+| `agent.model` | `claude-opus-5` | |
+| `agent.effort` | `low` | This is classification, not reasoning. |
+| `agent.minConfidence` | `medium` | Below this the row is written but flagged `needs-review`. |
+| `sheets.spreadsheetId` | `null` | Set to write to an existing sheet. Left null, only the CSV is written. |
+| `sheets.sheetName` | `Applications` | Tab name within the spreadsheet. |
+
+`dryRun: true` is asserted by a test, for the same reason `DRY_RUN_DEFAULT` is: the first
+run of anything that writes to a document you own should show you the writes first.
+
+The agent is the only model call in this codebase and it is confined to this path. It reads
+mail that has already been sent, and every field it returns must appear in the email text
+or that field is discarded. See [Why it refuses](explanation-why-it-refuses.md).
 
 ---
 
