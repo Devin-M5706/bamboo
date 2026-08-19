@@ -6,6 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 npm test                              # whole suite, node:test, no deps, well under a second
+npm run test:coverage                 # the same suite with node:test coverage + the CI floor
 node --test test/selects.test.js      # a single file
 node --test --test-name-pattern refuses test/*.test.js   # a single test, by name
 npm run build:ext                     # REQUIRED after editing any shared core
@@ -63,8 +64,9 @@ Nothing is read from a `.env` file; every switch is a real environment variable:
 | `BAMBOO_NAME` | `cli.js` | Rebrands the wordmark (A–Z only) |
 
 Flags: `--all` (`queue`, `feed`), `--live` (`track` only — the single way to leave dry run
-from the CLI), `--no-color` (everywhere). Note that the help screen advertises `--for-real`,
-which **no code reads**; live apply is the extension's checkbox. See the drift list below.
+from the CLI), `--no-color` (everywhere). The help screen's command list is pinned against
+`COMMANDS` in `cli.js` by `test/cli-scripts.test.js`, in both directions, and its footer
+reads `DRY_RUN_DEFAULT` rather than restating it — so neither can drift again.
 
 ## The one invariant
 
@@ -161,15 +163,16 @@ gmail.js ──> detect.js ──────────────> applicati
                        returns must be grounded in the email)
 ```
 
-**Complete on disk, but the logic is untested.** All five modules resolve and `bamboo
-applications` runs clean; `sync.js` exports `sync`/`extractOne`, `agent.js` exports
-`classify`/`groundExtraction`/`buildRequest`, `applications.js` exports `applyExtractions`
-and the status machine. What is missing is coverage, not code: **no test imports
-`agent.js`, `applications.js`, `detect.js` or `sync.js`**. `test/tracker-boundary.test.js`
-reads `src/tracker/` as *text* to check the greps, which is why `npm test` stays green
-regardless of whether the logic works. `csv.js` and `sheets.js` are the only tracker
-modules genuinely exercised. Treat the rules below as the design these files are meant to
-satisfy and verify against the source before relying on any of it.
+**Complete, and covered.** Every module here has a test file that imports it and drives
+the logic: `detect.js` (17), `agent.js` (24), `applications.js` (25), `csv.js` (15),
+`sheets.js` (21), `sync.js` (15), plus Gmail (31) and OAuth (19) underneath. All offline —
+no test opens a socket or reads a credential, and the agent's tests install a `fetch` that
+throws, so a regression that starts calling the API fails rather than bills.
+`test/tracker-boundary.test.js` still reads `src/tracker/` as *text*, but it now checks the
+boundary greps only; it is no longer the sole thing standing behind this directory.
+
+Still true: **none of it has run against a real inbox.** The patterns come from public ATS
+templates, and real mail will need more of them.
 
 Five rules, and they are the reason this is acceptable at all given the invariant above:
 
@@ -196,8 +199,8 @@ Five rules, and they are the reason this is acceptable at all given the invarian
 Two things that will bite you:
 - `detectStatus` must test rejection phrasing **before** receipt phrasing. Rejection emails
   routinely open by thanking you for applying, and a first-match-wins order records them as
-  new applications. Nothing pins this yet — `detect.js` has no test file at all, despite
-  being 369 lines of pattern matching. It is the highest-value missing test in the repo.
+  new applications. Pinned by `test/detect.test.js:55`, which is the test that would have
+  caught it.
 - Never fall back to the sender's domain for the company name. Every Greenhouse-hosted
   posting would be recorded as "Greenhouse". Return `null` and flag it.
 
@@ -246,19 +249,23 @@ images have five different widths, and why a viewport screenshot is not a substi
 
 `main` is protected; everything goes through a PR (see `CONTRIBUTING.md` for the branch
 prefixes and commit format — bodies explain *why* and what was measured). CI runs tests on
-Node 22/24 × Linux/Windows and enforces six invariants: zero runtime dependencies,
+Node 22/24 × Linux/Windows and enforces eight invariants: zero runtime dependencies,
 `extension/vendor/` not stale, `DRY_RUN_DEFAULT = true` plus `dryRun: true` in the
-extension, cores import-free, no personal data tracked, and the apply path model-free.
+extension, cores import-free, no personal data tracked, no consumer mailbox hardcoded in
+`src/` or `extension/`, the apply path model-free, and a coverage floor.
 Windows is the primary dev platform and has already produced two platform-specific bugs,
 which is why it's in the matrix.
 
 The guards that are pure greps also run under `npm test` (`test/tracker-boundary.test.js`),
 which is where you'll actually see one fail — a CI-only guard tells you after the push.
-Adding a guard to `.github/workflows/ci.yml` means adding it in both places, and the two
-copies have **already diverged**: the test's `APPLY_PATH` also covers `ledger.js`,
-`sources.js` and `extension/background.js`, and its regex also catches `openai|gpt-4|gemini`;
-CI's import-free check covers only `validator.core.js` and `selects.js`, leaving
-`matching.core.js` to `test/extension-sync.test.js`. Widen the test, not just the workflow.
+Adding a guard to `.github/workflows/ci.yml` means adding it in both places. The two copies
+diverged once and are now identical, with a comment on each pointing at the other; keep
+them that way.
+
+The coverage floor is 90% lines / 78% branches / 85% functions on `src/`, against an actual
+94.95 / 83.92 / 90.37. It is deliberately set below where the suite sits: a threshold pinned
+to the current number fails on unrelated PRs and gets raised by whoever is unlucky, which
+teaches people to ignore it.
 
 Tests assert **behaviour and properties**, not implementation — the best one here asserts
 that after a failed `init` against a hand-edited ledger the file's bytes are unchanged. A
@@ -268,7 +275,7 @@ bug fix lands with the test that would have caught it.
 
 | Area | State |
 |---|---|
-| Token miner, poller, seen-id diff, cold start | Working, verified live (65 boards, 8,291 postings) |
+| Token miner, poller, seen-id diff, cold start | Working, verified live (65 boards, 8,291 postings), 18 tests |
 | Eligibility gates + Greenhouse enrichment | Working, fixed a real 12.5% leak |
 | Form survey (`questions.js`, `survey.js`) | Working, Greenhouse only |
 | Text validator (trace-or-refuse) | Working |
@@ -277,8 +284,8 @@ bug fix lands with the test that would have caught it.
 | Durable store (`store.js`) + `~/.bamboo` home | Working, atomic writes, ledger backup |
 | Contacts (GitHub engineers, LinkedIn handoff) | Working |
 | Chrome MV3 extension | Written, **never run against a real form** |
-| Application tracker (Gmail → records → Sheets/CSV) | Written and wired — `track` and `applications` load and run. **Never run against a real inbox** |
-| Tracker AI agent + grounding check | Written (`agent.js`: `groundExtraction`, `buildRequest`, `classify`). **No test covers any of it** — see the gap list |
+| Application tracker (Gmail → records → Sheets/CSV) | Working and covered (167 tests across the tracker + Google clients). **Never run against a real inbox** |
+| Tracker AI agent + grounding check | Working, 24 tests — `groundExtraction` covered for present, absent and near-miss fields |
 | CLI screens | Working |
 | Docs (Diataxis set in `docs/`) + diagrams | Written |
 
@@ -291,15 +298,13 @@ bug fix lands with the test that would have caught it.
    writing.
 3. The 14 dropdown profile fields. `init` collects 2 of them; the rest are manual.
 
-**Command surface drift.** `src/ui/help.js` lists the handoff's intended surface; five of
-those do not exist: **`review`, `apply`, `boards`, `status`, `nap`**. Conversely `setup`,
-`where`, `mine`, `poll`, `watch`, `feed`, `check`, `queue`, `survey`, `contacts`, `banner`,
-`connect`, `track`, `applications` are implemented but unadvertised there — `bamboo help`
-advertises eight commands, five of which fail. The `install` alias for `setup` is
-undocumented everywhere, and the footer's `--for-real` flag is read by nothing. No test
-catches any of this; `test/cli-scripts.test.js` only checks CLI-vs-npm-scripts, and
-`help.js` is neither side. Pinning `COMMANDS` in `help.js` against `COMMANDS` in `cli.js`
-is a cheap test that would have caught the whole class.
+**Command surface drift — fixed, and pinned.** `src/ui/help.js` used to list the handoff's
+intended surface, five commands of which were never built (`review`, `apply`, `boards`,
+`status`, `nap`), while hiding the fourteen that were. `help.js` now lists the real surface
+in workflow order, and `test/cli-scripts.test.js` pins it against `COMMANDS` in `cli.js`
+from both directions. `install` stays deliberately unadvertised — it is an alias for
+`setup`, kept only because it was published once, and advertising it invites the npm
+lifecycle collision that broke global installs in 0.2.0.
 
 When a message names a data file, print the constant from `config.js` (`LEDGER_FILE`,
 `BOARDS_FILE`, `SURVEY_FILE`, …), never a literal `data/…` path — under `BAMBOO_HOME` a
@@ -308,12 +313,6 @@ telling users to edit files nothing reads. Extension copy is the exception: it c
 resolve paths, so it says `~/.bamboo/…` and points at `bamboo where`.
 
 **Known gaps, roughly by value:**
-- **`agent.js` has no tests.** Nothing under `test/` imports it, so `groundExtraction` —
-  the one check standing between a model's output and a permanent record — is unexercised.
-  `tracker-boundary.test.js` proves the agent can't reach the apply path; it says nothing
-  about whether grounding works. Fixture tests for `normalizeForGrounding`,
-  `groundExtraction` (present, absent, and near-miss fields) and `buildRequest` are the
-  highest-value tests missing from this repo.
 - `watch` is a bare poll loop with no interactive TTY view. The feed *renders*
   (`npm run feed`), but the raw-mode keyboard loop (`d`/`f`/`q`, in-place status-bar
   redraw, clean Ctrl-C) is unwritten.

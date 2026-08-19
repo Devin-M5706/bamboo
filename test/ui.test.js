@@ -7,7 +7,7 @@ import { PALETTE, setColor, stripAnsi, width } from '../src/ui/theme.js';
 import { BLURB, drawPanda, drawWordmark, hero, panda, wordmark } from '../src/ui/banner.js';
 import { COLS, DESC_COL, feed, feedRow, reasonLine, scoreColor, statusBar } from '../src/ui/feed.js';
 import { ledgerTable } from '../src/ui/ledger-view.js';
-import { COMMANDS, help } from '../src/ui/help.js';
+import { COMMAND_WIDTH, COMMANDS, help } from '../src/ui/help.js';
 import { initScreen, progress, question } from '../src/ui/init-view.js';
 import { QUESTIONS, viewModel } from '../src/ui/init.js';
 
@@ -171,14 +171,33 @@ test('ledger footer pluralizes honestly', () => {
 
 // ── help ─────────────────────────────────────────────────────────────────────
 
-test('help lists every command from the handoff', () => {
+/**
+ * This used to assert the handoff's list -- init, watch, review, apply, ledger, boards,
+ * status, nap -- and a hardcoded length of 8. Five of those commands were never built, so
+ * the test was holding the drift in place: it passed for as long as help.js kept
+ * advertising commands that failed on contact, and would have failed the moment someone
+ * fixed it.
+ *
+ * Which commands belong here is now pinned against the COMMANDS map in cli.js from both
+ * directions, in test/cli-scripts.test.js. That is a question about the CLI surface, not
+ * about rendering. What is left here is the rendering: alignment and the colour switch.
+ */
+test('help renders one aligned row per command', () => {
   setColor(false);
-  const out = help();
-  for (const name of ['init', 'watch', 'review', 'apply', 'ledger', 'boards', 'status', 'nap']) {
-    assert.ok(out.includes(name), `missing command: ${name}`);
-  }
-  assert.equal(COMMANDS.length, 8);
-  assert.match(out, /--dry-run is the default\. --for-real is not\./);
+  const rows = help()
+    .split('\n')
+    .filter((l) => COMMANDS.some(([name]) => l.trimStart().startsWith(name)));
+
+  assert.equal(rows.length, COMMANDS.length, 'every command gets a row');
+  // Descriptions start at the same offset on every row, or the column ragged-edges.
+  const offsets = new Set(rows.map((r) => r.indexOf('  ', 2 + COMMAND_WIDTH)));
+  assert.equal(offsets.size, 1, 'the description column must start at one offset');
+  setColor(true);
+});
+
+test('help emits no escape codes when colour is off', () => {
+  setColor(false);
+  assert.doesNotMatch(help(), /\x1b\[/, 'the whole screen goes through theme.js');
   setColor(true);
 });
 
