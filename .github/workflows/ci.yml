@@ -94,7 +94,7 @@ jobs:
         shell: bash
         run: |
           fail=0
-          for f in src/validator.core.js src/selects.js; do
+          for f in src/validator.core.js src/selects.js src/matching.core.js; do
             if grep -qE '^\s*import\s' "$f"; then
               echo "::error file=$f::has an import; the extension cannot resolve imports"
               fail=1
@@ -106,9 +106,39 @@ jobs:
         shell: bash
         run: |
           fail=0
-          for f in data/ledger.json data/answers.json data/config.json; do
+          for f in data/ledger.json data/answers.json data/config.json \
+                   data/applications.json data/applications.csv data/google-token.json; do
             if git ls-files --error-unmatch "$f" >/dev/null 2>&1; then
               echo "::error::$f is tracked. It holds real personal data and must stay gitignored."
+              fail=1
+            fi
+          done
+          # A real mailbox address once shipped inside src/config.js, where the check
+          # above could not see it -- this package is published from a public repo.
+          # Consumer domains only: no-reply@greenhouse.io is legitimate pattern data.
+          if grep -rniE '[a-z0-9._%+-]+@(gmail|googlemail|outlook|hotmail|live|yahoo|icloud|me|proton|protonmail|aol)\.[a-z.]{2,}' src/ extension/ --include='*.js'; then
+            echo "::error::a personal mailbox is hardcoded in source. Read it from BAMBOO_TRACKED_EMAIL."
+            fail=1
+          fi
+          exit $fail
+
+      # The tracker reads your inbox and calls an LLM. Neither may reach the apply path:
+      # an answer written by a model is exactly what this tool exists not to submit.
+      - name: The apply path must stay model-free
+        shell: bash
+        run: |
+          fail=0
+          # Keep this list and the regex identical to APPLY_PATH / MODEL_MENTION in
+          # test/tracker-boundary.test.js. The two copies diverged once already, and a
+          # CI-only guard only tells you after the push.
+          for f in src/validator.core.js src/selects.js src/matching.core.js \
+                   src/answers.js src/ledger.js src/poll.js src/eligibility.js \
+                   src/sources.js \
+                   extension/content/apply.js extension/content/common.js \
+                   extension/background.js; do
+            if grep -qiE 'anthropic|claude|api\.anthropic\.com|openai|gpt-4|gemini' "$f"; then
+              echo "::error file=$f::references a model in the apply path. Answers are"
+              echo "retrieved and validated offline; the tracker is a separate, read-only path."
               fail=1
             fi
           done
