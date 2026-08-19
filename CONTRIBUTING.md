@@ -55,15 +55,26 @@ and "file has a trailing comma" as the same event...
 
 ```bash
 npm test              # all green
-npm run build:ext     # if you touched validator.core.js or selects.js
+npm run test:coverage # still above the floor
+npm run build:ext     # if you touched any of the three shared cores
 ```
 
-CI enforces four invariants and will fail the PR if any breaks:
+CI will fail the PR if any of these breaks:
 
 1. Tests pass on Node 22 and 24, on Linux and Windows
 2. `extension/vendor/` is not stale
 3. Dry run is still the default in all three places
-4. The shared cores are still import-free, and no personal data is tracked
+4. The shared cores are still import-free
+5. No personal data is tracked, and no consumer mailbox address appears in `src/` or
+   `extension/` — a real gmail address shipped inside `src/config.js` once, where the
+   file-path check could not see it
+6. `package.json` has no runtime dependencies
+7. The apply path reaches no model
+8. Coverage stays above 90% lines / 78% branches / 85% functions on `src/`
+
+The greps in (4), (5) and (7) also run under `npm test`, which is where you will actually
+see one fail. If you add a guard, add it in both places -- the two copies drifted apart
+once already.
 
 ## Testing
 

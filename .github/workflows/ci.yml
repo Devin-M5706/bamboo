@@ -50,6 +50,28 @@ jobs:
       - name: Test
         run: npm test
 
+  coverage:
+    name: coverage floor
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # node:test's own coverage -- no instrumentation dependency, nothing to install.
+      #
+      # The floor is set below where the suite actually sits (94.95% lines / 83.92%
+      # branches / 90.37% functions as of this commit) rather than at it. A threshold
+      # pinned to the current number fails on unrelated PRs and gets raised by whoever is
+      # unlucky, which teaches people to ignore it. This one only trips when a change
+      # takes a real bite out of coverage.
+      #
+      # test/ and scripts/ are excluded: the tests' own coverage of themselves is not a
+      # number that means anything.
+      - name: Coverage floor
+        run: npm run test:coverage
+
   sync:
     name: extension copies are in sync
     runs-on: ubuntu-latest

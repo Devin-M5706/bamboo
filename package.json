@@ -28,6 +28,7 @@
     "track": "node src/cli.js track",
     "applications": "node src/cli.js applications",
     "test": "node --test test/*.test.js",
+    "test:coverage": "node --test --experimental-test-coverage --test-coverage-exclude=test/** --test-coverage-exclude=scripts/** --test-coverage-lines=90 --test-coverage-branches=78 --test-coverage-functions=85 test/*.test.js",
     "build:ext": "node scripts/build-extension.js",
     "capture:ui": "node scripts/capture-ui.js",
     "render:ui": "node scripts/render-ui.js",
