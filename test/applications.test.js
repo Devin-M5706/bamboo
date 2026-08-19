@@ -3,6 +3,17 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import { mail as envelope } from './helpers/fixtures.js';
+
+/** A Stripe receipt. The envelope is shared; the parts these tests assert on are here. */
+const mail = (over = {}) =>
+  envelope({
+    from: 'Greenhouse <no-reply@greenhouse.io>',
+    subject: 'Thank you for applying to Stripe',
+    body: 'Thank you for applying to Stripe.',
+    ...over,
+  });
+
 
 /**
  * BAMBOO_HOME must be set before config.js is evaluated, so the modules under test are
@@ -39,18 +50,6 @@ async function clean() {
 
 const NOW = '2026-08-16T12:00:00.000Z';
 
-const mail = (over = {}) => ({
-  id: 'm1',
-  threadId: 't1',
-  from: 'Greenhouse <no-reply@greenhouse.io>',
-  fromAddress: 'no-reply@greenhouse.io',
-  to: 'you@example.com',
-  subject: 'Thank you for applying to Stripe',
-  internalDate: '1723659000000', // 2024-08-14T18:10:00Z
-  snippet: '',
-  body: 'Thank you for applying to Stripe.',
-  ...over,
-});
 
 const extraction = (over = {}) => ({
   matched: true,

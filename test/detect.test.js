@@ -8,19 +8,8 @@ import {
   extractJobUrl,
   extractRole,
 } from '../src/tracker/detect.js';
+import { mail } from './helpers/fixtures.js';
 
-const mail = (over = {}) => ({
-  id: 'm1',
-  threadId: 't1',
-  from: 'Acme Careers <no-reply@greenhouse.io>',
-  fromAddress: 'no-reply@greenhouse.io',
-  to: 'you@example.com',
-  subject: '',
-  internalDate: '1723659000000',
-  snippet: '',
-  body: '',
-  ...over,
-});
 
 const RECEIPT = mail({
   subject: 'Thank you for applying to Acme Robotics',

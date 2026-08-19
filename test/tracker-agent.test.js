@@ -10,19 +10,14 @@ import {
   groundExtraction,
   normalizeForGrounding,
 } from '../src/tracker/agent.js';
+import { mail } from './helpers/fixtures.js';
+import { NO_NETWORK } from './helpers/http.js';
 
 // Every test here is offline. Nothing in this file may open a socket or read a real
 // API key: a test suite that needs credentials is a test suite that stops being run.
-const NO_NETWORK = () => {
-  throw new Error('the network was touched by a test');
-};
 
-const MAIL = {
-  id: 'm1',
-  threadId: 't1',
+const MAIL = mail({
   from: 'Greenhouse <no-reply@greenhouse.io>',
-  fromAddress: 'no-reply@greenhouse.io',
-  to: 'you@example.com',
   subject: 'Your application to Initech',
   internalDate: '1723659000000',
   snippet: 'Thanks for applying to Initech',
@@ -34,7 +29,7 @@ const MAIL = {
     '',
     'https://jobs.lever.co/initech/9f3c1a20',
   ].join('\n'),
-};
+});
 
 const OPTIONS = { apiKey: 'test-key', sleep: async () => {} };
 

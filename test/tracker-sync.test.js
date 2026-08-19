@@ -2,6 +2,16 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { extractOne, sync } from '../src/tracker/sync.js';
 import { emptyState } from '../src/tracker/applications.js';
+import { mail as envelope } from './helpers/fixtures.js';
+import { NO_NETWORK } from './helpers/http.js';
+
+/** An Acme receipt. The envelope is shared; what these tests assert on is here. */
+const mail = (over = {}) =>
+  envelope({
+    subject: 'Thank you for applying to Acme',
+    body: 'Thank you for applying to Acme for the Software Engineer Intern role.',
+    ...over,
+  });
 
 /**
  * sync.js is the tracker's orchestrator and was the only module here with no coverage,
@@ -13,22 +23,7 @@ import { emptyState } from '../src/tracker/applications.js';
  * are wrong -- they just quietly lose or reopen an application.
  */
 
-const NO_NETWORK = () => {
-  throw new Error('the network was touched by a test');
-};
 
-const mail = (over = {}) => ({
-  id: 'm1',
-  threadId: 't1',
-  from: 'Acme Careers <no-reply@greenhouse.io>',
-  fromAddress: 'no-reply@greenhouse.io',
-  to: 'you@example.com',
-  subject: 'Thank you for applying to Acme',
-  internalDate: '1723659000000',
-  snippet: '',
-  body: 'Thank you for applying to Acme for the Software Engineer Intern role.',
-  ...over,
-});
 
 /**
  * A recorder around the real-shaped dependency surface. Every fake returns the minimum

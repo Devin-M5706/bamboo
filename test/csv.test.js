@@ -5,32 +5,12 @@ import os from 'node:os';
 import path from 'node:path';
 import { APPLICATIONS_CSV } from '../src/config.js';
 import { COLUMNS, KEY_INDEX, MISSING, escapeCsvField, recordToRow, toCsv, writeCsv } from '../src/tracker/csv.js';
+import { record } from './helpers/fixtures.js';
 
 async function tmpdir() {
   return await fs.mkdtemp(path.join(os.tmpdir(), 'bamboo-csv-'));
 }
 
-function record(overrides = {}) {
-  return {
-    id: 'stripe::backend-intern',
-    messageId: 'msg-1',
-    threadId: 'thr-1',
-    company: 'Stripe',
-    role: 'Backend Intern',
-    location: 'Remote',
-    source: 'greenhouse',
-    jobUrl: 'https://boards.greenhouse.io/stripe/jobs/1',
-    appliedAt: '2026-08-01T12:00:00.000Z',
-    status: 'applied',
-    statusHistory: [],
-    confidence: 'high',
-    needsReview: false,
-    reviewReasons: [],
-    extractedBy: 'deterministic',
-    updatedAt: '2026-08-02T09:30:00.000Z',
-    ...overrides,
-  };
-}
 
 /** Minimal RFC 4180 reader, so the tests assert what a spreadsheet would actually read. */
 function parseCsv(text) {

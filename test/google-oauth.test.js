@@ -17,6 +17,7 @@ import {
   saveToken,
 } from '../src/google/oauth.js';
 import { CorruptFileError } from '../src/store.js';
+import { fakeFetch, jsonResponse } from './helpers/http.js';
 
 /**
  * Offline. The only socket any test here opens is a loopback listener this process
@@ -30,25 +31,7 @@ async function tmpTokenFile() {
   return path.join(dir, 'google-token.json');
 }
 
-function jsonResponse(body, { status = 200 } = {}) {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { 'content-type': 'application/json' },
-  });
-}
 
-function fakeFetch(responses) {
-  const calls = [];
-  const queue = [...responses];
-  const impl = async (url, init) => {
-    calls.push({ url, init });
-    const next = queue.shift();
-    if (!next) throw new Error(`fake fetch ran out of responses at call ${calls.length}`);
-    return typeof next === 'function' ? next(url, init) : next;
-  };
-  impl.calls = calls;
-  return impl;
-}
 
 const formOf = (call) => Object.fromEntries(new URLSearchParams(call.init.body));
 

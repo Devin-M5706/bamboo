@@ -13,6 +13,12 @@ import {
 
 const ANSI = /\x1b\[[0-9;]*m/;
 
+/**
+ * Deliberately local, not `helpers/fixtures.js`. Every value here is chosen to exercise
+ * the renderer -- a role long enough to truncate at DESC_COL, a two-part location, a
+ * status history with an entry in it. Swapping in the shared record and overriding six
+ * fields would hide that these are the point rather than the background.
+ */
 const record = (over = {}) => ({
   id: 'stripe::softwareengineerintern',
   messageId: 'm1',

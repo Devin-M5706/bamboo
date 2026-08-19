@@ -9,32 +9,12 @@ import {
   readKeyColumn,
   upsertRecords,
 } from '../src/google/sheets.js';
+import { record } from './helpers/fixtures.js';
 
 const TOKEN = 'ya29.SECRET-ACCESS-TOKEN';
 const SHEET = 'Applications';
 const ID = 'sheet-123';
 
-function record(overrides = {}) {
-  return {
-    id: 'stripe::backend-intern',
-    messageId: 'msg-1',
-    threadId: 'thr-1',
-    company: 'Stripe',
-    role: 'Backend Intern',
-    location: 'Remote',
-    source: 'greenhouse',
-    jobUrl: 'https://boards.greenhouse.io/stripe/jobs/1',
-    appliedAt: '2026-08-01T12:00:00.000Z',
-    status: 'applied',
-    statusHistory: [],
-    confidence: 'high',
-    needsReview: false,
-    reviewReasons: [],
-    extractedBy: 'deterministic',
-    updatedAt: '2026-08-02T09:30:00.000Z',
-    ...overrides,
-  };
-}
 
 /**
  * Offline fetch. `handler` receives the decoded request and returns
