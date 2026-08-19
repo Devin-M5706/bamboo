@@ -288,7 +288,7 @@ export function emptyState() {
  * returns and what the next query sends back, and a round trip through a float is a
  * silent way to re-read or skip a day of mail.
  */
-function advanceWatermark(state, mail) {
+export function advanceWatermark(state, mail) {
   const raw = mail?.internalDate;
   if (raw == null || !/^\d+$/.test(String(raw))) return;
   const next = String(raw);

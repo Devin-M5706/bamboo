@@ -16,7 +16,7 @@ import { getAccessToken } from '../google/oauth.js';
 import { fetchReceipts } from '../google/gmail.js';
 import { detect } from './detect.js';
 import { classify } from './agent.js';
-import { applyExtractions, loadApplications, saveApplications } from './applications.js';
+import { advanceWatermark, applyExtractions, loadApplications, saveApplications } from './applications.js';
 import { writeCsv } from './csv.js';
 import { upsertRecords } from '../google/sheets.js';
 
@@ -68,6 +68,26 @@ export async function extractOne(mail, { agentEnabled = TRACKER.agent.enabled, f
 }
 
 /**
+ * Everything `sync` reaches outside itself, in one place.
+ *
+ * Not architecture for its own sake: without it `sync` is the one module in the tracker
+ * that no test can drive, because exercising it means standing up OAuth, Gmail and
+ * Sheets. It was the only module here with zero coverage for exactly that reason, while
+ * carrying the ordering rules that are silent corruption when wrong -- the status
+ * precedence below, and the watermark. `extractOne` already took its collaborators this
+ * way; this is the same shape one level up.
+ */
+const REAL_DEPS = {
+  getAccessToken,
+  fetchReceipts,
+  extractOne,
+  loadApplications,
+  saveApplications,
+  writeCsv,
+  upsertRecords,
+};
+
+/**
  * Run a full sync.
  *
  * Dry run is the default, matching the applier. The first run of anything that writes to
@@ -77,20 +97,28 @@ export async function extractOne(mail, { agentEnabled = TRACKER.agent.enabled, f
  * @param {boolean} [opts.dryRun]
  * @param {boolean} [opts.verbose]
  * @param {(msg: string) => void} [opts.log]
+ * @param {Partial<typeof REAL_DEPS>} [opts.deps] Overrides for tests; real ones by default.
  * @returns {Promise<{scanned:number, matched:number, created:number, updated:number,
  *   skipped:number, usedAgent:number, needsReview:number, sheet:object|null,
  *   csvPath:string, dryRun:boolean}>}
  */
-export async function sync({ dryRun = TRACKER.dryRun, verbose = false, log = console.log } = {}) {
+export async function sync({
+  dryRun = TRACKER.dryRun,
+  verbose = false,
+  log = console.log,
+  sheets = TRACKER.sheets,
+  deps: overrides = {},
+} = {}) {
+  const deps = { ...REAL_DEPS, ...overrides };
   const say = (msg) => {
     if (verbose) log(msg);
   };
 
-  const state = await loadApplications();
+  const state = await deps.loadApplications();
 
   say(`Reading mail delivered to ${TRACKER.trackedEmail}...`);
-  const accessToken = await getAccessToken();
-  const mail = await fetchReceipts({
+  const accessToken = await deps.getAccessToken();
+  const mail = await deps.fetchReceipts({
     accessToken,
     trackedEmail: TRACKER.trackedEmail,
     lookbackDays: TRACKER.lookbackDays,
@@ -102,7 +130,7 @@ export async function sync({ dryRun = TRACKER.dryRun, verbose = false, log = con
   const items = [];
   let usedAgent = 0;
   for (const m of mail) {
-    const { extraction, consultedAgent, extractedBy } = await extractOne(m);
+    const { extraction, consultedAgent, extractedBy } = await deps.extractOne(m);
     if (consultedAgent) usedAgent += 1;
     // An unmatched message is not an application receipt. It is skipped, never recorded
     // as an application with invented fields.
@@ -118,23 +146,28 @@ export async function sync({ dryRun = TRACKER.dryRun, verbose = false, log = con
 
   // applyExtractions advances the watermark too, but it only ever sees matched receipts.
   // The watermark has to clear every message we READ, or the newsletters and recruiter
-  // spam that will never match are re-fetched on every sync forever. `mail` is sorted
-  // oldest-first, so the last element is the high-water mark.
-  if (mail.length) next.lastInternalDate = mail[mail.length - 1].internalDate;
+  // spam that will never match are re-fetched on every sync forever.
+  //
+  // Fold each message through the same helper applyExtractions uses rather than taking
+  // the last element: that shortcut was correct only because fetchReceipts happens to
+  // sort oldest-first, so a change over in gmail.js would have silently started skipping
+  // mail here. advanceWatermark takes the maximum and ignores undated messages, which
+  // holds whatever order they arrive in.
+  for (const m of mail) advanceWatermark(next, m);
 
   // Records are the source of truth and are written first. The spreadsheet is a
   // projection: if a sheet write fails, the next sync still has everything it needs to
   // rebuild it, and nothing has been lost.
-  if (!dryRun) await saveApplications(next);
+  if (!dryRun) await deps.saveApplications(next);
 
-  await writeCsv(next.records, { dryRun });
+  await deps.writeCsv(next.records, { dryRun });
 
   let sheet = null;
-  if (TRACKER.sheets.spreadsheetId) {
-    sheet = await upsertRecords({
+  if (sheets.spreadsheetId) {
+    sheet = await deps.upsertRecords({
       accessToken,
-      spreadsheetId: TRACKER.sheets.spreadsheetId,
-      sheetName: TRACKER.sheets.sheetName,
+      spreadsheetId: sheets.spreadsheetId,
+      sheetName: sheets.sheetName,
       records: next.records,
       dryRun,
     });
